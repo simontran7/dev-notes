@@ -1,5 +1,7 @@
 # dev-notes
 
+brief notes on containers, algorithms, and systems programming
+
 ## Containers and algorithms
 
 ### Analysis of algorithms
