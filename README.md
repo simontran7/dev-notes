@@ -6,7 +6,7 @@ brief notes on containers, algorithms, and systems programming
 
 ### Analysis of algorithms
 
-- [Asymptotic analysis](./collections-and-algorithms/analysis-of-algorithms/asymptotic-analysis.md)
+- [Asymptotic analysis](./containers-and-algorithms/analysis-of-algorithms/asymptotic-analysis.md)
 <!-- - [Amortized analysis]() -->
 
 ### Containers
@@ -22,17 +22,19 @@ brief notes on containers, algorithms, and systems programming
 
 ### Algorithms
 
-- [Searching problem](./collections-and-algorithms/algorithms/searching.md)
-- [Sorting problem](./collections-and-algorithms/algorithms/sorting.md)
-- [Tree and graph traversing problem](./collections-and-algorithms/algorithms/tree-and-graph-traversing.md)
-- [Topological sorting problem](./collections-and-algorithms/algorithms/topological-sorting.md)
-- [Strongly connected components problem](./collections-and-algorithms/algorithms/strongly-connected-components.md)
-- [Minimum spanning tree problem](./collections-and-algorithms/algorithms/minimum-spanning-tree.md)
+- [Searching problem](./containers-and-algorithms/algorithms/searching.md)
+- [Sorting problem](./containers-and-algorithms/algorithms/sorting.md)
+- [Tree and graph traversing problem](./containers-and-algorithms/algorithms/tree-and-graph-traversing.md)
+- [Topological sorting problem](./containers-and-algorithms/algorithms/topological-sorting.md)
+- [Strongly connected components problem](./containers-and-algorithms/algorithms/strongly-connected-components.md)
+- [Minimum spanning tree problem](./containers-and-algorithms/algorithms/minimum-spanning-tree.md)
 <!-- - [Shortest path problem]()
 - [Maximum flow problem]()
 - [Stable matching problem]()
 - [Data compression problem]()
 - [String matching problem]() -->
+
+### [Algorithm patterns](./containers-and-algorithms/algorithmic-patterns.md)
 
 ## Operating systems
 
