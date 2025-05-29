@@ -10,11 +10,11 @@ Given the root node of a rooted tree, `root`, traverse the the rooted tree in a 
 
 #### Time complexity
 
-Worst-case: \\( O(n) \\)
+Worst-case: $O(n)$
 
 #### Space complexity
 
-Worst-case: \\( O(n) \\)
+Worst-case: $O(n)$
 
 ### Pseudocode
 
@@ -22,7 +22,7 @@ Worst-case: \\( O(n) \\)
 
 ```
 func recursive_dfs[K](root: BinaryTreeNode[K]) {
-    if root == None {
+    if root == null {
         return;
     }
     // visit e.g. println("{}", root.key);
@@ -33,15 +33,15 @@ func recursive_dfs[K](root: BinaryTreeNode[K]) {
 
 ```
 func iterative_dfs[K](root: BinaryTreeNode[K]) {
-    if root == None {
+    if root == null {
         return;
     }
 
     var stack: ArrayStack[BinaryTreeNode[K]] = ArrayStack[BinaryTreeNode[K]]::new();
     var current: BinaryTreeNode[K] = root;
 
-    while !stack.is_empty() or current != None {
-        if current != None {
+    while !stack.is_empty() or current != null {
+        if current != null {
             // visit e.g. println("{}", current.key);
             stack.push(current.right);
             current = current.left;
@@ -56,7 +56,7 @@ func iterative_dfs[K](root: BinaryTreeNode[K]) {
 
 ```
 func recursive_dfs[K](root: BinaryTreeNode[K]) {
-    if root == None {
+    if root == null {
         return;
     }
     recursive_dfs(root.left);
@@ -67,15 +67,15 @@ func recursive_dfs[K](root: BinaryTreeNode[K]) {
 
 ```
 func iterative_dfs[K](root: BinaryTreeNode[K]) {
-    if root == None {
+    if root == null {
         return;
     }
 
     var stack: ArrayStack[BinaryTreeNode[K]] = ArrayStack[BinaryTreeNode[K]]::new();
     var current: BinaryTreeNode[K] = root;
 
-    while !stack.is_empty() or current != None {
-        if current != None {
+    while !stack.is_empty() or current != null {
+        if current != null {
             stack.push(current);
             current = current.left;
         } else {
@@ -91,7 +91,7 @@ func iterative_dfs[K](root: BinaryTreeNode[K]) {
 
 ```
 func recursive_dfs[K](root: BinaryTreeNode[K]) {
-    if root == None {
+    if root == null {
         return;
     }
     recursive_dfs(root.left);
@@ -102,27 +102,27 @@ func recursive_dfs[K](root: BinaryTreeNode[K]) {
 
 ```
 func iterative_dfs[K](root: BinaryTreeNode[K]) {
-    if root == None {
+    if root == null {
         return;
     }
 
     var stack: ArrayStack[BinaryTreeNode[K]] = ArrayStack[BinaryTreeNode[K]]::new();
     var current: BinaryTreeNode[K] = root;
-    var last_visited: BinaryTreeNode[K] = None;
+    var last_visited: BinaryTreeNode[K] = null;
 
-    while !stack.is_empty() or current != None {
-        if current != None {
+    while !stack.is_empty() or current != null {
+        if current != null {
             stack.push(current);
             current = current.left;
         } else {
             var peek_node: BinaryTreeNode[K] = stack.top();
 
-            if peek_node.right != None and peek_node.right != last_visited {
+            if peek_node.right != null and peek_node.right != last_visited {
                 current = peek_node.right;
             } else {
                 // visit e.g. println("{}", peek_node.key);
                 last_visited = stack.pop();
-                current = None;
+                current = null;
             }
         }
     }
@@ -135,17 +135,17 @@ func iterative_dfs[K](root: BinaryTreeNode[K]) {
 
 #### Time complexity
 
-Worst-case: \\( O(n) \\)
+Worst-case: $O(n)$
 
 #### Space complexity
 
-Worst-case: \\( O(n) \\)
+Worst-case: $O(n)$
 
 ### Pseudocode
 
 ```
 func iterative_bfs[K](root: BinaryTreeNode[K]) {
-    if root == None {
+    if root == null {
         return;
     }
 
@@ -155,10 +155,10 @@ func iterative_bfs[K](root: BinaryTreeNode[K]) {
     while !queue.is_empty() {
         var current: BinaryTreeNode[K] = queue.dequeue();
         // visit e.g. println("{}", current.key);
-        if current.left != None {
+        if current.left != null {
             queue.enqueue(current.left);
         }
-        if current.right != None {
+        if current.right != null {
             queue.enqueue(current.right);
         }
     }
@@ -175,11 +175,11 @@ Given a graph, `graph`, and a source node of `graph`, `source`, traverse `graph`
 
 #### Time complexity
 
-Worst-case: \\( O(V + E) \\)
+Worst-case: $O(V + E)$
 
 #### Space complexity
 
-Worst-case: \\( O(V) \\)
+Worst-case: $O(V)$
 
 ### Pseudocode
 
@@ -225,11 +225,11 @@ func recursive_dfs[V, E](graph: AdjacencyListGraph[V, E], vertex: V, visited: Ha
 
 #### Time complexity
 
-Worst-case: \\( O(V + E) \\)
+Worst-case: $O(V + E)$
 
 #### Space complexity
 
-Worst-case: \\( O(V) \\)
+Worst-case: $O(V)$
 
 ### Pseudocode
 

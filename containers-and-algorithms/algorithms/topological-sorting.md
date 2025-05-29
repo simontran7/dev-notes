@@ -10,11 +10,11 @@ Given a directed acyclic graph, `dag`, return the topological sort of `dag`.
 
 #### Time complexity
 
-Worst-case: \\( O(V + E) \\)
+Worst-case: $O(V + E)$
 
 #### Space complexity
 
-Worst-case: \\( O(V) \\)
+Worst-case: $O(V)$
 
 ### Pseudocode
 
@@ -53,7 +53,7 @@ func khan_topological_sort[V, E](dag: AdjacencyListDirectedGraph[V, E]) -> Singl
     }
 
     if topological_sort.len() != graph.vertices().len() {
-        return None;
+        return null;
     }
 
     return topological_sort;
@@ -66,11 +66,11 @@ func khan_topological_sort[V, E](dag: AdjacencyListDirectedGraph[V, E]) -> Singl
 
 #### Time complexity
 
-Worst-case: \\( O(V + E) \\)
+Worst-case: $O(V + E)$
 
 #### Space complexity
 
-Worst-case: \\( O(V) \\)
+Worst-case: $O(V)$
 
 ### Pseudocode
 

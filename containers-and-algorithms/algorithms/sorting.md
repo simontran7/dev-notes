@@ -10,11 +10,11 @@ Given an array `array`, sort it in increasing order.
 
 #### Time complexity
 
-Worst-case: \\( O(n^2) \\)
+Worst-case: $O(n^2)$
 
 #### Space complexity
 
-Worst-case: \\( O(1) \\)
+Worst-case: $O(1)$
 
 ### Properties
 
@@ -25,12 +25,12 @@ Worst-case: \\( O(1) \\)
 
 ```
 func bubble_sort(array: Array[Int]) {
-    var swapped: Bool = False;
+    var swapped: Bool = false;
     for i in 0..(array.len() - 1) {
         for j in 0..(array.len() - i - 1) {
             if array[j] > array[j + 1] {
                 array.swap(j, j + 1);
-                swapped = True;
+                swapped = true;
             }
         }
         if !swapped {
@@ -46,11 +46,11 @@ func bubble_sort(array: Array[Int]) {
 
 #### Time complexity
 
-Worst-case: \\( O(n^2) \\)
+Worst-case: $O(n^2)$
 
 #### Space complexity
 
-Worst-case: \\( O(1) \\)
+Worst-case: $O(1)$
 
 ### Properties
 
@@ -81,11 +81,11 @@ func selection_sort(array: Array[Int]) {
 
 #### Time complexity
 
-Worst-case: \\( O(n^2) \\)
+Worst-case: $O(n^2)$
 
 #### Space complexity
 
-Worst-case: \\( O(1) \\)
+Worst-case: $O(1)$
 
 ### Properties
 
@@ -114,11 +114,11 @@ func insertion_sort(array: Array[Int]) {
 
 #### Time complexity
 
-Worst-case: \\( O(n \log n) \\)
+Worst-case: $O(n \log n)$
 
 #### Space complexity
 
-Worst-case: \\( O(1) \\)
+Worst-case: $O(1)$
 
 ### Properties
 
@@ -177,13 +177,13 @@ func merge(left: Array[Int], right: Array[Int]) -> Array[Int] {
 
 #### Time complexity
 
-- Worst-case: \\( O(n^2) \\)
-- Average-case: \\( O(n \log n) \\)
+- Worst-case: $O(n^2)$
+- Average-case: $O(n \log n)$
 
 #### Space complexity
 
-- Worst-case: \\( O(n^2) \\)
-- Average-case: \\( O(n \log n) \\)
+- Worst-case: $O(n^2)$
+- Average-case: $O(n \log n)$
 
 ### Properties
 
@@ -248,7 +248,7 @@ func hoare_partition(array: Array[Int], low: Int, high: Int) -> Int {
     var i: Int = low - 1;
     var j: Int = high + 1;
 
-    while True {
+    while true {
         i += 1;
         while i < high and array[i] < pivot {
             i += 1;
@@ -280,11 +280,11 @@ func hoare_pivot_selection(array: Array[Int], low: Int, high: Int) -> Int {
 
 #### Time complexity
 
-Worst-case: \\( O(n \log n) \\)
+Worst-case: $O(n \log n)$
 
 #### Space complexity
 
-Worst-case: \\( O(1) \\)
+Worst-case: $O(1)$
 
 ### Properties
 

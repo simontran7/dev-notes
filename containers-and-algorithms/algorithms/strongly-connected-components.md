@@ -10,11 +10,11 @@ Given a directed graph, `digraph`, find all the strongly connected components (S
 
 #### Time complexity
 
-Worst-case: \\( O(V + E) \\)
+Worst-case: $O(V + E)$
 
 #### Space complexity
 
-Worst-case: \\( O(V) \\)
+Worst-case: $O(V)$
 
 ### Pseudocode
 
@@ -91,11 +91,11 @@ func dfs_collect_scc[V, E](digraph: AdjacencyListDirectedGraph[V, E], vertex: V,
 
 #### Time complexity
 
-Worst-case: \\( O(V + E) \\)
+Worst-case: $O(V + E)$
 
 #### Space complexity
 
-Worst-case: \\( O(V) \\)
+Worst-case: $O(V)$
 
 ### Pseudocode
 
@@ -136,7 +136,7 @@ func dfs_scc_detect[V, E](digraph: AdjacencyListDirectedGraph[V, E], vertex: V, 
 
     if lowlink[vertex] == indices[vertex] {
         var component: ArrayList[V] = ArrayList[V]::new();
-        while True {
+        while true {
             var w: V = stack.pop();
             on_stack.remove(w);
             component.add_last(w);

@@ -10,11 +10,11 @@ Given an array of elements, `array` and a target element, `target`, determine if
 
 #### Time complexity
 
-Worst-case: \\( O(n) \\)
+Worst-case: $O(n)$
 
 #### Space complexity
 
-Worst-case: \\( O(1) \\)
+Worst-case: $O(1)$
 
 ### Pseudocode
 
@@ -54,12 +54,12 @@ func recursive_linear_search(array: Array[Int], target: Int, i: Int) -> Int {
 
 #### Time complexity
 
-Worst-case: \\( O(\log n) \\)
+Worst-case: $O(\log n)$
 
 #### Space complexity
 
-- Worst-case (iterative): \\( O(1) \\)
-- Worst-case (recursive): \\( O(\log n) \\)
+- Worst-case (iterative): $O(1)$
+- Worst-case (recursive): $O(\log n)$
 
 ### Pseudocode
 
