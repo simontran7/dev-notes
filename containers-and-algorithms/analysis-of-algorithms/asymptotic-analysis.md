@@ -4,33 +4,33 @@
 
 > **Definition (big O)**
 >
-> Let \\( f(n) \\) and \\( g(n) \\) be functions mapping positive integers to positive real numbers.
-> We say that \\( f(n) \\) is \\( O(g(n)) \\) if there is a real constant \\( c \gt 0 \\) and an integer constant
-> \\( n_0 \ge 1 \\) such that
+> Let $f(n)$ and $g(n)$ be functions mapping positive integers to positive real numbers.
+> We say that $f(n)$ is $O(g(n))$ if there is a real constant $c \gt 0$ and an integer constant
+> $n\_0 \ge 1$ such that
 >
 > $$
 > f(n) \leq c \cdot g(n), \text{ for } n \geq n_0
 > $$
 
-#### Simplification rules
+### Simplification rules
 
 1. Ignore non-dominant terms
 2. Ignore constant factors
 
-#### Growth rates classifications
+### Growth rates classifications
 
-In \\( T\_{case}(n) = f(n) \in O(g(n)) \\), \\( g(n) \\) is one of the following:
+In $T_{case}(n) = f(n) \in O(g(n))$, $g(n)$ is one of the following:
 
-| Growth type  | Function         |
-| ------------ | ---------------- |
-| Constant     | \\( 1 \\)        |
-| Logarithmic  | \\( \log n \\)   |
-| Linear       | \\( n \\)        |
-| Linearithmic | \\( n \log n \\) |
-| Quadratic    | \\( n^2 \\)      |
-| Cubic        | \\( n^3 \\)      |
-| Exponential  | \\( 2^n \\)      |
-| Factorial    | \\( n! \\)       |
+| Growth type  | Function     |
+| ------------ | ------------ |
+| Constant     | $1$        |
+| Logarithmic  | $\log n$   |
+| Linear       | $n$        |
+| Linearithmic | $n \log n$ |
+| Quadratic    | $n^2$      |
+| Cubic        | $n^3$      |
+| Exponential  | $2^n$      |
+| Factorial    | $n!$       |
 
 ## Worst case time complexity
 
@@ -38,7 +38,7 @@ In \\( T\_{case}(n) = f(n) \in O(g(n)) \\), \\( g(n) \\) is one of the following
 
 #### Complexity of primitive operations
 
-The following primitive operations take \\( O(1) \\):
+The following primitive operations take $O(1)$:
 
 * Declaring a variable
 * Assigning a value to a variable
@@ -74,7 +74,7 @@ Some useful summation properties and formulas:
 > \sum_{i = m}^{n} (a_i \pm b_i) = \sum_{i = m}^{n} a_i \pm \sum_{i = m}^{n} b_i
 > $$
 
-> **Formula (summation of a \\( 1 \\))**
+> **Formula (summation of a $1$)**
 >
 > $$
 > \sum_{i = m}^{n} 1 = n - m + 1
@@ -98,7 +98,7 @@ Some useful summation properties and formulas:
 > \sum_{i = 1}^{n} i^3 = \left(\frac{n(n + 1)}{2}\right)^2
 > $$
 
-> **Formula (summation of \\( i^k \\) series)**
+> **Formula (summation of $i^k$ series)**
 >
 > $$
 > \sum_{i = 1}^{n} i^k \approx \frac{1}{k + 1}n^{k + 1}
@@ -116,7 +116,7 @@ Some useful summation properties and formulas:
 > \sum_{i = 1}^{n} \frac{1}{i} \approx \ln n + \gamma, \text{ where } \gamma \approx 0.5772 \dots
 > $$
 
-> **Formula (summation of \\( \log\_2 \\) series)**
+> **Formula (summation of $\log\_2$ series)**
 >
 > $$
 > \sum_{i = 1}^{n} \log_2 i = O\left(\sum_{i = 1}^{n} \log_2 n\right) = O(n\log_2 n)
@@ -135,10 +135,10 @@ $$
 T(n)= aT\left(\frac{n}{b}\right)+f(n)
 $$
 
-- \\( T(n) \\): Time complexity for input size \\( n \\)
-- \\( a \\): Number of recursive calls
-- \\( b \\): Factor by which the problem size is divided
-- \\( f(n) \\): Time complexity of the work done outside the recursive calls
+- $T(n)$: Time complexity for input size $n$
+- $a$: Number of recursive calls
+- $b$: Factor by which the problem size is divided
+- $f(n)$: Time complexity of the work done outside the recursive calls
 
 2. Use backward substitution, recursion tree, or master theorem to solve the recurrence relation
 
@@ -146,9 +146,9 @@ $$
 
 ### Iterative algorithms
 
-- \\( \\text{Variable or pointer} = O(1) \\)
-- \\( \text{1D Array or ADT} = O(n) \\)
-- \\( \text{2D Array} = O(m \cdot n) \\)
+- Variable or pointer: $O(1)$
+- 1D Array or container: $O(n)$
+- 2D Array: $O(m \cdot n)$
 
 ### Recursive algorithms
 

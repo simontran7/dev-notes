@@ -2,7 +2,9 @@
 
 ## Single-source shortest path problem
 
-### Topological sorting algorithm
+### Breadth-first search
+
+### algorithm on a DAG
 
 ### Dijkstra's algorithm
 
