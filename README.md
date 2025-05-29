@@ -34,7 +34,7 @@ brief notes on containers, algorithms, and systems programming
 - [Data compression problem]()
 - [String matching problem]() -->
 
-### [Algorithm patterns](./containers-and-algorithms/algorithmic-patterns.md)
+### [Algorithm patterns](./containers-and-algorithms/algorithm-patterns.md)
 
 ## Operating systems
 
