@@ -2,7 +2,13 @@
 
 ## Idea
 
-TODO: https://calebzulawski.github.io/rust-simd-book/0-title.html, https://learn.arm.com/learning-paths/cross-platform/simd-on-rust/simd-on-rust-part1/
+### Basics
+
+SIMD is a form of data parallelism in which a single instruction operates on multiple data values simultaneously. This is achieved using special registers called vector registers, which hold multiple values at once. Operations performed on these registers are called vector operations. Each individual value within a vector register is referred to as a lane.
+
+### Instruct set extensions
+
+SIMD instruction set extensions provide additional support for vector operations using vector registers. The ISA defines which SIMD instruction set extensions are possible, but it is up to the specific processor implementation to decide which of those extensions to support, and which vector lengths of the chosen SIMD extension it will implement. As a result, different processors using the same ISA may support different SIMD extensions and vector lengths.
 
 ### Vector length
 
