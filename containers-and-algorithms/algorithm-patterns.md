@@ -1,4 +1,4 @@
-# algorithm patterns
+SIMD instruction set extensions provide additional support for vector operations using vector registers. The ISA defines which SIMD instruction set extensions are possible, but it is up to the specific processor implementation to decide which of those extensions to support, and which vector lengths of the chosen SIMD extension it will implement. As a result, different processors using the same ISA may support different SIMD extensions and vector lengths.# algorithm patterns
 
 ## classic two pointers pattern
 
@@ -372,9 +372,8 @@ len(stack)
 not stack
 ```
 
-> ### note
->
-> we often use the stack to store the result and convert it to a string using the *o*(*n*) string building pattern
+> **Note**\
+> We often use the stack to store the result and convert it to a string using the *o*(*n*) string building pattern.
 
 ## queue pattern
 
@@ -465,10 +464,10 @@ def monotonic_non_increasing_deque(array, k):
 ```
 
 > **Note**\
-> a monotonic increasing/decreasing stack or queue implies that the elements are always increasing/decreasing, while a monotonic non-decreasing/non-increasing one may include repeated elements.
+> A monotonic increasing/decreasing stack or queue implies that the elements are always increasing/decreasing, while a monotonic non-decreasing/non-increasing one may include repeated elements.
 
 > **Note**\
-> store indices when you want to calculate distances or want to mutate the result list later.
+> Store indices when you want to calculate distances or want to mutate the result list later.
 
 ## tree traversals pattern
 
@@ -517,16 +516,16 @@ def iterative_preorder_dfs(root):
 ```
 
 > **Note (base case)**\
-> a good way to think about base cases is to think about a tree with only one node.
+> A good way to think about base cases is to think about a tree with only one node.
 
 > **Note (common depth-first search ordering)**\
-> in the iterative depth-first search, the flow is usually pre-order `pop node → process node → push right → push left`, while in the recursive depth-first search, pre-order `process node → recurse left → recurse right` is the most common, followed by post-order `recurse left → recurse right → process node`, then in-order `recurse left → process node → recurse right`.
+> In the iterative depth-first search, the flow is usually pre-order `pop node → process node → push right → push left`, while in the recursive depth-first search, pre-order `process node → recurse left → recurse right` is the most common, followed by post-order `recurse left → recurse right → process node`, then in-order `recurse left → process node → recurse right`.
 
 > **Note (additional context)**\
-> in a recursive depth-first search, when you need to track additional context or values across recursive calls—such as parent nodes, path lengths, or accumulated data—you include that information as an additional parameter. in a iterative depth-first search, you would store them as part of a tuple `(node, <value 1>, <value 2>, <…>, <value N>)` that’ll be pushed and popped from the explicit stack you create outside the while loop.
+> In a recursive depth-first search, when you need to track additional context or values across recursive calls—such as parent nodes, path lengths, or accumulated data—you include that information as an additional parameter. in a iterative depth-first search, you would store them as part of a tuple `(node, <value 1>, <value 2>, <…>, <value N>)` that’ll be pushed and popped from the explicit stack you create outside the while loop.
 
 > **Note (keeping track of the final result)**\
-> in a recursive depth-first search, `result` is typically implicit since it’s usually sufficient to implicitly be returned, but an explicit `result` is sometimes a good choice, where you creating it within the scope of the provided function, then create and call an inner depth-first search function to do the actual work. in a iterative depth-first search, you typically create an explicit `result` variable outside the while loop.
+> In a recursive depth-first search, `result` is typically implicit since it’s usually sufficient to implicitly be returned, but an explicit `result` is sometimes a good choice, where you creating it within the scope of the provided function, then create and call an inner depth-first search function to do the actual work. in a iterative depth-first search, you typically create an explicit `result` variable outside the while loop.
 
 ### breadth-first search
 
