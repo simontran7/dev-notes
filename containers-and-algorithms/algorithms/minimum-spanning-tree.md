@@ -10,11 +10,11 @@ Given an undirected and weighted graph, `graph`, find the minimum spanning tree 
 
 #### Time complexity
 
-Worst-case:$O(E \log E)$
+Worst-case: $O(E \log E)$
 
 #### Space complexity
 
-Worst-case:$O(V + E)$
+Worst-case: $O(V + E)$
 
 ### Pseudocode
 
@@ -59,7 +59,7 @@ Worst-case: $O(E \log V)$
 
 #### Space complexity
 
-Worst-case:$O(V)$
+Worst-case: $O(V)$
 
 ### Pseudocode (eager version)
 
