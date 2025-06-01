@@ -1,6 +1,6 @@
-# Asymptotic analysis
+# Asymptotic Analysis
 
-## Bachmann-Landau notation
+## Bachmann-Landau Notation
 
 > **Definition (big O)**
 >
@@ -12,12 +12,12 @@
 > f(n) \leq c \cdot g(n), \text{ for } n \geq n_0
 > $$
 
-### Simplification rules
+### Simplification Rules
 
 1. Ignore non-dominant terms
 2. Ignore constant factors
 
-### Growth rates classifications
+### Growth Rates Classifications
 
 In $T_{case}(n) = f(n) \in O(g(n))$, $g(n)$ is one of the following:
 
@@ -32,11 +32,11 @@ In $T_{case}(n) = f(n) \in O(g(n))$, $g(n)$ is one of the following:
 | Exponential  | $2^n$      |
 | Factorial    | $n!$       |
 
-## Worst case time complexity
+## Worst Case Time Complexity
 
-### Iterative algorithms
+### Iterative Algorithms
 
-#### Complexity of primitive operations
+#### Complexity of Primitive Operations
 
 The following primitive operations take $O(1)$:
 
@@ -50,7 +50,7 @@ The following primitive operations take $O(1)$:
 * Calling a method
 * Returning from a method
 
-#### Complexity of loops
+#### Complexity of Loops
 
 The complexity of a loop is expressed as the sum of the complexities of each iteration of the loop. Whenever there's nested loops, begin by calculating the innermost loop and proceed outwards, which will give nested summations.
 
@@ -122,12 +122,12 @@ Some useful summation properties and formulas:
 > \sum_{i = 1}^{n} \log_2 i = O\left(\sum_{i = 1}^{n} \log_2 n\right) = O(n\log_2 n)
 > $$
 
-#### General steps
+#### General Steps
 
 1. Calculate the total cost by summing the costs of statements where the statements may be primitive operations or loops
 2. Apply Bachmann-Landau notation simplification rules
 
-### Recursive algorithms
+### Recursive Algorithms
 
 1. Come up with a recurrence relation of the following form
 
@@ -142,15 +142,15 @@ $$
 
 2. Use backward substitution, recursion tree, or master theorem to solve the recurrence relation
 
-## Worst case space complexity
+## Worst Case Space Complexity
 
-### Iterative algorithms
+### Iterative Algorithms
 
 - Variable or pointer: $O(1)$
 - 1D Array or container: $O(n)$
 - 2D Array: $O(m \cdot n)$
 
-### Recursive algorithms
+### Recursive Algorithms
 
 1. Calculate total cost as follows
 
