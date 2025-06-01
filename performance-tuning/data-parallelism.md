@@ -51,6 +51,7 @@ fn scalar_find(haystack: &[u8], needle: u8) -> Option<usize> {
 use std::simd::cmp::SimdPartialEq;
 use std::simd::u8x32;
 
+// TODO: adjust so it's not only u8x32 https://calebzulawski.github.io/rust-simd-book/4.2-native-vector-width.html#using-the-native-vector-size
 fn portable_simd_find(haystack: &[u8], needle: u8) -> Option<usize> {
     // For short strings (less than 32 bytes), fallback to scalar solution.
     if haystack.len() < 32 {
