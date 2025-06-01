@@ -88,19 +88,22 @@ func iterative_binary_search(array: Array[Int], target: Int) -> Int {
 #### Pseudocode (recursive)
 
 ```
-func recursive_binary_search(array: Array[Int], low: Int, high: Int, target: Int) -> Int {
-    if low <= high {
+func recursive_binary_search(array: Array[Int], target: Int) -> Int {
+    func helper(array: Array[Int], target: Int, low: Int, high: Int) -> Int {
+        if low > high {
+            return -1;
+        }
         var mid: Int = low + (high - low) / 2;
         if array[mid] == target {
             return mid;
-        } else if array[mid] < target {
-            return recursive_binary_search(array, mid + 1, high, target);
-        } else {
-            return recursive_binary_search(array, low, mid - 1, target);
         }
+        if array[mid] < target {
+            return helper(array, target, mid + 1, high);
+        } 
+        return helper(array, target, low, mid - 1); 
     }
 
-    return -1;
+    return helper(array, target, 0, array.len() - 1);
 }
 ```
 
