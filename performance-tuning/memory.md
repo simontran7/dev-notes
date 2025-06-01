@@ -1,8 +1,8 @@
-# RAM and CPU cache memory
+# RAM and CPU cache Memory
 
-## Memory bandwidth
+## Memory Bandwidth
 
-### Non-temporal memory access optimization
+### Non-temporal Memory Access
 
 Sometimes, we want to read or write cold data (i.e., data that is not expected to be reused soon). However, regular temporal loads or temporal stores can be inefficient in these cases. When performing a temporal load or store, the CPU typically loads the entire cache line containing the target address into the cache, modifies it if needed, and eventually writes it back to memory (in the case of a temporal store). This process can cause cache pollution: loading the cache line may evict warm or hot data (i.e., data likely to be used again soon) from the cache, reducing overall performance.
 
