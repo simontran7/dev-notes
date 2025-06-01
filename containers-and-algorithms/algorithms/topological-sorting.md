@@ -1,18 +1,18 @@
-# Topological sorting
+# Topological Sorting
 
 ## Problem
 
 Given a directed acyclic graph, `dag`, return the topological sort of `dag`.
 
-## Kahn's algorithm
+## Kahn's Algorithm
 
-### Computational complexity
+### Computational Complexity
 
-#### Time complexity
+#### Time Complexity
 
 Worst-case: $O(V + E)$
 
-#### Space complexity
+#### Space Complexity
 
 Worst-case: $O(V)$
 
@@ -60,15 +60,15 @@ func khan_topological_sort[V, E](dag: AdjacencyListDirectedGraph[V, E]) -> Singl
 }
 ```
 
-## Batched depth-first search algorithm
+## Batched Depth-First Search Algorithm
 
-### Computational complexity
+### Computational Complexity
 
-#### Time complexity
+#### Time Complexity
 
 Worst-case: $O(V + E)$
 
-#### Space complexity
+#### Space Complexity
 
 Worst-case: $O(V)$
 
