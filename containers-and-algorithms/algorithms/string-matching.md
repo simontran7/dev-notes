@@ -1,8 +1,8 @@
-# String matching
+# String Matching
 
 ## Problem
 
-## Brute-force
+## Brute-Force
 
 ## Rabin-Karp
 
