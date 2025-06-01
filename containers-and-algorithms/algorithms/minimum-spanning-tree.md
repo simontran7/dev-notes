@@ -1,4 +1,4 @@
-# Minimum spanning tree
+# Minimum Spanning Tree
 
 ## Problem
 
@@ -6,13 +6,13 @@ Given an undirected and weighted graph, `graph`, find the minimum spanning tree 
 
 ## Kruskal's Algorithm
 
-### Computational complexity
+### Computational Complexity
 
-#### Time complexity
+#### Time Complexity
 
 Worst-case: $O(E \log E)$
 
-#### Space complexity
+#### Space Complexity
 
 Worst-case: $O(V + E)$
 
@@ -51,17 +51,17 @@ func kruskal_minimum_spanning_tree[V, E](graph: AdjacencyListGraph[V, E]) -> Has
 
 ## Prim's Algorithm
 
-### Computational complexity
+### Computational Complexity
 
-#### Time complexity
+#### Time Complexity
 
 Worst-case: $O(E \log V)$
 
-#### Space complexity
+#### Space Complexity
 
 Worst-case: $O(V)$
 
-### Pseudocode (eager version)
+### Pseudocode (Eager Version)
 
 ```
 import math;
