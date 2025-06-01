@@ -2,7 +2,7 @@
 
 ## Single-source shortest path problem
 
-### Breadth-first search
+### Modified breadth-first search
 
 ### Algorithm for a DAG
 
