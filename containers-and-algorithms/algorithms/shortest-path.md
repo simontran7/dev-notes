@@ -1,17 +1,17 @@
 # Shortest path
 
-## Single-source shortest path problem
+## Single-Source Shortest Path Problem
 
-### Modified breadth-first search
+### Modified Breadth-First Search
 
 ### Algorithm for a DAG
 
-### Dijkstra's algorithm
+### Dijkstra's Algorithm
 
-### Bellman-Ford algorithm
+### Bellman-Ford Algorithm
 
-## All-pairs shortest path problem
+## All-Pairs Shortest Path Problem
 
-### Floyd-Warshall algorithm
+### Floyd-Warshall Algorithm
 
-### Johnson's algorithm
+### Johnson's Algorithm
