@@ -4,15 +4,15 @@
 
 Given an array `array`, sort it in increasing order.
 
-## Bubble sort algorithm
+## Bubble Sort Algorithm
 
-### Computational complexity
+### Computational Complexity
 
-#### Time complexity
+#### Time Complexity
 
 Worst-case: $O(n^2)$
 
-#### Space complexity
+#### Space Complexity
 
 Worst-case: $O(1)$
 
@@ -40,15 +40,15 @@ func bubble_sort(array: Array[Int]) {
 }
 ```
 
-## Selection sort algorithm
+## Selection Sort Algorithm
 
-### Computational complexity
+### Computational Complexity
 
-#### Time complexity
+#### Time Complexity
 
 Worst-case: $O(n^2)$
 
-#### Space complexity
+#### Space Complexity
 
 Worst-case: $O(1)$
 
@@ -75,15 +75,15 @@ func selection_sort(array: Array[Int]) {
 }
 ```
 
-## Insertion sort algorithm
+## Insertion Sort Algorithm
 
-### Computational complexity
+### Computational Complexity
 
-#### Time complexity
+#### Time Complexity
 
 Worst-case: $O(n^2)$
 
-#### Space complexity
+#### Space Complexity
 
 Worst-case: $O(1)$
 
@@ -108,15 +108,15 @@ func insertion_sort(array: Array[Int]) {
 }
 ```
 
-## Merge sort algorithm
+## Merge Sort Algorithm
 
-### Computational complexity
+### Computational Complexity
 
-#### Time complexity
+#### Time Complexity
 
 Worst-case: $O(n \log n)$
 
-#### Space complexity
+#### Space Complexity
 
 Worst-case: $O(1)$
 
@@ -171,16 +171,16 @@ func merge(left: Array[Int], right: Array[Int]) -> Array[Int] {
 }
 ```
 
-## Randomized quick sort algorithm
+## Randomized Quick Sort Algorithm
 
-### Computational complexity
+### Computational Complexity
 
-#### Time complexity
+#### Time Complexity
 
 - Worst-case: $O(n^2)$
 - Average-case: $O(n \log n)$
 
-#### Space complexity
+#### Space Complexity
 
 - Worst-case: $O(n^2)$
 - Average-case: $O(n \log n)$
@@ -192,7 +192,7 @@ func merge(left: Array[Int], right: Array[Int]) -> Array[Int] {
 
 ### Pseudocode
 
-#### Pseudocode (randomized quick sort with Lomuto's partition scheme)
+#### Pseudocode (With Lomuto's Partition Scheme)
 
 ```
 import random;
@@ -229,7 +229,7 @@ func lomuto_pivot_selection(array: Array[Int], low: Int, high: Int) -> Int {
 }
 ```
 
-#### Pseudocode (randomized quick sort with Hoare's partition scheme)
+#### Pseudocode (With Hoare's Partition Scheme)
 
 ```
 import random;
@@ -274,15 +274,15 @@ func hoare_pivot_selection(array: Array[Int], low: Int, high: Int) -> Int {
 }
 ```
 
-## Heap sort algorithm
+## Heap Sort Algorithm
 
-### Computational complexity
+### Computational Complexity
 
-#### Time complexity
+#### Time Complexity
 
 Worst-case: $O(n \log n)$
 
-#### Space complexity
+#### Space Complexity
 
 Worst-case: $O(1)$
 
