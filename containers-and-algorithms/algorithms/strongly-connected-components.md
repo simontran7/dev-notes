@@ -1,18 +1,18 @@
-# Strongly connected components
+# Strongly Connected Components
 
 ## Problem
 
 Given a directed graph, `digraph`, find all the strongly connected components (SCCs) of `digraph`.
 
-## Kosajaru's algorithm
+## Kosajaru's Algorithm
 
-### Computational complexity
+### Computational Complexity
 
-#### Time complexity
+#### Time Complexity
 
 Worst-case: $O(V + E)$
 
-#### Space complexity
+#### Space Complexity
 
 Worst-case: $O(V)$
 
@@ -85,15 +85,15 @@ func dfs_collect_scc[V, E](digraph: AdjacencyListDirectedGraph[V, E], vertex: V,
 }
 ```
 
-## Tarjan's algorithm
+## Tarjan's Algorithm
 
-### Computational complexity
+### Computational Complexity
 
-#### Time complexity
+#### Time Complexity
 
 Worst-case: $O(V + E)$
 
-#### Space complexity
+#### Space Complexity
 
 Worst-case: $O(V)$
 
