@@ -1,10 +1,10 @@
 # dev-notes
 
-brief notes on systems programming, containers & algorithms, and some developer tools
+Brief notes on systems programming, containers & algorithms, and some developer tools
 
-## Containers and algorithms
+## Containers & Algorithms
 
-### Analysis of algorithms
+### Analysis of Algorithms
 
 - [Asymptotic analysis](./containers-and-algorithms/analysis-of-algorithms/asymptotic-analysis.md)
 <!-- - [Amortized analysis]() -->
@@ -22,25 +22,25 @@ brief notes on systems programming, containers & algorithms, and some developer 
 
 ### Algorithms
 
-- [Searching problem](./containers-and-algorithms/algorithms/searching.md)
-- [Sorting problem](./containers-and-algorithms/algorithms/sorting.md)
-- [Tree and graph traversing problem](./containers-and-algorithms/algorithms/tree-and-graph-traversing.md)
-- [Topological sorting problem](./containers-and-algorithms/algorithms/topological-sorting.md)
-- [Strongly connected components problem](./containers-and-algorithms/algorithms/strongly-connected-components.md)
-- [Minimum spanning tree problem](./containers-and-algorithms/algorithms/minimum-spanning-tree.md)
-<!-- - [Shortest path problem]()
-- [Maximum flow problem]()
-- [Stable matching problem]()
-- [Data compression problem]()
-- [String matching problem]() -->
+- [Searching Problem](./containers-and-algorithms/algorithms/searching.md)
+- [Sorting Problem](./containers-and-algorithms/algorithms/sorting.md)
+- [Tree and Graph Traversing Problem](./containers-and-algorithms/algorithms/tree-and-graph-traversing.md)
+- [Topological Sorting Problem](./containers-and-algorithms/algorithms/topological-sorting.md)
+- [Strongly Connected Components Problem](./containers-and-algorithms/algorithms/strongly-connected-components.md)
+- [Minimum Spanning Tree Problem](./containers-and-algorithms/algorithms/minimum-spanning-tree.md)
+<!-- - [Shortest Path problem]()
+- [Maximum Flow problem]()
+- [Stable Matching Problem]()
+- [Data Compression Problem]()
+- [String Matching Problem]() -->
 
-### [Algorithm patterns](./containers-and-algorithms/algorithm-patterns.md)
+### [Algorithm Patterns](./containers-and-algorithms/algorithm-patterns.md)
 
-## Operating systems
+## Operating Systems
 
-## Performance tuning
+## Performance Tuning
 
-## Concurrent programming
+## Concurrent Programming
 
-## Developer tools
+## Developer Tools
 
