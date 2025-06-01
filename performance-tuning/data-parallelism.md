@@ -4,15 +4,16 @@
 
 ### Basics
 
-SIMD is a form of data parallelism in which a single instruction operates on multiple data values simultaneously. This is achieved using special registers called vector registers, which hold multiple values at once. Operations performed on these registers are called vector operations. Each individual value within a vector register is referred to as a lane.
+SIMD is a form of data parallelism in which a single instruction operates on multiple data values simultaneously. This is achieved using special registers called _vector registers_, or _vector_ for short, which hold multiple values at once. Operations performed on these registers are called _vector operations_. Each individual value within a vector register is referred to as a _lane_.
 
 ### Instruct set extensions
 
 SIMD instruction set extensions provide additional support for vector operations using vector registers. The ISA defines which SIMD instruction set extensions are possible, but it is up to the specific processor implementation to decide which of those extensions to support, and which vector lengths of the chosen SIMD extension it will implement. As a result, different processors using the same ISA may support different SIMD extensions and vector lengths.
 
-### Vector length
+### Vector size
 
-Match your vector length to your data patterns. If you process varied input lengths, you might need a dynamic approach that selects vector length based on the current input length. This is because large vectors with small inputs leads to frequent fallbacks to scalar operations, hurting performance, while large vectors with large inputs leads ideal performance since the fallback overhead becomes negligible.
+When writing vectorized code, you have two main approaches: use a fixed vector size or adapt to the processor's native vector size.
+If you choose a fixed vector size that's smaller than the native registers, the hardware will still use its full-width registers but leave some lanes empty. This wastes the processor's parallel potential. If you choose a fixed vector size that's larger than the native registers, the system must combine multiple native registers to simulate the larger size. When too many registers are needed simultaneously, the program may _spill_ — running out of physical registers and having to store data in much slower memory instead.
 
 ## Rust API
 
