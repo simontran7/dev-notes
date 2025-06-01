@@ -4,7 +4,7 @@
 
 ### Breadth-first search
 
-### algorithm on a DAG
+### Algorithm for a DAG
 
 ### Dijkstra's algorithm
 
