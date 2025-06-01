@@ -90,7 +90,7 @@ func iterative_binary_search(array: Array[Int], target: Int) -> Int {
 ```
 func recursive_binary_search(array: Array[Int], low: Int, high: Int, target: Int) -> Int {
     if low <= high {
-        mid: Int = low + (high - low) / 2;
+        var mid: Int = low + (high - low) / 2;
         if array[mid] == target {
             return mid;
         } else if array[mid] < target {
