@@ -1,9 +1,9 @@
-# Amortized analysis
+# Amortized Analysis
 
-## Aggregate method
+## Aggregate Method
 
-## Accounting method
+## Accounting Method
 
-## Charging method
+## Charging Method
 
-## Potential method
+## Potential Method
