@@ -1,6 +1,6 @@
 # dev-notes
 
-brief notes on containers, algorithms, and systems programming
+brief notes on systems programming, containers & algorithms, and some developer tools
 
 ## Containers and algorithms
 
