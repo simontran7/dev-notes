@@ -1,24 +1,24 @@
-# Tree and graph traversing
+# Tree and Graph Traversing
 
-## Tree traversing problem
+## Tree Traversing Problem
 
 Given the root node of a rooted tree, `root`, traverse the the rooted tree in a pre-order, in-order, post-order, or level-order fashion.
 
-## Tree depth-first search (pre-order, in-order, post-order) algorithm
+## Tree Depth-First Search Algorithm (Pre-order, In-order, Post-order)
 
-### Computational complexity
+### Computational Complexity
 
-#### Time complexity
+#### Time Complexity
 
 Worst-case: $O(n)$
 
-#### Space complexity
+#### Space Complexity
 
 Worst-case: $O(n)$
 
 ### Pseudocode
 
-#### Pseudocode (pre-order traversal)
+#### Pseudocode (Pre-order)
 
 ```
 func recursive_dfs[K](root: BinaryTreeNode[K]) {
@@ -52,7 +52,7 @@ func iterative_dfs[K](root: BinaryTreeNode[K]) {
 }
 ```
 
-#### Pseudocode (in-order traversal)
+#### Pseudocode (In-order)
 
 ```
 func recursive_dfs[K](root: BinaryTreeNode[K]) {
@@ -87,7 +87,7 @@ func iterative_dfs[K](root: BinaryTreeNode[K]) {
 }
 ```
 
-#### Pseudocode (post-order traversal)
+#### Pseudocode (Post-order)
 
 ```
 func recursive_dfs[K](root: BinaryTreeNode[K]) {
@@ -129,15 +129,15 @@ func iterative_dfs[K](root: BinaryTreeNode[K]) {
 }
 ```
 
-## Tree breadth-first search (level-order) algorithm
+## Tree Breadth-First Search Algorithm (Level-order) 
 
-### Computational complexity
+### Computational Complexity
 
-#### Time complexity
+#### Time Complexity
 
 Worst-case: $O(n)$
 
-#### Space complexity
+#### Space Complexity
 
 Worst-case: $O(n)$
 
@@ -165,25 +165,25 @@ func iterative_bfs[K](root: BinaryTreeNode[K]) {
 }
 ```
 
-## Graph traversing problem
+## Graph Traversing Problem
 
 Given a graph, `graph`, and a source node of `graph`, `source`, traverse `graph` beginning at the `source`.
 
-## Graph depth-first search algorithm
+## Graph Depth-First Search Algorithm
 
-### Computational complexity
+### Computational Complexity
 
-#### Time complexity
+#### Time Complexity
 
 Worst-case: $O(V + E)$
 
-#### Space complexity
+#### Space Complexity
 
 Worst-case: $O(V)$
 
 ### Pseudocode
 
-#### Pseudocode (iterative)
+#### Pseudocode (Iterative)
 
 ```
 func iterative_dfs[V, E](graph: AdjacencyListGraph[V, E], source: V) {
@@ -205,7 +205,7 @@ func iterative_dfs[V, E](graph: AdjacencyListGraph[V, E], source: V) {
 }
 ```
 
-#### Pseudocode (recursive)
+#### Pseudocode (Recursive)
 
 ```
 func recursive_dfs[V, E](graph: AdjacencyListGraph[V, E], vertex: V, visited: HashSet[V]) {
@@ -219,15 +219,15 @@ func recursive_dfs[V, E](graph: AdjacencyListGraph[V, E], vertex: V, visited: Ha
 }
 ```
 
-## Graph breadth-first search algorithm
+## Graph Breadth-First Search Algorithm
 
-### Computational complexity
+### Computational Complexity
 
-#### Time complexity
+#### Time Complexity
 
 Worst-case: $O(V + E)$
 
-#### Space complexity
+#### Space Complexity
 
 Worst-case: $O(V)$
 
