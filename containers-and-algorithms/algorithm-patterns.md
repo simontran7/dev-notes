@@ -469,13 +469,13 @@ def monotonic_non_increasing_deque(array, k):
 > **Note**\
 > Store indices when you want to calculate distances or want to mutate the result list later.
 
-## Tree Traversals Pattern
+## Binary Tree Traversals Pattern
 
-### Depth-First Search
+### Binary Tree Depth-First Search
 
 #### Use Case
 
-Most binary tree problems that don't involve levels.
+Most binary tree problems that don't involve processing nodes by their levels.
 
 #### Template
 
@@ -515,8 +515,11 @@ def iterative_preorder_dfs(root):
     return result
 ```
 
-> **Note (Base Case)**\
-> A good way to think about base cases is to think about a tree with only one node.
+> **Note (Edge Cases)**
+> - Empty tree (i.e. `None` root)
+> - Single node tree
+> - Skewed tree (i.e. unbalanced trees where all nodes are on one side)
+> - Duplicate values in a binary search tree
 
 > **Note (Common Depth-First Search Ordering)**\
 > In the iterative depth-first search, the flow is usually pre-order `pop node → process node → push right → push left`, while in the recursive depth-first search, pre-order `process node → recurse left → recurse right` is the most common, followed by post-order `recurse left → recurse right → process node`, then in-order `recurse left → process node → recurse right`.
@@ -527,11 +530,11 @@ def iterative_preorder_dfs(root):
 > **Note (Keeping Track of the Final Result)**\
 > In a recursive depth-first search, `result` is typically implicit since it's usually sufficient to implicitly be returned, but an explicit `result` is sometimes a good choice, where you create it within the scope of the provided function, then create and call an inner depth-first search function to do the actual work. In an iterative depth-first search, you typically create an explicit `result` variable outside the while loop.
 
-### Breadth-First Search
+### Binary Tree Breadth-First Search
 
 #### Use Case
 
-Binary tree problems that involve levels.
+Binary tree problems that involve processing nodes by their levels.
 
 #### Template
 
@@ -543,9 +546,9 @@ def bfs(root):
     result = 0
 
     while queue:
-        current_length = len(queue)
+        nodes_in_level = len(queue)
 
-        for _ in range(current_length):
+        for _ in range(nodes_in_level):
             node = queue.popleft()
 
             if node.left:
@@ -558,7 +561,7 @@ def bfs(root):
 
 ## Graph Traversals Pattern
 
-### Depth-First Search
+### Graph Depth-First Search
 
 #### Use Case
 
@@ -602,7 +605,7 @@ def iterative_dfs(graph):
 > **Note**\
 > For graph templates, assume nodes are numbered `0` to `n - 1`, and input is an adjacency list.
 
-### Breadth-First Search
+### Graph Breadth-First Search
 
 #### Use Case
 
