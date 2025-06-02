@@ -27,6 +27,14 @@ When writing vectorized code, you have two main approaches: use a fixed vector s
 
 [`std::arch` module](https://doc.rust-lang.org/std/arch/index.html)
 
+> **Note**\
+> Consider using [Dynamic CPU Feature Detection](https://doc.rust-lang.org/std/arch/index.html#dynamic-cpu-feature-detection) instead, since this approach allows:
+> 1. The same binary to work on all CPUs
+> 2. Automatic use of the fastest available instructions
+> 3. Users don't need to worry about compatibility issues
+>
+> In contrast, the static CPU feature detection approach (using `RUSTFLAGS`) bakes specific SIMD instruction set extensions into the entire binary, which will crash on CPUs that don't support those features.
+
 ## Example
 
 ### Description
@@ -50,7 +58,6 @@ fn scalar_find(haystack: &[u8], needle: u8) -> Option<usize> {
 use std::simd::cmp::SimdPartialEq;
 use std::simd::u8x32;
 
-// TODO: adjust so it's not only u8x32 https://calebzulawski.github.io/rust-simd-book/4.2-native-vector-width.html#using-the-native-vector-size
 fn portable_simd_find(haystack: &[u8], needle: u8) -> Option<usize> {
     // For short strings (less than 32 bytes), fallback to scalar solution.
     if haystack.len() < 32 {

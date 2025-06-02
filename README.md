@@ -2,6 +2,8 @@
 
 Brief notes on systems programming, containers & algorithms, and some developer tools
 
+## [Roadmap](./roadmap.md)
+
 ## Containers & Algorithms
 
 ### Analysis of Algorithms
