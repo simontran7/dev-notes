@@ -542,14 +542,21 @@ Binary tree problems that involve processing nodes by their levels.
 from collections import deque
 
 def bfs(root):
+    if not root:
+        return
+
     queue = deque([root])
     result = 0
 
     while queue:
         nodes_in_level = len(queue)
 
+        # Some logic here for the current level
+
         for _ in range(nodes_in_level):
             node = queue.popleft()
+
+            # Some logic involving the current node
 
             if node.left:
                 queue.append(node.left)

@@ -8,11 +8,27 @@ SIMD is a form of data parallelism in which a single instruction operates on mul
 
 ### SIMD Instruction Set Extensions
 
-SIMD instruction set extensions provide additional support for vector operations using vector registers. The instruction set architecture defines which SIMD instruction set extensions are possible, but it is up to the specific processor implementation to decide which of those extensions to support, and which vector sizes of the chosen SIMD extension it will implement. As a result, different CPUs using the same ISA may support different SIMD extensions and vector sizes.
+SIMD instruction set extensions provide additional support for vector operations using vector registers. The instruction set architecture defines which SIMD instruction set extensions are possible, but it is up to the specific processor implementation to decide which of those extensions to support, and which vector widths of the chosen SIMD extension it will implement. As a result, different CPUs using the same ISA may support different SIMD extensions and vector widths. The most common SIMD instruction set extensions for x86-64 are SSE (SSE 1 to 4), AVX, AVX2, and the most recent, AVX-512, while for AArch64 it is NEON, with more advanced optional extensions like SVE and SVE2.
 
-### Vector Size
+| **ISA** | **SIMD Instruction Set Extension** | **First-Class Native Vector Widths**                       |
+| ------- | ---------------------------------- | ---------------------------------------------------------- |
+| x86-64  | SSE, SSE2, SSE3, SSE4.1, SSE4.2    | 128 bits (fixed)                                           |
+| x86-64  | AVX                                | 256 bits (fixed, float only)                               |
+| x86-64  | AVX2                               | 256 bits (fixed, int + float)                              |
+| x86-64  | AVX-512                            | 512 bits (fixed)                                           |
+| AArch64 | NEON                               | 64 bits (fixed), 128 bits (fixed)                          |
+| AArch64 | SVE                                | 128–2048 bits (scalable in 128-bit increments)             |
+| AArch64 | SVE2                               | 128–2048 bits (scalable in 128-bit increments, more types) |
 
-When writing vectorized code, you have two main approaches: use a fixed vector size or adapt to the cpu's native vector size. If you choose a fixed vector size that's smaller than the native registers, the hardware will still use its full-width registers but leave some lanes empty. This wastes the processor's parallel potential. If you choose a fixed vector size that's larger than the native registers, the system must combine multiple native registers to simulate the larger size. When too many registers are needed simultaneously, the program may _spill_ — running out of physical registers and having to store data in much slower memory instead.
+> **Note**\
+> Each generation of x86-64 SIMD extensions builds upon the previous one. When using narrower vector operations from older instruction sets, they operate on the lower portion of the wider registers introduced in newer extensions.
+
+> **Note**\
+> To check what SIMD instruction set extensions your CPU supports, run `lscpu`, and look at the "Flags" output.
+
+### Vector Width and Performance
+
+When writing vectorized code, you have two main approaches: use a non-native fixed vector width or adapt to the cpu's native vector width. If you choose a fixed non-native vector width that's smaller than the native registers by using older instruction sets, the hardware will still use its full-width registers but leave some lanes empty. This wastes the processor's parallel potential. If you choose a fixed vector width that's larger than the native registers, the system must combine multiple native registers to simulate the larger width. When too many registers are needed simultaneously, the program may _spill_ — running out of physical registers and having to store data in much slower memory instead.
 
 ## Rust API
 
@@ -39,13 +55,13 @@ When writing vectorized code, you have two main approaches: use a fixed vector s
 
 ### Description
 
-Given a string `haystack` and a character to find within the string `needle`, find the first occurrence of `needle` in `haystack`.
+Given a slice of bytes `haystack` and a byte `needle`, find the first occurrence of `needle` in `haystack`.
 
 ### Scalar Solution
 
 ```rust
-fn scalar_find(haystack: &[u8], needle: u8) -> Option<usize> {
-    haystack.iter().position(|&c| c == needle)
+fn scalar_find(haystack: &[u8], needle: u8) -> Option<uwidth> {
+    haystack.iter().position(|&b| b == needle)
 }
 ```
 
@@ -58,10 +74,12 @@ fn scalar_find(haystack: &[u8], needle: u8) -> Option<usize> {
 use std::simd::cmp::SimdPartialEq;
 use std::simd::u8x32;
 
-fn portable_simd_find(haystack: &[u8], needle: u8) -> Option<usize> {
+pub fn portable_simd_find(haystack: &[u8], needle: u8) -> Option<usize> {
+    const VECTOR_WIDTH: usize = 32;
+
     // For short strings (less than 32 bytes), fallback to scalar solution.
-    if haystack.len() < 32 {
-        return haystack.iter().position(|&c| c == needle);
+    if haystack.len() < VECTOR_WIDTH {
+        return haystack.iter().position(|&b| b == needle);
     }
 
     // Perform SIMD on strings of at least 32 bytes.
@@ -85,12 +103,11 @@ fn portable_simd_find(haystack: &[u8], needle: u8) -> Option<usize> {
     //
     // Using `bitmask.trailing_zeros()` gives us the index of the first `true` in the mask.
     // We then add the chunk offset to get the actual index in the full haystack.
-    const SIMD_WIDTH: usize = 32;
     let needle_vec = u8x32::splat(needle);
 
     let mut offset = 0;
-    while offset + SIMD_WIDTH <= haystack.len() {
-        let chunk = &haystack[offset..offset + SIMD_WIDTH];
+    while offset + VECTOR_WIDTH <= haystack.len() {
+        let chunk = &haystack[offset..offset + VECTOR_WIDTH];
         let haystack_vec = u8x32::from_slice(chunk);
         let mask = haystack_vec.simd_eq(needle_vec);
         let bitmask = mask.to_bitmask();
@@ -98,24 +115,19 @@ fn portable_simd_find(haystack: &[u8], needle: u8) -> Option<usize> {
         if bitmask != 0 {
             return Some(offset + bitmask.trailing_zeros() as usize);
         }
-        offset += SIMD_WIDTH;
-        println!("new offset {offset}")
+        offset += VECTOR_WIDTH;
     }
 
     // Fallback to the scalar solution for the remainder of the string,
     // which is usually less than 32 bytes
     haystack[offset..]
         .iter()
-        .position(|&c| c == needle)
+        .position(|&b| b == needle)
         .map(|pos| offset + pos)
 }
 ```
 
-#### Intrinsic-based SIMD Solution
+#### Intrinsics (NEON) SIMD Solution
 
 ```rust
-fn intrinsic_simd_find(haystack: &[u8], needle: u8) -> Option<usize> {
-    todo!()
-}
 ```
-
