@@ -77,15 +77,17 @@ use std::simd::u8x32;
 pub fn portable_simd_find(haystack: &[u8], needle: u8) -> Option<usize> {
     const VECTOR_WIDTH: usize = 32;
 
-    // For short strings (less than 32 bytes), fallback to scalar solution.
+    // For short strings (less than 16 bytes), use simple iteration instead of SIMD
     if haystack.len() < VECTOR_WIDTH {
         return haystack.iter().position(|&b| b == needle);
     }
 
     // Perform SIMD on strings of at least 32 bytes.
     //
-    // For every 32-byte chunk of the haystack, we create a SIMD vector and compare
-    // each byte against the needle in parallel using `simd_eq`, producing a mask.
+    // For every 32-byte chunk of the haystack, we create two SIMD vectors: one for the 16-byte
+    // chunk of the haystack we're working on, `haystack_vec`, and one 16-byte SIMD vector containing
+    // 16-bytes of just `needle`, `needle_vec` such that we can compare each byte against the needle in parallel using `simd_eq`,
+    // producing a mask.
     //
     // This SIMD mask is a vector of booleans, like:
     //   [false, false, false, true, false, ...]
@@ -96,8 +98,9 @@ pub fn portable_simd_find(haystack: &[u8], needle: u8) -> Option<usize> {
     //   - A `true` in the SIMD mask becomes a `1` in the bitmask.
     //   - A `false` becomes a `0`.
     //
-    // Importantly: the first element of the mask (index 0) maps to the least significant bit (LSB)
-    // in the bitmask. That is, `mask[0]` affects bit 0, `mask[1]` affects bit 1, and so on.
+    // Importantly: the first element of the mask (index 0) maps to the least significant bit (bit 0)
+    // in the bitmask, mask[1] maps to bit 1, and so on. This means `bitmask.trailing_zeros()`
+    // directly gives us the index of the first `true` in the mask.
     //
     // So if the bitmask is, say, 0b00001000, then the first match was at index 3.
     //
@@ -118,8 +121,7 @@ pub fn portable_simd_find(haystack: &[u8], needle: u8) -> Option<usize> {
         offset += VECTOR_WIDTH;
     }
 
-    // Fallback to the scalar solution for the remainder of the string,
-    // which is usually less than 32 bytes
+    // Handle remaining bytes (less than 32) that couldn't be processed with SIMD
     haystack[offset..]
         .iter()
         .position(|&b| b == needle)
@@ -130,4 +132,80 @@ pub fn portable_simd_find(haystack: &[u8], needle: u8) -> Option<usize> {
 #### Intrinsics (NEON) SIMD Solution
 
 ```rust
+pub fn intrinsics_simd_find(haystack: &[u8], needle: u8) -> Option<usize> {
+    const VECTOR_WIDTH: usize = 16;
+
+    // For short strings (less than 16 bytes), use simple iteration instead of SIMD
+    if haystack.len() < VECTOR_WIDTH {
+        return haystack.iter().position(|&b| b == needle);
+    }
+
+    // Process strings of 16+ bytes using SIMD instructions
+    //
+    // SIMD Strategy:
+    // 1. Load 16 bytes of haystack into a SIMD vector
+    // 2. Create a SIMD vector filled with 16 copies of the needle byte
+    // 3. Compare all 16 positions simultaneously using vceqq_u8
+    // 4. This produces a mask where matching positions become 0xFF, non-matches become 0x00
+    //
+    // Example mask: [0x00, 0x00, 0xFF, 0x00, 0xFF, 0x00, ...]
+    //               (no match, no match, MATCH, no match, MATCH, no match, ...)
+    //
+    // Fast Detection:
+    // - Use vmaxvq_u8 to find the maximum value in the mask
+    // - If result is 0, no matches found (all bytes were 0x00)
+    // - If result is non-zero, at least one match exists (at least one 0xFF present)
+    //
+    // Finding Exact Position:
+    // When matches are found, we need to determine their exact locations:
+    // 1. Reinterpret the 16-byte mask as two 64-bit integers for easier processing
+    // 2. Check the lower 64 bits (bytes 0-7) and upper 64 bits (bytes 8-15) separately
+    // 3. Within each 64-bit section, examine each byte by shifting and masking
+    //    - Right-shift by (i * 8) bits to move byte i to the lowest position
+    //    - Apply mask 0xFF to isolate just that byte
+    //    - Check if the result equals 0xFF (indicating a match)
+    //
+    // Importantly: We use right bit shifts because of little-endian byte ordering — the byte
+    // from haystack position 0 gets packed into the least significant (rightmost) bits of the 64-bit integer,
+    // position 1 goes into the next 8 bits, and so on. By shifting right by `i * 8` bits, we move the byte from
+    // haystack position `i` into the least significant position where we can extract it with a simple mask.
+    let needle_vec = unsafe { vdupq_n_u8(needle) };
+
+    let mut offset = 0;
+    while offset + VECTOR_WIDTH <= haystack.len() {
+        unsafe {
+            let haystack_ptr = haystack.as_ptr().add(offset);
+            let haystack_vec = vld1q_u8(haystack_ptr);
+
+            let byte_mask = vceqq_u8(haystack_vec, needle_vec);
+
+            if vmaxvq_u8(byte_mask) != 0 {
+                let mask_as_u64x2 = vreinterpretq_u64_u8(byte_mask);
+                let low_bits = vgetq_lane_u64(mask_as_u64x2, 0);
+                let high_bits = vgetq_lane_u64(mask_as_u64x2, 1);
+
+                if low_bits != 0 {
+                    for i in 0..8 {
+                        if ((low_bits >> (i * 8)) & 0xFF) == 0xFF {
+                            return Some(offset + i);
+                        }
+                    }
+                } else {
+                    for i in 0..8 {
+                        if ((high_bits >> (i * 8)) & 0xFF) == 0xFF {
+                            return Some(offset + 8 + i);
+                        }
+                    }
+                }
+            }
+        }
+        offset += VECTOR_WIDTH;
+    }
+
+    // Handle remaining bytes (less than 16) that couldn't be processed with SIMD
+    haystack[offset..]
+        .iter()
+        .position(|&b| b == needle)
+        .map(|pos| offset + pos)
+}
 ```
