@@ -209,3 +209,9 @@ pub fn intrinsics_simd_find(haystack: &[u8], needle: u8) -> Option<usize> {
         .map(|pos| offset + pos)
 }
 ```
+
+#### Inline Assembly 
+
+https://open-source.gitbook.io/asm-lessons
+
+https://web.stanford.edu/class/cs107/guide/x86-64.html

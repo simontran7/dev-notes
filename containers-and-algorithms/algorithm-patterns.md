@@ -530,6 +530,12 @@ def iterative_preorder_dfs(root):
 > **Note (Keeping Track of the Final Result)**\
 > In a recursive depth-first search, `result` is typically implicit since it's usually sufficient to implicitly be returned, but an explicit `result` is sometimes a good choice, where you create it within the scope of the provided function, then create and call an inner depth-first search function to do the actual work. In an iterative depth-first search, you typically create an explicit `result` variable outside the while loop.
 
+> **Note (BST Patterns)**\
+> BST problems typically use DFS traversal. Common patterns include:
+> - Checking if the current node's value is within bounds (e.g., `low <= node.val <= high`)
+> - Leveraging the BST property to prune subtrees — if `node.val < low`, skip the left subtree; if `node.val > high`, skip the right subtree (where `low` or `high` can also just be a target value)
+> - Using inorder traversal to collect values in sorted order for problems requiring sorted data without explicit sorting.
+
 ### Binary Tree Breadth-First Search
 
 #### Use Case
