@@ -38,15 +38,18 @@ func iterative_dfs[K](root: BinaryTreeNode[K]) {
     }
 
     var stack: ArrayStack[BinaryTreeNode[K]] = ArrayStack[BinaryTreeNode[K]]::new();
-    var current: BinaryTreeNode[K] = root;
+    stack.push(root);
 
-    while !stack.is_empty() or current != null {
-        if current != null {
-            // visit e.g. println("{}", current.key);
-            stack.push(current.right);
-            current = current.left;
-        } else {
-            current = stack.pop();
+    while !stack.is_empty() {
+        node = stack.pop();
+
+        // visit e.g. println("{}", node.key);
+
+        if node.right != null {
+            stack.push(node.right);
+        }
+        if node.left != null {
+            stack.push(node.left);
         }
     }
 }
@@ -75,14 +78,16 @@ func iterative_dfs[K](root: BinaryTreeNode[K]) {
     var current: BinaryTreeNode[K] = root;
 
     while !stack.is_empty() or current != null {
-        if current != null {
+        while current != null {
             stack.push(current);
             current = current.left;
-        } else {
-            current = stack.pop();
-            // visit e.g. println("{}", current.key);
-            current = current.right;
         }
+
+        current = stack.pop();
+
+        // visit e.g. println("{}", current.key);
+
+        current = current.right;
     }
 }
 ```
@@ -129,7 +134,7 @@ func iterative_dfs[K](root: BinaryTreeNode[K]) {
 }
 ```
 
-## Tree Breadth-First Search Algorithm (Level-order) 
+## Tree Breadth-First Search Algorithm (Level-order)
 
 ### Computational Complexity
 

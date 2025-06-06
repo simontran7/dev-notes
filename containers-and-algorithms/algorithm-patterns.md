@@ -480,16 +480,16 @@ Most binary tree problems that don't involve processing nodes by their levels.
 #### Template
 
 ```python
-def recursive_preorder_dfs(node):
-    if not node:
+def recursive_preorder_dfs(root):
+    if not root:
         return <base case result>
 
     # Additional base cases
 
     # Some logic involving the current node and the current result
 
-    recursive_preorder_dfs(node.left)
-    recursive_preorder_dfs(node.right)
+    recursive_preorder_dfs(root.left)
+    recursive_preorder_dfs(root.right)
 
     return <current result and the two recursive calls above>
 ```
@@ -584,39 +584,42 @@ TODO
 
 ```python
 def recursive_dfs(graph):
-    def helper(node):
-        result = 0
-        for neighbor in graph[node]:
-            if neighbor not in seen:
-                seen.add(neighbor)
-                result += helper(neighbor)
-        return result
+    def dfs_helper(vertex):
+        visited.add(vertex)
+        for neighbour in graph[vertex]:
+            if neighbour not in visited:
+                dfs_helper(neighbour)
 
-    seen = {start_node}
-    return helper(start_node)
+    result = <container or primitive data type>
+    visited = set()
+    for vertex in graph:
+        if vertex not in visited:
+
+            # Some logic involving the result
+
+            dfs_helper(vertex)
 ```
 
 ```python
 def iterative_dfs(graph):
-    stack = [start_node]
-    seen = {start_node}
-    result = 0
+    def dfs_helper(vertex):
+        stack = []
+        while stack:
+            vertex = stack.pop()
+            visited.add(vertex)
+            for neighbour in graph[vertex]:
+                if neighbour not in visited:
+                    stack.append(neighbour)
 
-    while stack:
-        node = stack.pop()
+    result = <container or primitive data type>
+    visited = set()
+    for vertex in graph.keys():
+        if vertex not in visited:
 
-        # Some logic
+            # Some logic involving the result
 
-        for neighbor in graph[node]:
-            if neighbor not in seen:
-                seen.add(neighbor)
-                stack.append(neighbor)
-
-    return result
+            dfs_helper(vertex)
 ```
-
-> **Note**\
-> For graph templates, assume nodes are numbered `0` to `n - 1`, and input is an adjacency list.
 
 ### Graph Breadth-First Search
 
@@ -635,17 +638,57 @@ def iterative_bfs(graph):
     result = 0
 
     while queue:
-        node = queue.popleft()
+        vertex = queue.popleft()
 
         # Some logic
 
-        for neighbor in graph[node]:
-            if neighbor not in seen:
+        for neighbour in graph[vertex]:
+            if neighbour not in visited:
                 seen.add(neighbor)
                 queue.append(neighbor)
 
     return result
 ```
+
+> **Note (Various Types of Graph Inputs)**\
+> Unlike linked lists and binary trees, which we are given `head` or `root` respectively, there are various graph inputs:
+>
+> 1. Edge list: A list of edges `edges`. It's useful to turn it into an adjacency list.
+> ```python
+> from collections import defaultdict
+>
+> def build_adjacency_list_graph(edges):
+>    graph = defaultdict(list)
+>    for u, v in edges:
+>        graph[x].append(y)
+>
+>        # graph[y].append(x) if the input is an undirected graph
+>
+>    return graph
+> ```
+>
+> 2. Integer Adjacency List: A 2D list of integers `graph`, where `n` nodes are numbered from `0` to `n - 1`, and `graph[i]` represents the neighbours of node `i`.
+>
+> 3. Integer Adjacency Matrix: A 2D list of integers, where `n` nodes are numbered from `0` to `n - 1`, thereby forming an `n x n` square matrix, and where when `graph[i][j] == 1`, there exist an edge between node `i` and node `j`, and when `graph[i][j] == 0`, there is no edge between node `i` and node `j`. It's also useful to pre-process it into an adjacency list.
+> ```python
+> from collections import defaultdict
+>
+> def build_adjacency_list_graph(adjacency_matrix):
+>     graph = defaultdict(list)
+>     n = len(adjacency_matrix)
+>
+>     for i in range(n):
+>         for j in range(i + 1, n):
+>             if adjacency_matrix[i][j]:
+>                 graph[i].append(j)
+>                 # graph[j].append(i) uncomment this line if the input is an undirected graph
+>
+>    return graph
+> ```
+> 4. Matrix: A 2D list, where each element will represent a vertex, but are _not_ numbered `0` to `n`, its neighbours are the adjacent squares, and the edges are determined by the problem description.
+
+> **Note (`visited` container)**\
+> `visited` is typically a HashSet, but you might achieve better runtime performance by using a boolean array when the node range is predetermined (which is typical since graph problems usually number nodes from `0` to `n - 1`)
 
 ## PriorityQueue Pattern
 
@@ -680,4 +723,4 @@ not priority_queue
 
 ## Miscellaneous (Useful Python Language Features)
 
-[https://neetcode.io/courses/lessons/python-for-coding-interviews](https://neetcode.io/courses/lessons/python-for-coding-interviews)
+https://neetcode.io/courses/lessons/python-for-coding-interviews
