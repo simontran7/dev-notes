@@ -690,6 +690,9 @@ def iterative_bfs(graph):
 > **Note (`visited` container)**\
 > `visited` is typically a HashSet, but you might achieve better runtime performance by using a boolean array when the node range is predetermined (which is typical since graph problems usually number nodes from `0` to `n - 1`)
 
+> **Note (`directions` list)**\
+> It's a good practice to define a list `directions = [(1, 0), (-1, 0), (0, -1), (0, 1)]` where a tuple is `(row change, column change)` when determining the neighbours in a matrix.
+
 ## PriorityQueue Pattern
 
 ### Use Case
