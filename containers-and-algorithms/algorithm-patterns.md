@@ -137,24 +137,6 @@ def prefix_sum_building(nums):
     return prefix
 ```
 
-## O(*n*) String Building Pattern
-
-### Use Case
-
-Build a string in *O*(*n*) time.
-
-### Template
-
-```python
-def build_string(string):
-    array = []
-
-    for char in string:
-        array.append(char)
-
-    return "".join(array)
-```
-
 ## HashMap and HashSet Pattern
 
 ### HashMap
@@ -375,7 +357,16 @@ not stack
 ```
 
 > **Note**\
-> We often use the stack to store the result and convert it to a string using the *O*(*n*) string building pattern.
+> We often use the stack to store the result and convert it to a string using the *O*(*n*) string building trick.
+> ```python
+> def build_string(string):
+>    array = []
+>
+>    for char in string:
+>        array.append(char)
+>
+>    return "".join(array)
+> ```
 
 ### Queue Pattern
 
