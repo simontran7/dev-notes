@@ -324,7 +324,7 @@ def reverse_linked_list(head):
 ```
 
 > **Note**\
-> Creating a dummy node `dummy = listnode(0, head)` simplifies edge cases.
+> Create a dummy node `dummy = listnode(0, head)` to simplify edge cases.
 
 ## Stack and Queue Pattern
 
