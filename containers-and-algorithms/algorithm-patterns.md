@@ -100,7 +100,7 @@ def variable_sliding_window(array):
     result = 0
 
     for right in range(len(array)):
-        # Some logic here to add `array[right]` to `current`
+        # Some logic to add `array[right]` to `current`
 
         while <broken window condition>:
             # Remove `array[left]` from `current`
@@ -557,11 +557,11 @@ def bfs(root):
     result = 0
 
     while queue:
-        nodes_in_level = len(queue)
+        level_width = len(queue)
 
-        # Some logic here for the current level
+        # Some logic involving the current level
 
-        for _ in range(nodes_in_level):
+        for _ in range(level_width):
             node = queue.popleft()
 
             # Some logic involving the current node
