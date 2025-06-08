@@ -704,8 +704,7 @@ def bfs(graph):
 >    graph = defaultdict(list)
 >    for u, v in edges:
 >        graph[x].append(y)
->
->        # graph[y].append(x) if the input is an undirected graph
+>        # graph[y].append(x) uncomment this line if the input is an undirected graph
 >
 >    return graph
 > ```
