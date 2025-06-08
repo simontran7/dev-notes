@@ -505,11 +505,11 @@ def iterative_preorder_dfs(root):
     while stack:
         node = stack.pop()
 
-		# Additional base cases
+	# Additional base cases
 
         # Some logic involving the popped node and the result
 
-		if node.right:
+	if node.right:
             stack.append(node.right)
         if node.left:
             stack.append(node.left)
