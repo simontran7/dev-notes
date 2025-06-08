@@ -17,7 +17,7 @@ def two_pointers_opposite(array):
     result = 0
 
     while left < right:
-        # Do some logic using `array[left]` and/or `array[right]`
+        # Some logic using `array[left]` and/or `array[right]`
 
         if <condition>:
             left += 1
@@ -42,7 +42,7 @@ def two_pointers_same_speed(array1, array2):
     result = 0
 
     while i < len(array1) and j < len(array2):
-        # Do some logic with `array1[i]` and `array2[j]`
+        # Some logic with `array1[i]` and `array2[j]`
         if <condition>:
             i += 1
         else:
@@ -344,13 +344,15 @@ def reverse_linked_list(head):
 > **Note**\
 > Creating a dummy node `dummy = listnode(0, head)` simplifies edge cases.
 
-## Stack Pattern
+## Stack and Queue Pattern
 
-### Use Case
+### Stack Pattern
+
+#### Use Case
 
 Elements in the input interacting with each other, with a LIFO order.
 
-### Template
+#### Template
 
 ```python
 # Create an empty stack
@@ -375,13 +377,13 @@ not stack
 > **Note**\
 > We often use the stack to store the result and convert it to a string using the *O*(*n*) string building pattern.
 
-## Queue Pattern
+### Queue Pattern
 
-### Use Case
+#### Use Case
 
 Processing elements in a FIFO order.
 
-### Template
+#### Template
 
 ```python
 from collections import deque
@@ -419,7 +421,7 @@ not queue
 ```python
 def monotonic_non_decreasing_stack(array):
     stack = []
-    result = <could be a list with default values, or an integer>
+    result = <initial value>
 
     for i in range(len(array)):
         while stack and array[stack[-1]] > array[i]:
@@ -498,7 +500,7 @@ def recursive_preorder_dfs(root):
 def iterative_preorder_dfs(root):
     stack = [root]
 
-    result = <container or primitive data type>
+    result = <initial value>
 
     while stack:
         node = stack.pop()
@@ -589,15 +591,34 @@ def recursive_dfs(graph):
         for neighbour in graph[vertex]:
             if neighbour not in visited:
                 dfs_helper(neighbour)
+        """
+        ALTERNATIVE (for connected graphs, or when u only need to explore from one starting point): recursive accumulation
+
+        Result can be accumulated within the recursive function instead of in the outer loop. In this case, the helper function returns a value that gets combined with recursive calls:
+
+        result = some_initial_value
+        for neighbour in graph[vertex]:
+            if neighbour not in visited:
+                result += dfs_helper(neighbour)  # Accumulate from recursive calls
+        return result
+        """
 
     result = <container or primitive data type>
     visited = set()
     for vertex in graph:
         if vertex not in visited:
 
-            # Some logic involving the result
+            # Some logic involving the result per connected component
 
             dfs_helper(vertex)
+    """
+    ALTERNATIVE (for connected graphs, or when u only need to explore from one starting point): recursive accumulation
+
+    If using recursive accumulation, you might call the helper directly and it returns the accumulated result:
+
+    visited = set()
+    return dfs_helper(<starting vertex>)
+    """
 ```
 
 ```python
@@ -616,9 +637,31 @@ def iterative_dfs(graph):
     for vertex in graph.keys():
         if vertex not in visited:
 
-            # Some logic involving the result
+            # Some logic involving the result per connected component
 
             dfs_helper(vertex)
+    """
+    ALTERNATIVE (for connected graphs, or when u only need to explore from one starting point): Accumulation within the iterative DFS traversal
+
+    In this case, we don't use the outer loop pattern and instead
+    modify the result directly within the while loop:
+
+    result = <initial value>
+    stack = [<start vertex>]
+    visited = set()
+    while stack:
+        vertex = stack.pop()
+        visited.add(vertex)
+        for neighbour in graph[vertex]:
+            if neighbour not in visited:
+                # Logic to modify result happens here
+                within the traversal
+
+                result += <some calculation>
+
+                stack.append(neighbour)
+    return result
+    """
 ```
 
 ### Graph Breadth-First Search
@@ -632,19 +675,19 @@ TODO
 ```python
 from collections import deque
 
-def iterative_bfs(graph):
+def bfs(graph):
     queue = deque([start_node])
-    seen = {start_node}
+    visited = set()
     result = 0
 
     while queue:
         vertex = queue.popleft()
+        visited.add(vertex)
 
         # Some logic
 
         for neighbour in graph[vertex]:
             if neighbour not in visited:
-                seen.add(neighbor)
                 queue.append(neighbor)
 
     return result
@@ -687,11 +730,14 @@ def iterative_bfs(graph):
 > ```
 > 4. Matrix: A 2D list, where each element will represent a vertex, but are _not_ numbered `0` to `n`, its neighbours are the adjacent squares, and the edges are determined by the problem description.
 
-> **Note (`visited` container)**\
+> **Note (`visited` Container)**\
 > `visited` is typically a HashSet, but you might achieve better runtime performance by using a boolean array when the node range is predetermined (which is typical since graph problems usually number nodes from `0` to `n - 1`)
 
-> **Note (`directions` list)**\
-> It's a good practice to define a list `directions = [(1, 0), (-1, 0), (0, -1), (0, 1)]` where a tuple is `(row change, column change)` when determining the neighbours in a matrix.
+> **Note (`directions` List)**\
+> It's good practice to define a list `directions = [(1, 0), (-1, 0), (0, -1), (0, 1)]` where a tuple is `(row change, column change)` when determining the neighbours in a matrix.
+
+> **Note (Inverse Thinking)**\
+> For graph problems, it's useful to rephrase the problem in terms of its inverse. For instance, take [LeetCode #1557](https://leetcode.com/problems/minimum-number-of-vertices-to-reach-all-nodes/). The original problem description asks us to find the smallest set of vertices from which all nodes in the graph are reachable. Instead, we can rephrase the problem description in terms of its inverse — find the smallest set of nodes that _cannot_ be reached from other nodes, since if a node can be reached from another node, then we would rather just include the pointer rather than the pointee in our set.
 
 ## PriorityQueue Pattern
 
