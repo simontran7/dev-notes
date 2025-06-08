@@ -357,15 +357,15 @@ not stack
 ```
 
 > **Note**\
-> We often use the stack to store the result and convert it to a string using the *O*(*n*) string building trick.
+> We often use the stack to store the result and convert it to a string using the $O(n)$ string building pattern.
 > ```python
 > def build_string(string):
->    array = []
+>     array = []
 >
->    for char in string:
->        array.append(char)
+>     for char in string:
+>         array.append(char)
 >
->    return "".join(array)
+>     return "".join(array)
 > ```
 
 ### Queue Pattern
