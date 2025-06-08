@@ -17,7 +17,7 @@ def two_pointers_opposite(array):
     result = 0
 
     while left < right:
-        # Some logic using `array[left]` and/or `array[right]`
+        # Some logic involving `array[left]` and/or `array[right]`
 
         if <condition>:
             left += 1
@@ -42,18 +42,18 @@ def two_pointers_same_speed(array1, array2):
     result = 0
 
     while i < len(array1) and j < len(array2):
-        # Some logic with `array1[i]` and `array2[j]`
+        # Some logic involving `array1[i]` and `array2[j]`
         if <condition>:
             i += 1
         else:
             j += 1
 
     while i < len(array1):
-        # Some logic with `array1[i]`
+        # Some logic involving `array1[i]`
         i += 1
 
     while j < len(array2):
-        # Some logic with `array2[j]`
+        # Some logic involving `array2[j]`
         j += 1
 
     return result
