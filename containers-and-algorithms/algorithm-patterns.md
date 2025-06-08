@@ -75,7 +75,7 @@ def fixed_sliding_window(array, k):
     result = 0
 
     for i in range(k):
-        # Some logic to build first window with `current` or other vars
+        # Some logic to build first window involving `current` and/or other vars
 
     for right in range(k, len(array)):
         # Add `array[i]` to window
