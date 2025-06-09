@@ -196,16 +196,15 @@ func iterative_dfs[V, E](graph: AdjacencyListGraph[V, E], source: V) {
     var stack: ArrayStack[V] = ArrayStack[V]::new();
 
     stack.push(source);
-    visited.add(source);
 
     while !stack.is_empty() {
         var vertex: V = stack.pop();
-        if !visited.contains(vertex) {
-            visited.add(vertex);
-            for neighbour in graph.neighbours(vertex) {
+        visited.add(vertex)
+        for neighbour in graph.neighbours(vertex) {
+            if !visited.contains(neighbour) {
                 stack.push(neighbour);
             }
-        }
+        } 
     }
 }
 ```
@@ -215,7 +214,6 @@ func iterative_dfs[V, E](graph: AdjacencyListGraph[V, E], source: V) {
 ```
 func recursive_dfs[V, E](graph: AdjacencyListGraph[V, E], vertex: V, visited: HashSet[V]) {
     visited.add(vertex);
-
     for neighbour in graph.neighbours(vertex) {
         if !visited.contains(neighbour) {
             recursive_dfs(graph, neighbour, visited);
@@ -244,13 +242,12 @@ func iterative_bfs[V, E](graph: AdjacencyListGraph[V, E], source: V) {
     var queue: ArrayQueue[V] = ArrayQueue[V]::new();
 
     queue.enqueue(source);
-    visited.add(source);
 
     while !queue.is_empty() {
         var vertex: V = queue.dequeue();
+        visited.add(neighbour);
         for neighbour in graph.neighbours(vertex) {
             if !visited.contains(neighbour) {
-                visited.add(neighbour);
                 queue.enqueue(neighbour);
             }
         }
