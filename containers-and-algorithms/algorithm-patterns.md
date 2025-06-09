@@ -571,7 +571,7 @@ def bfs(root):
 
 #### Use Case
 
-TODO
+Most graph problems.
 
 #### Template
 
@@ -621,7 +621,7 @@ def iterative_dfs(graph):
 
 #### Use Case
 
-TODO
+You are asked to find the shortest path in a graph.
 
 #### Template
 
