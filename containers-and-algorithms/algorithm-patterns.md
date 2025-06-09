@@ -604,7 +604,7 @@ def iterative_dfs(graph):
             visited.add(vertex)
             for neighbour in graph[vertex]:
                 if neighbour not in visited:
-		            result += <calculation>
+                    result += <calculation>
                     stack.append(neighbour)
 		return result
 
@@ -612,7 +612,6 @@ def iterative_dfs(graph):
     visited = set()
     for vertex in graph.keys():
         if vertex not in visited:
-
             # Some logic involving the result per connected component
 
             dfs(vertex)
