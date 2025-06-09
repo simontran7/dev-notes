@@ -577,46 +577,45 @@ TODO
 
 ```python
 def recursive_dfs(graph):
-    def dfs_helper(vertex):
-		result = <initial value>
+    def dfs(vertex):
+        result = <initial value>
         visited.add(vertex)
         for neighbour in graph[vertex]:
             if neighbour not in visited:
-                result += dfs_helper(neighbour)
+                result += dfs(neighbour)
         return result
 
-    result = <container or primitive data type>
+    result = <initial value>
     visited = set()
     for vertex in graph:
         if vertex not in visited:
-
             # Some logic involving the result per connected component
 
-            dfs_helper(vertex)
+            dfs(vertex)
 ```
 
 ```python
 def iterative_dfs(graph):
-    def dfs_helper(vertex):
-		result = <initial value>
-        stack = []
+    def dfs(vertex):
+	    result = <initial value>
+        stack = [vertex]
         while stack:
             vertex = stack.pop()
             visited.add(vertex)
             for neighbour in graph[vertex]:
                 if neighbour not in visited:
-					result += <calculation>
+		            result += <calculation>
                     stack.append(neighbour)
 		return result
 
-    result = <container or primitive data type>
+    result = <initial value>
     visited = set()
     for vertex in graph.keys():
         if vertex not in visited:
 
             # Some logic involving the result per connected component
 
-            dfs_helper(vertex)
+            dfs(vertex)
 ```
 
 ### Graph Breadth-First Search
