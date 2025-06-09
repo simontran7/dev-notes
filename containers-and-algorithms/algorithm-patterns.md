@@ -578,21 +578,12 @@ TODO
 ```python
 def recursive_dfs(graph):
     def dfs_helper(vertex):
+		result = <initial value>
         visited.add(vertex)
         for neighbour in graph[vertex]:
             if neighbour not in visited:
-                dfs_helper(neighbour)
-        """
-        ALTERNATIVE (for connected graphs, or when u only need to explore from one starting point): recursive accumulation
-
-        Result can be accumulated within the recursive function instead of in the outer loop. In this case, the helper function returns a value that gets combined with recursive calls:
-
-        result = some_initial_value
-        for neighbour in graph[vertex]:
-            if neighbour not in visited:
-                result += dfs_helper(neighbour)  # Accumulate from recursive calls
+                result += dfs_helper(neighbour)
         return result
-        """
 
     result = <container or primitive data type>
     visited = set()
@@ -602,26 +593,21 @@ def recursive_dfs(graph):
             # Some logic involving the result per connected component
 
             dfs_helper(vertex)
-    """
-    ALTERNATIVE (for connected graphs, or when u only need to explore from one starting point): recursive accumulation
-
-    If using recursive accumulation, you might call the helper directly and it returns the accumulated result:
-
-    visited = set()
-    return dfs_helper(<starting vertex>)
-    """
 ```
 
 ```python
 def iterative_dfs(graph):
     def dfs_helper(vertex):
+		result = <initial value>
         stack = []
         while stack:
             vertex = stack.pop()
             visited.add(vertex)
             for neighbour in graph[vertex]:
                 if neighbour not in visited:
+					result += <calculation>
                     stack.append(neighbour)
+		return result
 
     result = <container or primitive data type>
     visited = set()
@@ -631,28 +617,6 @@ def iterative_dfs(graph):
             # Some logic involving the result per connected component
 
             dfs_helper(vertex)
-    """
-    ALTERNATIVE (for connected graphs, or when u only need to explore from one starting point): Accumulation within the iterative DFS traversal
-
-    In this case, we don't use the outer loop pattern and instead
-    modify the result directly within the while loop:
-
-    result = <initial value>
-    stack = [<start vertex>]
-    visited = set()
-    while stack:
-        vertex = stack.pop()
-        visited.add(vertex)
-        for neighbour in graph[vertex]:
-            if neighbour not in visited:
-                # Logic to modify result happens here
-                within the traversal
-
-                result += <some calculation>
-
-                stack.append(neighbour)
-    return result
-    """
 ```
 
 ### Graph Breadth-First Search
