@@ -1,6 +1,6 @@
 # dev-notes
 
-Brief notes on systems programming, containers & algorithms, and some developer tools
+Notes on Containers & Algorithms, Systems Programming, and Development Tools
 
 ## [Roadmap](./roadmap.md)
 
