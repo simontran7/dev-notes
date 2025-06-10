@@ -60,7 +60,7 @@ func khan_topological_sort[V, E](dag: AdjacencyListDirectedGraph[V, E]) -> Singl
 }
 ```
 
-## Batched Depth-First Search Algorithm
+## Depth-First Search Algorithm
 
 ### Computational Complexity
 
@@ -75,27 +75,25 @@ Worst-case: $O(V)$
 ### Pseudocode
 
 ```
-func batched_dfs_topological_sort[V, E](dag: AdjacencyListDirectedGraph[V, E]) -> SinglyLinkedList[V] {
+func dfs_topological_sort[V, E](dag: AdjacencyListDirectedGraph[V, E]) -> SinglyLinkedList[V] {
     var topological_sort: SinglyLinkedList[V] = SinglyLinkedList[V]::new();
     var visited: HashSet[V] = HashSet[V]::new();
     for vertex in dag.vertices() {
         if !visited.contains(vertex) {
-            dfs_process(dag, vertex, visited, topological_sort);
+            dfs(dag, vertex, visited, topological_sort);
         }
     }
 
     return topological_sort;
 }
 
-func dfs_process[V, E](dag: AdjacencyListDirectedGraph[V, E], vertex: V, visited: HashSet[V], topological_sort: SinglyLinkedList[V]) {
+func dfs[V, E](dag: AdjacencyListDirectedGraph[V, E], vertex: V, visited: HashSet[V], topological_sort: SinglyLinkedList[V]) {
     visited.add(vertex);
-
     for neighbour in dag.neighbours(vertex) {
         if !visited.contains(neighbour) {
             dfs_process(dag, neighbour, visited, topological_sort);
         }
     }
-
     topological_sort.add_first(vertex);
 }
 ```
