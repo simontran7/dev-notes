@@ -2,8 +2,6 @@
 
 personal developer notes
 
-## [Roadmap](./roadmap.md)
-
 ## Containers & Algorithms
 
 ### Analysis of Algorithms
