@@ -357,7 +357,7 @@ not stack
 ```
 
 > **Note**\
-> We often use the stack to store the result and convert it to a string using the $O(n)$ string building pattern.
+> We often use the stack to store the result and convert it to a string using the $O(n)$ string builder pattern.
 > ```python
 > def build_string(string):
 >     array = []
