@@ -220,7 +220,8 @@ my_map.values()
 
 #### Use Case
 
-Track elements seen so far for uniqueness.
+- Track elements seen so far for uniqueness
+- Store a chunk (or all) elements of the input
 
 #### Template
 
@@ -567,7 +568,7 @@ def bfs(root):
 
 ## Graph Traversals Pattern
 
-### Graph Depth-First Search
+### `AdjacencyListGraph` Depth-First Search
 
 #### Use Case
 
@@ -578,8 +579,8 @@ Most graph problems.
 ```python
 def recursive_dfs(graph):
     def dfs(vertex):
-        result = <initial value>
         visited.add(vertex)
+        result = <initial value>
         for neighbour in graph[vertex]:
             if neighbour not in visited:
                 result += dfs(neighbour)
@@ -589,9 +590,10 @@ def recursive_dfs(graph):
     visited = set()
     for vertex in graph:
         if vertex not in visited:
+            dfs(vertex)
+
             # Some logic involving the result per connected component
 
-            dfs(vertex)
 ```
 
 ```python
@@ -612,16 +614,125 @@ def iterative_dfs(graph):
     visited = set()
     for vertex in graph.keys():
         if vertex not in visited:
-            # Some logic involving the result per connected component
-
             dfs(vertex)
+
+            # Some logic involving the result per connected component
 ```
 
-### Graph Breadth-First Search
+### `Matrix` Depth-First Search
 
 #### Use Case
 
-You are asked to find the shortest path in a graph.
+Most graph problems where the input is a matrix.
+
+#### Template
+
+```python
+def matrix_recursive_dfs(matrix):
+    ROWS = len(matrix)
+    COLUMNS = len(matrix[0])
+    # where each element is of the form (change in row, change in col)
+    DIRECTIONS = [(1, 0), (-1, 0), (0, -1), (0, 1)]
+
+    def valid_cell(row, col):
+        return 0 <= row < ROWS and 0 <= col < COLUMNS and <another condition for a cell to be valid>
+
+    def dfs(row, col):
+        visited.add((row, col))
+        result = <initial value>
+        for dr, dc in DIRECTIONS:
+            neighbour_row = row + dr
+            neighbour_col = col + dc
+            if valid_cell(neighbour_row, neighbour_col) and (neighbour_row, neighbour_col) not in visited:
+                result += dfs(neighbour_row, neighbour_col)
+        return result
+
+    visited = set()
+    result = <initial value>
+    for row in range(ROWS):
+        for col in range(COLUMNS):
+            if (row, col) not in visited:
+                dfs(row, col)
+
+                # Some logic involving the result per connected component
+
+    return result
+```
+
+```python
+def matrix_iterative_dfs(matrix):
+    ROWS = len(matrix)
+    COLUMNS = len(matrix[0])
+    # where each element is of the form (change in row, change in col)
+    DIRECTIONS = [(1, 0), (-1, 0), (0, -1), (0, 1)]
+
+    def valid_cell(row, col):
+        return 0 <= row < ROWS and 0 <= col < COLUMNS and <another condition for a cell to be valid>
+
+    def dfs(row, col):
+        stack = [(row, col)]
+        result = <initial value>
+        while stack:
+            row, col = stack.pop()
+            visited.add((row, col))
+            for dr, dc in DIRECTIONS:
+                neighbour_row = row + dr
+                neighbour_col = col + dc
+                if valid_cell(neighbour_row, neighbour_col) and (neighbour_row, neighbour_col) not in visited:
+                    result += <some calculation>
+                    stack.append((neighbour_row, neighbour_col))
+        return result
+
+    visited = set()
+    result = <initial value>
+    for row in range(ROWS):
+        for col in range(COLUMNS):
+            if (row, col) not in visited:
+                dfs(row, col)
+
+                # Some logic involving the result per connected component
+
+    return result
+```
+
+### `Matrix` Breadth-First Search
+
+#### Use Case
+
+Shortest path where the input is a matrix.
+
+#### Template
+
+```python
+def bfs(matrix):
+    ROWS = len(matrix)
+    COLUMNS = len(matrix[0])
+    DIRECTIONS = [(0, 1), (1, 0), (1, 1), (-1, -1), (-1, 1), (1, -1), (-1, 0), (0, -1)]
+
+    def valid_cell(row, col):
+        return 0 <= row < ROWS and 0 <= col < COLUMNS and <another condition for a cell to be valid>
+
+    visited = set((0, 0))
+    queue = deque([(0, 0, 1)])
+    while queue:
+        row, col, dist = queue.popleft()
+
+        # Some logic involving row and col and an early return of dist
+
+        for dr, dc in DIRECTIONS:
+            neighbour_row = row + dr
+            neighbour_col = col + dc
+            neighbour_dist = dist + 1
+            if valid_cell(neighbour_row, neighbour_col) and (neighbour_row, neighbour_col) not in visited:
+                visited.add((neighbour_row, neighbour_col))
+                queue.append((neighbour_row, neighbour_col, neighbour_dist))
+```
+
+### `AdjacencyListGraph` Breadth-First Search
+
+#### Use Case
+
+Shortest path in a graph.
 
 #### Template
 
@@ -684,9 +795,6 @@ def bfs(graph):
 
 > **Note (`visited` Container)**\
 > `visited` is typically a HashSet, but you might achieve better runtime performance by using a boolean array when the node range is predetermined (which is typical since graph problems usually number nodes from `0` to `n - 1`)
-
-> **Note (`directions` List)**\
-> It's good practice to define a list `directions = [(1, 0), (-1, 0), (0, -1), (0, 1)]` where a tuple is `(row change, column change)` when determining the neighbours in a matrix.
 
 > **Note (Inverse Thinking)**\
 > For graph problems, it's useful to rephrase the problem in terms of its inverse. For instance, take [LeetCode #1557](https://leetcode.com/problems/minimum-number-of-vertices-to-reach-all-nodes/). The original problem description asks us to find the smallest set of vertices from which all nodes in the graph are reachable. Instead, we can rephrase the problem description in terms of its inverse — find the smallest set of nodes that _cannot_ be reached from other nodes, since if a node can be reached from another node, then we would rather just include the pointer rather than the pointee in our set.

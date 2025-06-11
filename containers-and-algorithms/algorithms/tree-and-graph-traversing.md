@@ -204,7 +204,7 @@ func iterative_dfs[V, E](graph: AdjacencyListGraph[V, E], source: V) {
             if !visited.contains(neighbour) {
                 stack.push(neighbour);
             }
-        } 
+        }
     }
 }
 ```
@@ -241,13 +241,14 @@ func iterative_bfs[V, E](graph: AdjacencyListGraph[V, E], source: V) {
     var visited: HashSet[V] = HashSet[V]::new();
     var queue: ArrayQueue[V] = ArrayQueue[V]::new();
 
+    visited.add(source);
     queue.enqueue(source);
 
     while !queue.is_empty() {
         var vertex: V = queue.dequeue();
-        visited.add(neighbour);
         for neighbour in graph.neighbours(vertex) {
             if !visited.contains(neighbour) {
+                visited.add(neighbour);
                 queue.enqueue(neighbour);
             }
         }
