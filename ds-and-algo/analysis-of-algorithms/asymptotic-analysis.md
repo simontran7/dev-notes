@@ -127,6 +127,26 @@ Some useful summation properties and formulas:
 1. Calculate the total cost by summing the costs of statements where the statements may be primitive operations or loops
 2. Apply Bachmann-Landau notation simplification rules
 
+> **Note (States in Graph Algorithm Complexity)**\
+> When analyzing the time and space complexity of graph algorithms, the standard formula is $O(V + E)$ where $V$ is vertices and $E$ is edges. However, whenever the **state** encompasses more than just the vertex position, we need to reframe our analysis:
+>
+> - **Standard case**: State = vertex position only
+>   - Time complexity: $O(V + E)$
+>   - We visit each vertex at most once
+>
+> - **State-space case**: State = (vertex, additional_constraints)
+>   - Let $S$ = total number of possible states
+>   - Time complexity: $O(S + E_{state})$ where $E_{state}$ is the number of state transitions
+>   - We visit each _state_ at most _once_, but may revisit _vertices_ under _different constraints_
+>
+> **Example**: In a shortest path problem with fuel constraints on an $m \times n$ grid:
+> - State = (grid_position, remaining_fuel)
+> - $S = m \times n \times k$ where $k$ is max fuel
+> - $E_{state} \approx 4 \times m \times n \times k$ (each state can transition to ~4 neighbors)
+> - Time complexity: $O(S + E_{state}) = O(mnk + 4mnk) = O(mnk)$
+>
+> The key insight: analyze complexity based on unique states processed, not just unique vertices visited.
+
 ### Recursive Algorithms
 
 1. Come up with a recurrence relation of the following form

@@ -21,18 +21,20 @@ Worst-case: $O(n)$
 #### Pseudocode (Pre-order)
 
 ```
-func recursive_dfs[K](root: BinaryTreeNode[K]) {
+func recursive_preorder_dfs[K](root: BinaryTreeNode[K]) {
     if root == null {
         return;
     }
+
     // visit e.g. println("{}", root.key);
-    recursive_dfs(root.left);
-    recursive_dfs(root.right);
+
+    recursive_preorder_dfs(root.left);
+    recursive_preorder_dfs(root.right);
 }
 ```
 
 ```
-func iterative_dfs[K](root: BinaryTreeNode[K]) {
+func iterative_preorder_dfs[K](root: BinaryTreeNode[K]) {
     if root == null {
         return;
     }
@@ -41,7 +43,7 @@ func iterative_dfs[K](root: BinaryTreeNode[K]) {
     stack.push(root);
 
     while !stack.is_empty() {
-        node = stack.pop();
+        var node = stack.pop();
 
         // visit e.g. println("{}", node.key);
 
@@ -58,18 +60,21 @@ func iterative_dfs[K](root: BinaryTreeNode[K]) {
 #### Pseudocode (In-order)
 
 ```
-func recursive_dfs[K](root: BinaryTreeNode[K]) {
+func recursive_inorder_dfs[K](root: BinaryTreeNode[K]) {
     if root == null {
         return;
     }
-    recursive_dfs(root.left);
+
+    recursive_inorder_dfs(root.left);
+
     // visit e.g. println("{}", root.key);
-    recursive_dfs(root.right);
+
+    recursive_inorder_dfs(root.right);
 }
 ```
 
 ```
-func iterative_dfs[K](root: BinaryTreeNode[K]) {
+func iterative_inorder_dfs[K](root: BinaryTreeNode[K]) {
     if root == null {
         return;
     }
@@ -78,7 +83,7 @@ func iterative_dfs[K](root: BinaryTreeNode[K]) {
     var current: BinaryTreeNode[K] = root;
 
     while !stack.is_empty() or current != null {
-        while current != null {
+        if current != null {
             stack.push(current);
             current = current.left;
         }
@@ -95,12 +100,14 @@ func iterative_dfs[K](root: BinaryTreeNode[K]) {
 #### Pseudocode (Post-order)
 
 ```
-func recursive_dfs[K](root: BinaryTreeNode[K]) {
+func recursive_postorder_dfs[K](root: BinaryTreeNode[K]) {
     if root == null {
         return;
     }
+
     recursive_dfs(root.left);
     recursive_dfs(root.right);
+
     // visit e.g. println("{}", root.key);
 }
 ```
@@ -155,16 +162,22 @@ func iterative_bfs[K](root: BinaryTreeNode[K]) {
     }
 
     var queue: ArrayQueue[BinaryTreeNode[K]] = ArrayQueue[BinaryTreeNode[K]]::new();
-    var queue.enqueue(root);
+    queue.enqueue(root);
 
     while !queue.is_empty() {
-        var current: BinaryTreeNode[K] = queue.dequeue();
-        // visit e.g. println("{}", current.key);
-        if current.left != null {
-            queue.enqueue(current.left);
-        }
-        if current.right != null {
-            queue.enqueue(current.right);
+        var level_width = queue.len();
+
+        for _ in 0..level_width {
+            var node: BinaryTreeNode[K] = queue.dequeue();
+
+            // visit e.g. println("{}", node.key);
+
+            if node.left != null {
+                queue.enqueue(node.left);
+            }
+            if node.right != null {
+                queue.enqueue(node.right);
+            }
         }
     }
 }
@@ -172,7 +185,7 @@ func iterative_bfs[K](root: BinaryTreeNode[K]) {
 
 ## Graph Traversing Problem
 
-Given a graph, `graph`, and a source node of `graph`, `source`, traverse `graph` beginning at the `source`.
+Given a graph, `graph`, and a source vertex of `graph`, `source`, traverse `graph` beginning at `source`.
 
 ## Graph Depth-First Search Algorithm
 

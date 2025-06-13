@@ -221,7 +221,7 @@ my_map.values()
 #### Use Case
 
 - Track elements seen so far for uniqueness
-- Store a chunk (or all) elements of the input
+- Store a chunk (or all) of the input for fast lookups
 
 #### Template
 
@@ -577,7 +577,7 @@ Most graph problems.
 #### Template
 
 ```python
-def recursive_dfs(graph):
+def adjacency_list_recursive_dfs(graph):
     def dfs(vertex):
         visited.add(vertex)
         result = <initial value>
@@ -597,7 +597,7 @@ def recursive_dfs(graph):
 ```
 
 ```python
-def iterative_dfs(graph):
+def adjacency_list_iterative_dfs(graph):
     def dfs(vertex):
 	    result = <initial value>
         stack = [vertex]
@@ -631,7 +631,7 @@ Most graph problems where the input is a matrix.
 def matrix_recursive_dfs(matrix):
     ROWS = len(matrix)
     COLUMNS = len(matrix[0])
-    # where each element is of the form (change in row, change in col)
+    # NOTE: each element is of the form (change in row, change in col)
     DIRECTIONS = [(1, 0), (-1, 0), (0, -1), (0, 1)]
 
     def valid_cell(row, col):
@@ -663,7 +663,7 @@ def matrix_recursive_dfs(matrix):
 def matrix_iterative_dfs(matrix):
     ROWS = len(matrix)
     COLUMNS = len(matrix[0])
-    # where each element is of the form (change in row, change in col)
+    # NOTE: each element is of the form (change in row, change in col)
     DIRECTIONS = [(1, 0), (-1, 0), (0, -1), (0, 1)]
 
     def valid_cell(row, col):
@@ -695,18 +695,47 @@ def matrix_iterative_dfs(matrix):
     return result
 ```
 
-### `Matrix` Breadth-First Search
+### `AdjacencyListGraph` Breadth-First Search
 
 #### Use Case
 
-Shortest path where the input is a matrix.
+Distance in a graph.
 
 #### Template
 
 ```python
-def bfs(matrix):
+from collections import deque
+
+def bfs(graph):
+    queue = deque([<source>])
+    visited = set([<source>])
+
+    while queue:
+        vertex = queue.popleft()
+
+        # Some logic
+
+        for neighbour in graph[vertex]:
+            if neighbour not in visited:
+                visited.add(vertex)
+                queue.append(neighbor)
+
+    return result
+```
+
+### `Matrix` Breadth-First Search
+
+#### Use Case
+
+Distance in a graph given as a matrix.
+
+#### Template
+
+```python
+def matrix_iterative_bfs(matrix):
     ROWS = len(matrix)
     COLUMNS = len(matrix[0])
+    # NOTE: each element is of the form (change in row, change in col)
     DIRECTIONS = [(0, 1), (1, 0), (1, 1), (-1, -1), (-1, 1), (1, -1), (-1, 0), (0, -1)]
 
     def valid_cell(row, col):
@@ -723,38 +752,11 @@ def bfs(matrix):
             neighbour_row = row + dr
             neighbour_col = col + dc
             neighbour_dist = dist + 1
-            if valid_cell(neighbour_row, neighbour_col) and (neighbour_row, neighbour_col) not in visited:
+            if (neighbour_row, neighbour_col) not in visited and valid_cell(neighbour_row, neighbour_col):
                 visited.add((neighbour_row, neighbour_col))
                 queue.append((neighbour_row, neighbour_col, neighbour_dist))
-```
 
-### `AdjacencyListGraph` Breadth-First Search
-
-#### Use Case
-
-Shortest path in a graph.
-
-#### Template
-
-```python
-from collections import deque
-
-def bfs(graph):
-    queue = deque([start_node])
-    visited = set()
-    result = 0
-
-    while queue:
-        vertex = queue.popleft()
-        visited.add(vertex)
-
-        # Some logic
-
-        for neighbour in graph[vertex]:
-            if neighbour not in visited:
-                queue.append(neighbor)
-
-    return result
+            # Some logic involving the neighbour's row and col
 ```
 
 > **Note (Various Types of Graph Inputs)**\
@@ -768,7 +770,7 @@ def bfs(graph):
 >    graph = defaultdict(list)
 >    for u, v in edges:
 >        graph[x].append(y)
->        # graph[y].append(x) uncomment this line if the input is an undirected graph
+>        graph[y].append(x) # comment out this line if the input is a directed graph
 >
 >    return graph
 > ```
@@ -787,7 +789,7 @@ def bfs(graph):
 >         for j in range(i + 1, n):
 >             if adjacency_matrix[i][j]:
 >                 graph[i].append(j)
->                 # graph[j].append(i) uncomment this line if the input is an undirected graph
+>                 graph[j].append(i) # comment out this line if the input is a directed graph
 >
 >    return graph
 > ```
@@ -796,8 +798,18 @@ def bfs(graph):
 > **Note (`visited` Container)**\
 > `visited` is typically a HashSet, but you might achieve better runtime performance by using a boolean array when the node range is predetermined (which is typical since graph problems usually number nodes from `0` to `n - 1`)
 
+> **Note (Distance vs Path Length)**\
+> When using BFS to find shortest paths:
+> - If the problem asks for distance (number of moves/steps), initialize source vertices with `distance = 0`
+> - If the problem asks for path length (number of cells in the path), initialize source vertices with `path_length = 1`
+
+> **Note (Multi-source BFS)**\
+> For a multi-source BFS, create a for loop that visits all source nodes and appends them to the queue for the BFS.
+
+
+
 > **Note (Inverse Thinking)**\
-> For graph problems, it's useful to rephrase the problem in terms of its inverse. For instance, take [LeetCode #1557](https://leetcode.com/problems/minimum-number-of-vertices-to-reach-all-nodes/). The original problem description asks us to find the smallest set of vertices from which all nodes in the graph are reachable. Instead, we can rephrase the problem description in terms of its inverse — find the smallest set of nodes that _cannot_ be reached from other nodes, since if a node can be reached from another node, then we would rather just include the pointer rather than the pointee in our set.
+> For graph problems, it's useful to rephrase the problem in terms of its inverse. For instance, take [LeetCode #1557](https://leetcode.com/problems/minimum-number-of-vertices-to-reach-all-nodes/). The original problem description asks us to find the smallest set of vertices from which all nodes in the graph are reachable. Instead, we can rephrase the problem description in terms of its inverse — find the smallest set of nodes that _cannot_ be reached from other nodes, since if a node can be reached from another node, then we would rather just include the pointer rather than the pointee in our set. Another example is [LeetCode #542](https://leetcode.com/problems/01-matrix/description/). The brute force solution would be to perform BFS for each cell with a 1, but instead, we can perform a multi-source BFS by performing starting from all cells with a 0 (if we have a cell `x` with value 1 and its nearest cell y has value 0, then it doesn't make a difference if we traverse from `x -> y` or `y -> x` — both give the same distance).
 
 ## PriorityQueue Pattern
 
