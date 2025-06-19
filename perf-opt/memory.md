@@ -26,6 +26,8 @@ struct <name> {
 - Reduced memory usage. Instead of paying the padding penalty (i.e. when you have a struct with mixed data types, the compiler adds padding bytes to ensure proper memory alignment) per struct in a AoS layout, you pay it once per field type across the entire collection in the SoA layout
 - Better memory bandwidth utilization for batched code (i.e. if you have a loop that process several objects, but only accesses a few of the fields, then the SoA layout reduces the amount of data that needs to be loaded).
 
+TODO: https://brevzin.github.io/c++/2025/05/02/soa/
+
 ## Memory Allocators
 
-https://www.gingerbill.org/series/memory-allocation-strategies/
+TODO: https://www.gingerbill.org/series/memory-allocation-strategies/

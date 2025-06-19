@@ -497,11 +497,11 @@ def iterative_preorder_dfs(root):
     while stack:
         node = stack.pop()
 
-	# Additional base cases
+	    # Additional base cases
 
         # Some logic involving the popped node and the result
 
-	if node.right:
+	    if node.right:
             stack.append(node.right)
         if node.left:
             stack.append(node.left)
@@ -619,7 +619,7 @@ def adjacency_list_iterative_dfs(graph):
             # Some logic involving the result per connected component
 ```
 
-### `Matrix` Depth-First Search
+### `MatrixGraph` Depth-First Search
 
 #### Use Case
 
@@ -706,24 +706,25 @@ Distance in a graph.
 ```python
 from collections import deque
 
-def bfs(graph):
-    queue = deque([<source>])
-    visited = set([<source>])
+def adjacency_list_bfs(graph):
+    queue = deque([(<source vertex>,<additional state>, <initial distance>)])
+    visited = set([<source vertex>])
 
     while queue:
-        vertex = queue.popleft()
+        vertex, <additional state>, dist = queue.popleft()
 
-        # Some logic
+        if vertex == <destination vertex>:
+            return dist
 
         for neighbour in graph[vertex]:
             if neighbour not in visited:
-                visited.add(vertex)
-                queue.append(neighbor)
+                visited.add(neighbour)
+                queue.append((neighbour, <additional state>, dist + 1))
 
-    return result
+            # Some logic involving the neighbour
 ```
 
-### `Matrix` Breadth-First Search
+### `MatrixGraph` Breadth-First Search
 
 #### Use Case
 
@@ -741,12 +742,14 @@ def matrix_iterative_bfs(matrix):
     def valid_cell(row, col):
         return 0 <= row < ROWS and 0 <= col < COLUMNS and <another condition for a cell to be valid>
 
-    visited = set((0, 0))
-    queue = deque([(0, 0, 1)])
+    queue = deque([(<source vertex>,<additional state>, <initial distance>)])
+    visited = set([(<source vertex>, <initial distance>)])
+
     while queue:
         row, col, dist = queue.popleft()
 
-        # Some logic involving row and col and an early return of dist
+        if (row, col) == (<destination row>, <destination col>):
+            return dist
 
         for dr, dc in DIRECTIONS:
             neighbour_row = row + dr
@@ -754,15 +757,15 @@ def matrix_iterative_bfs(matrix):
             neighbour_dist = dist + 1
             if (neighbour_row, neighbour_col) not in visited and valid_cell(neighbour_row, neighbour_col):
                 visited.add((neighbour_row, neighbour_col))
-                queue.append((neighbour_row, neighbour_col, neighbour_dist))
+                queue.append((neighbour_row, neighbour_col, <additional state>, neighbour_dist))
 
             # Some logic involving the neighbour's row and col
 ```
 
 > **Note (Various Types of Graph Inputs)**\
 > Unlike linked lists and binary trees, which we are given `head` or `root` respectively, there are various graph inputs:
->
-> 1. Edge list: A list of edges `edges`. It's useful to turn it into an adjacency list.
+> 1. Matrix: A 2D list, where each element will represent a vertex, but are _not_ numbered `0` to `n`, its neighbours are the adjacent squares, and the edges are determined by the problem description.
+> 2. Edge list: A list of edges `edges`. It's useful to turn it into an adjacency list.
 > ```python
 > from collections import defaultdict
 >
@@ -774,10 +777,8 @@ def matrix_iterative_bfs(matrix):
 >
 >    return graph
 > ```
->
-> 2. Integer Adjacency List: A 2D list of integers `graph`, where `n` nodes are numbered from `0` to `n - 1`, and `graph[i]` represents the neighbours of node `i`.
->
-> 3. Integer Adjacency Matrix: A 2D list of integers, where `n` nodes are numbered from `0` to `n - 1`, thereby forming an `n x n` square matrix, and where when `graph[i][j] == 1`, there exist an edge between node `i` and node `j`, and when `graph[i][j] == 0`, there is no edge between node `i` and node `j`. It's also useful to pre-process it into an adjacency list.
+> 3. Integer Adjacency List: A 2D list of integers `graph`, where `n` nodes are numbered from `0` to `n - 1`, and `graph[i]` represents the neighbours of node `i`.
+> 4. Integer Adjacency Matrix: A 2D list of integers, where `n` nodes are numbered from `0` to `n - 1`, thereby forming an `n x n` square matrix, and where when `graph[i][j] == 1`, there exist an edge between node `i` and node `j`, and when `graph[i][j] == 0`, there is no edge between node `i` and node `j`. It's also useful to pre-process it into an adjacency list.
 > ```python
 > from collections import defaultdict
 >
@@ -793,12 +794,15 @@ def matrix_iterative_bfs(matrix):
 >
 >    return graph
 > ```
-> 4. Matrix: A 2D list, where each element will represent a vertex, but are _not_ numbered `0` to `n`, its neighbours are the adjacent squares, and the edges are determined by the problem description.
+> Although, even if the input is none of the above, it may still be a problem where we can model the input as a graph!
 
 > **Note (`visited` Container)**\
 > `visited` is typically a HashSet, but you might achieve better runtime performance by using a boolean array when the node range is predetermined (which is typical since graph problems usually number nodes from `0` to `n - 1`)
 
-> **Note (Distance vs Path Length)**\
+> **Note (Prohibited Vertices)**\
+> Whenever the problem mentions prohibited vertices, then that's an indicator to add them straight away to the `visited` container.
+
+> **Note (Distance vs Path Length for BFS)**\
 > When using BFS to find shortest paths:
 > - If the problem asks for distance (number of moves/steps), initialize source vertices with `distance = 0`
 > - If the problem asks for path length (number of cells in the path), initialize source vertices with `path_length = 1`
@@ -806,7 +810,8 @@ def matrix_iterative_bfs(matrix):
 > **Note (Multi-source BFS)**\
 > For a multi-source BFS, create a for loop that visits all source nodes and appends them to the queue for the BFS.
 
-
+> **Note (Returning the Shortest Path using BFS)**
+> A typical pattern for the shortest path is to perform an early return (based on the appropriate conditions) after we've popped an element from the queue, and returning as the last statement the designated invalid path return value.
 
 > **Note (Inverse Thinking)**\
 > For graph problems, it's useful to rephrase the problem in terms of its inverse. For instance, take [LeetCode #1557](https://leetcode.com/problems/minimum-number-of-vertices-to-reach-all-nodes/). The original problem description asks us to find the smallest set of vertices from which all nodes in the graph are reachable. Instead, we can rephrase the problem description in terms of its inverse — find the smallest set of nodes that _cannot_ be reached from other nodes, since if a node can be reached from another node, then we would rather just include the pointer rather than the pointee in our set. Another example is [LeetCode #542](https://leetcode.com/problems/01-matrix/description/). The brute force solution would be to perform BFS for each cell with a 1, but instead, we can perform a multi-source BFS by performing starting from all cells with a 0 (if we have a cell `x` with value 1 and its nearest cell y has value 0, then it doesn't make a difference if we traverse from `x -> y` or `y -> x` — both give the same distance).
@@ -841,7 +846,3 @@ len(priority_queue)
 # Check if the priority queue is empty
 not priority_queue
 ```
-
-## Miscellaneous (Useful Python Language Features)
-
-https://neetcode.io/courses/lessons/python-for-coding-interviews

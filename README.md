@@ -38,7 +38,7 @@ personal developer notes
 
 ## Operating Systems
 
-## Performance
+## Performance Optimization
 
 ## Concurrent Programming
 
