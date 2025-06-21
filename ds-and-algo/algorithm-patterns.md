@@ -762,6 +762,52 @@ def matrix_iterative_bfs(matrix):
             # Some logic involving the neighbour's row and col
 ```
 
+### Implicit Graph Breadth-First Search
+
+#### Use-case
+
+Use this approach when the problem can be modeled as an implicit graph — where vertices aren't explicitly given, but can be generated on the fly through valid transitions or transformations. These problems typically involve:
+- A starting state and a goal/end state
+- A defined set of valid transitions or mutations
+- Optional constraints like invalid/intermediate states
+
+#### Template
+
+```python
+from collections import deque
+
+def implicity_graph_bfs(end: str, invalid_vertices: List[str]) -> int:
+    invalid_vertices = set(invalid_vertices)
+    queue = deque([(<source vertex>, <additional state>, 0)])
+    visited = set([<source vertex>])
+
+    if end not in invalid_vertices:
+        return -1
+
+    def neighbours(vertex: str) -> List[str]:
+        neighbours = []
+        for i in range(len(vertex)):
+            for change in <some list of changes>:
+                neighbour = vertex[:i] + <some computation modifying vertex[i] by change> + vertex[i + 1:]
+                neighbours.append(neighbour)
+        return neighbours
+
+    while queue:
+        vertex, <additional state>, dist = queue.popleft()
+
+        if vertex == end:
+            return dist
+
+        for neighbour in neighbours(vertex):
+            if neighbour not in visited and neighbour not in invalid_vertices:
+                visited.add(neighbour)
+                queue.append((neighbour, <additional state>, dist + 1))
+
+            # Some logic involving the neighbour
+
+    return -1
+```
+
 > **Note (Various Types of Graph Inputs)**\
 > Unlike linked lists and binary trees, which we are given `head` or `root` respectively, there are various graph inputs:
 > 1. Matrix: A 2D list, where each element will represent a vertex, but are _not_ numbered `0` to `n`, its neighbours are the adjacent squares, and the edges are determined by the problem description.
@@ -809,9 +855,6 @@ def matrix_iterative_bfs(matrix):
 
 > **Note (Multi-source BFS)**\
 > For a multi-source BFS, create a for loop that visits all source nodes and appends them to the queue for the BFS.
-
-> **Note (Returning the Shortest Path using BFS)**
-> A typical pattern for the shortest path is to perform an early return (based on the appropriate conditions) after we've popped an element from the queue, and returning as the last statement the designated invalid path return value.
 
 > **Note (Inverse Thinking)**\
 > For graph problems, it's useful to rephrase the problem in terms of its inverse. For instance, take [LeetCode #1557](https://leetcode.com/problems/minimum-number-of-vertices-to-reach-all-nodes/). The original problem description asks us to find the smallest set of vertices from which all nodes in the graph are reachable. Instead, we can rephrase the problem description in terms of its inverse — find the smallest set of nodes that _cannot_ be reached from other nodes, since if a node can be reached from another node, then we would rather just include the pointer rather than the pointee in our set. Another example is [LeetCode #542](https://leetcode.com/problems/01-matrix/description/). The brute force solution would be to perform BFS for each cell with a 1, but instead, we can perform a multi-source BFS by performing starting from all cells with a 0 (if we have a cell `x` with value 1 and its nearest cell y has value 0, then it doesn't make a difference if we traverse from `x -> y` or `y -> x` — both give the same distance).
