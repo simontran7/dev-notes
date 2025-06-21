@@ -78,6 +78,7 @@ Worst-case: $O(V)$
 func dfs_topological_sort[V, E](dag: AdjacencyListDirectedGraph[V, E]) -> SinglyLinkedList[V] {
     var topological_sort: SinglyLinkedList[V] = SinglyLinkedList[V]::new();
     var visited: HashSet[V] = HashSet[V]::new();
+
     for vertex in dag.vertices() {
         if !visited.contains(vertex) {
             dfs(dag, vertex, visited, topological_sort);

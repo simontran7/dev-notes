@@ -32,7 +32,7 @@ To avoid this inefficiency, modern processors support non-temporal load and stor
 | Tagged union    | Maximum alignment among all fields            | $\text{size of tag} + \text{size of largest variant} + \text{trailing tagged union padding}$                     |
 | Struct          | Maximum alignment among all fields            | $\text{size of fields} + \text{internal field padding} + \text{trailing struct padding}$                    |
 
-> **Note (memory layout)**\
+> **Note (Memory Layout)**\
 > In C, the order of fields of a struct is preserved exactly as written, while in Rust, the compiler _may_ optimize or reorder fields to reduce padding unless you use the `#[repr(C)]` attribute.
 
 ## Index as fields Optimization
@@ -77,8 +77,6 @@ struct <name> {
     <field N>: Vec<<field type N>>,
 }
 ```
-
-Implementation: https://brevzin.github.io/c++/2025/05/02/soa/, https://github.com/ziglang/zig/blob/master/lib/std/multi_array_list.zig
 
 ## Variant-Encoding Polymorphism Optimization
 
@@ -195,7 +193,7 @@ struct HumanClothedPayload {
 ```
 
 > **Note**\
-> The encoding approach isn’t a pure SoA, but a hybrid: you store the shared fields in an AoS layout, and keep each variant’s extra data in separate arrays (an SoA) indexed by the main struct.
+> The encoding approach isn't a pure SoA, but a hybrid: you store the shared fields in an AoS layout, and keep each variant’s extra data in separate arrays (an SoA) indexed by the main struct.
 
 ## Struct size Optimization
 
@@ -210,9 +208,9 @@ struct Monster {
 }
 ```
 
-7 bytes of additional padding are required just because of the bool!
+7 bytes of additional padding are required just because of `alive`!
 
-Instead, have two `ArrayList`'s containing the Monster's that are alive, and those that are dead.
+Instead, have two `ArrayList`'s containing the monsters that are alive, and those that are dead.
 
 ```rust
 struct Monster {
@@ -228,17 +226,21 @@ let mut dead_monsters: Vec<Monster> = Vec::new();
 
 An additional benefit is that iterating over monsters now is faster too, because CPU cache lines will no longer be evicted to make room for dead monsters that we don't care about had we stored all the monsters in a single array and checked whether `alive` was `true` or `false`.
 
-### Store sparse data in a HashMap's
+### Out-of-Band Sparse Arrays
 
-Pull out any field that’s present in only a small fraction of elements into its own `HashMap<entity_index, data>`. You’ll trade a hash lookup (and its cache miss) for big wins in overall memory density
+Pull out any field that’s present in only a small fraction of elements into its own `HashMap<entity_index, data>`. You’ll trade a hash lookup (and its cache miss) for big wins in overall memory density.
 
+### Packed structs
 
+Adds an attribute (`#[repr(packed)]` on top of the struct definition in Rust, and `__attribute__((packed))` ahead of the struct name in C) so the compiler lays out fields back-to-back with no padding at all.
 
-### Use compiler directives to produce packed structs
-
-Adds an attribute (`#[repr(packed)]` in Rust, `__attribute__((packed))` in C) so the compiler lays out fields back-to-back with no padding at all.
-
+```rust
+#[repr(packed)]
+struct Foo {
+    a: u8,
+    b: i32,
+    c: f64,
+};
+```
 
 ## Memory Allocators Optimization
-
-TODO: https://www.gingerbill.org/series/memory-allocation-strategies/
