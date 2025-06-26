@@ -1,8 +1,8 @@
-# Algorithm Patterns
+# Algorithm Techniques
 
-## Classic Two Pointers Pattern
+## Classic Two Pointers Technique
 
-### Two Pointers Opposite Variant
+### Two Pointers Opposite
 
 #### Use Case
 
@@ -27,7 +27,7 @@ def two_pointers_opposite(array):
     return result
 ```
 
-### Two Pointers Same Speed Variant
+### Two Pointers Same Speed
 
 #### Use Case
 
@@ -59,9 +59,9 @@ def two_pointers_same_speed(array1, array2):
     return result
 ```
 
-## Sliding Window Pattern
+## Sliding Window Technique
 
-### Fixed Sliding Window Variant
+### Fixed Sliding Window
 
 #### Use Case
 
@@ -85,7 +85,7 @@ def fixed_sliding_window(array, k):
     return result
 ```
 
-### Variable Sliding Window Variant
+### Variable Sliding Window
 
 #### Use Case
 
@@ -113,12 +113,12 @@ def variable_sliding_window(array):
 ```
 
 > **Note**\
-> The constraint must be preserved as the sliding window shrinks. If shrinking the window can break the constraint, consider using a prefix sum or hash map pattern instead.
+> The constraint must be preserved as the sliding window shrinks. If shrinking the window can break the constraint, consider using a prefix sum + hash map technique instead.
 
 > **Note**\
-> The formula for the length of a window is `right - left + 1`.
+> The formula for the length of a window is `right - left + 1` .
 
-## Prefix Sum Pattern
+## Prefix Sum Technique
 
 ### Use Case
 
@@ -137,31 +137,28 @@ def prefix_sum_building(nums):
     return prefix
 ```
 
-## HashMap and HashSet Pattern
+## HashMap and HashSet Technique
 
 ### HashMap
 
 #### Use Case
 
-- Track elements seen so far for uniqueness (with any extra info stored as the value)
-- Frequency counting
-- Basic mapping
-- Memoization table
-- Count number of subarrays with a constraint that _doesn't_ necessarily hold as you shrink the window
+* Track elements seen so far for uniqueness (with any extra info stored as the value)
+* Frequency counting
+* Basic mapping
+* Memoization table
+* Count number of subarrays with a constraint that _doesn't_ necessarily hold as you shrink the window
 
 ```python
-from collections import defaultdict
-
 def count_num_subarrays_with_exact_constraint(array, k):
-    counts = defaultdict(int)
-    counts[0] = 1
+    freq = {0 : 1} # prefix sum frequency map
+    prefix_sum = 0
     result = 0
-    current = 0
 
     for num in array:
-        # Some logic to change current as necessary
-        result += counts[current - k]
-        counts[current] += 1
+        # Some logic to change `prefix_sum` as necessary (e.g. prefix_sum += num)
+        result += freq.get(prefix_sum - k, 0)
+        freq[prefix_sum] += freq.get(prefix_sum, 0) + 1
 
     return result
 ```
@@ -197,11 +194,12 @@ not my_map
 my_map[<key>]
 
 # Get the value with a default value if key isn't found
+# Note: I like thise over `defaultdict(<default value type>)` for counting since it can avoid accidentally creating phantom keys
 my_map.get(<key>, <default value>)
 
-# Or use defaultdict
+# Note: pretty much a must for adjacency list creation
 from collections import defaultdict
-my_map = defaultdict(<type>)
+my_map = defaultdict(<default value's type>)
 
 # Check if key exists
 <key> in my_map
@@ -220,8 +218,8 @@ my_map.values()
 
 #### Use Case
 
-- Track elements seen so far for uniqueness
-- Store a chunk (or all) of the input for fast lookups
+* Track elements seen so far for uniqueness
+* Store a chunk (or all) of the input for fast lookups
 
 #### Template
 
@@ -257,14 +255,14 @@ len(my_set)
 not my_set
 ```
 
-## Fast and Slow Pointers Pattern
+## Fast and Slow Pointers Technique
 
-### Same Start, Different Speed
+### Floyd's Cycle Detection (Same Start, Different Speed)
 
 #### Use Case
 
-- Detect cycles in linked list
-- Find middle
+* Detect cycles in linked list
+* Find middle
 
 #### Template
 
@@ -280,7 +278,7 @@ def fast_and_slow_pointers_same_start_diff_speed(head):
         slow = slow.next
 ```
 
-### Different Start, Same Speed
+### Fixed Gap (Different Start, Same Speed)
 
 #### Use Case
 
@@ -289,13 +287,13 @@ Find or operate on a node that is a fixed number of steps from the end of a sing
 #### Template
 
 ```python
-def fast_and_slow_pointers_diff_start_same_speed(head):
+def find_kth_from_end(head, k):
     fast = head
-    slow = head
-
     for _ in range(k):
+        if not fast: return None
         fast = fast.next
 
+    slow = head
     while fast:
         fast = fast.next
         slow = slow.next
@@ -303,12 +301,12 @@ def fast_and_slow_pointers_diff_start_same_speed(head):
     return slow
 ```
 
-## Reversing a Linked List Pattern
+## Reversing a Linked List Technique
 
 ### Use Case
 
-- The problem largely involves reversing pointers in a linked list
-- You need a subroutine which involves classically reversing pointers in a linked list
+* The problem largely involves reversing pointers in a linked list
+* You need a subroutine which involves classically reversing pointers in a linked list
 
 ### Template
 
@@ -324,12 +322,12 @@ def reverse_linked_list(head):
         curr_node = next_node
 ```
 
-> **Note**\
-> Create a dummy node `dummy = listnode(0, head)` to simplify edge cases.
+> **Note (Reduce Edge Cases)**\
+> Create a dummy head node `dummy = listnode(0, head)` to reduce edge cases.
 
-## Stack and Queue Pattern
+## Stack and Queue Technique
 
-### Stack Pattern
+### Stack Technique
 
 #### Use Case
 
@@ -358,8 +356,10 @@ not stack
 ```
 
 > **Note**\
-> We often use the stack to store the result and convert it to a string using the $O(n)$ string builder pattern.
-> ```python
+> We often use the stack to store the result and convert it to a string using the $O(n)$ string builder Technique.
+>
+
+```python
 > def build_string(string):
 >     array = []
 >
@@ -369,7 +369,7 @@ not stack
 >     return "".join(array)
 > ```
 
-### Queue Pattern
+### Queue Technique
 
 #### Use Case
 
@@ -399,14 +399,14 @@ len(queue)
 not queue
 ```
 
-## Monotonic Stack and Monotonic Deque Pattern
+## Monotonic Stack and Monotonic Deque Technique
 
 ### Monotonic Stack
 
 #### Use Case
 
-- Looking for the "next" or "previous" "greater" or "smaller" element
-- "Span until" i.e. counting a range
+* Looking for the "next" or "previous" "greater" or "smaller" element
+* "Span until" i.e. counting a range
 
 #### Template
 
@@ -463,7 +463,7 @@ def monotonic_non_increasing_deque(array, k):
 > **Note**\
 > Store indices when you want to calculate distances or want to mutate the result list later.
 
-## Binary Tree Traversals Pattern
+## Binary Tree Traversals Technique
 
 ### Binary Tree Depth-First Search
 
@@ -516,7 +516,7 @@ def iterative_preorder_dfs(root):
 > - Duplicate values in a binary search tree
 
 > **Note (Common Depth-First Search Ordering)**\
-> In the iterative depth-first search, the flow is usually pre-order `pop node → process node → push right → push left`, while in the recursive depth-first search, pre-order `process node → recurse left → recurse right` is the most common, followed by post-order `recurse left → recurse right → process node`, then in-order `recurse left → process node → recurse right`.
+> In the iterative depth-first search, the flow is usually pre-order `pop node → process node → push right → push left` , while in the recursive depth-first search, pre-order `process node → recurse left → recurse right` is the most common, followed by post-order `recurse left → recurse right → process node` , then in-order `recurse left → process node → recurse right` .
 
 > **Note (Additional Context)**\
 > In a recursive depth-first search, when you need to track additional context or values across recursive calls—such as parent nodes, path lengths, or accumulated data—you include that information as an additional parameter. In an iterative depth-first search, you would store them as part of a tuple `(node, <value 1>, <value 2>, <…>, <value N>)` that'll be pushed and popped from the explicit stack you create outside the while loop.
@@ -524,10 +524,10 @@ def iterative_preorder_dfs(root):
 > **Note (Keeping Track of the Final Result)**\
 > In a recursive depth-first search, `result` is typically implicit since it's usually sufficient to implicitly be returned, but an explicit `result` is sometimes a good choice, where you create it within the scope of the provided function, then create and call an inner depth-first search function to do the actual work. In an iterative depth-first search, you typically create an explicit `result` variable outside the while loop.
 
-> **Note (BST Patterns)**\
-> BST problems typically use DFS traversal. Common patterns include:
-> - Checking if the current node's value is within bounds (e.g., `low <= node.val <= high`)
-> - Leveraging the BST property to prune subtrees — if `node.val < low`, skip the left subtree; if `node.val > high`, skip the right subtree (where `low` or `high` can also just be a target value)
+> **Note (BST Techniques)**\
+> BST problems typically use DFS traversal. Common Techniques include:
+> - Checking if the current node's value is within bounds (e.g., `low <= node.val <= high` )
+> - Leveraging the BST property to prune subtrees — if `node.val < low` , skip the left subtree; if `node.val > high` , skip the right subtree (where `low` or `high` can also just be a target value)
 > - Using inorder traversal to collect values in sorted order for problems requiring sorted data without explicit sorting.
 
 ### Binary Tree Breadth-First Search
@@ -566,7 +566,7 @@ def bfs(root):
     return result
 ```
 
-## Graph Traversals Pattern
+## Graph Traversals Technique
 
 ### `AdjacencyListGraph` Depth-First Search
 
@@ -593,7 +593,6 @@ def adjacency_list_recursive_dfs(graph):
             dfs(vertex)
 
             # Some logic involving the result per connected component
-
 ```
 
 ```python
@@ -762,52 +761,6 @@ def matrix_iterative_bfs(matrix):
             # Some logic involving the neighbour's row and col
 ```
 
-### Implicit Graph Breadth-First Search
-
-#### Use-case
-
-Use this approach when the problem can be modeled as an implicit graph — where vertices aren't explicitly given, but can be generated on the fly through valid transitions or transformations. These problems typically involve:
-- A starting state and a goal/end state
-- A defined set of valid transitions or mutations
-- Optional constraints like invalid/intermediate states
-
-#### Template
-
-```python
-from collections import deque
-
-def implicity_graph_bfs(end: str, invalid_vertices: List[str]) -> int:
-    invalid_vertices = set(invalid_vertices)
-    queue = deque([(<source vertex>, <additional state>, 0)])
-    visited = set([<source vertex>])
-
-    if end not in invalid_vertices:
-        return -1
-
-    def neighbours(vertex: str) -> List[str]:
-        neighbours = []
-        for i in range(len(vertex)):
-            for change in <some list of changes>:
-                neighbour = vertex[:i] + <some computation modifying vertex[i] by change> + vertex[i + 1:]
-                neighbours.append(neighbour)
-        return neighbours
-
-    while queue:
-        vertex, <additional state>, dist = queue.popleft()
-
-        if vertex == end:
-            return dist
-
-        for neighbour in neighbours(vertex):
-            if neighbour not in visited and neighbour not in invalid_vertices:
-                visited.add(neighbour)
-                queue.append((neighbour, <additional state>, dist + 1))
-
-            # Some logic involving the neighbour
-
-    return -1
-```
-
 > **Note (Various Types of Graph Inputs)**\
 > Unlike linked lists and binary trees, which we are given `head` or `root` respectively, there are various graph inputs:
 > 1. Matrix: A 2D list, where each element will represent a vertex, but are _not_ numbered `0` to `n`, its neighbours are the adjacent squares, and the edges are determined by the problem description.
@@ -840,10 +793,13 @@ def implicity_graph_bfs(end: str, invalid_vertices: List[str]) -> int:
 >
 >    return graph
 > ```
-> Although, even if the input is none of the above, it may still be a problem where we can model the input as a graph!
+> Although, even if the input is none of the above, it may still be an implicit graph problem, often where vertices aren't explicitly given, but can be generated on the fly through valid transitions or transformations. These problems typically involve:
+> - A starting state and a goal/end state
+> - A defined set of valid transitions or mutations
+> - Optional constraints like invalid/intermediate states
 
-> **Note (`visited` Container)**\
-> `visited` is typically a HashSet, but you might achieve better runtime performance by using a boolean array when the node range is predetermined (which is typical since graph problems usually number nodes from `0` to `n - 1`)
+> **Note ( `visited` Container)**\
+> `visited` is typically a HashSet, but you might achieve better runtime performance by using a boolean array when the node range is predetermined (which is typical since graph problems usually number nodes from `0` to `n - 1` )
 
 > **Note (Prohibited Vertices)**\
 > Whenever the problem mentions prohibited vertices, then that's an indicator to add them straight away to the `visited` container.
@@ -851,6 +807,7 @@ def implicity_graph_bfs(end: str, invalid_vertices: List[str]) -> int:
 > **Note (Distance vs Path Length for BFS)**\
 > When using BFS to find shortest paths:
 > - If the problem asks for distance (number of moves/steps), initialize source vertices with `distance = 0`
+
 > - If the problem asks for path length (number of cells in the path), initialize source vertices with `path_length = 1`
 
 > **Note (Multi-source BFS)**\
@@ -859,7 +816,7 @@ def implicity_graph_bfs(end: str, invalid_vertices: List[str]) -> int:
 > **Note (Inverse Thinking)**\
 > For graph problems, it's useful to rephrase the problem in terms of its inverse. For instance, take [LeetCode #1557](https://leetcode.com/problems/minimum-number-of-vertices-to-reach-all-nodes/). The original problem description asks us to find the smallest set of vertices from which all nodes in the graph are reachable. Instead, we can rephrase the problem description in terms of its inverse — find the smallest set of nodes that _cannot_ be reached from other nodes, since if a node can be reached from another node, then we would rather just include the pointer rather than the pointee in our set. Another example is [LeetCode #542](https://leetcode.com/problems/01-matrix/description/). The brute force solution would be to perform BFS for each cell with a 1, but instead, we can perform a multi-source BFS by performing starting from all cells with a 0 (if we have a cell `x` with value 1 and its nearest cell y has value 0, then it doesn't make a difference if we traverse from `x -> y` or `y -> x` — both give the same distance).
 
-## PriorityQueue Pattern
+## PriorityQueue Technique
 
 ### Use Case
 

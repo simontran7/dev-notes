@@ -164,21 +164,29 @@ $$
 
 ## Worst Case Space Complexity
 
-### Iterative Algorithms
+Common data structure space complexities:
 
 - Variable or pointer: $O(1)$
-- 1D Array or container: $O(n)$
-- 2D Array: $O(m \cdot n)$
+- Array: $O(n)$
+- Node-Pointer Data Structure: $O(n)$
+- Matrices: $O(m \cdot n)$
+- Adjacency List: $O(V + E)$
+
+### Iterative Algorithms
+
+1. Add up the space complexities of the intermediate data stuctures
+2. Apply Bachmann-Landau notation simplification rules
 
 ### Recursive Algorithms
 
-1. Calculate total cost as follows
+1. Add up the space complexities of the intermediate data stuctures
+2. For a recursive function, total cost as follows
 
 $$
 \text{Cost} = \text{call stack depth} \cdot \text{cost per call}
 $$
 
-2. Apply Bachmann-Landau notation simplification rules
+3. Apply Bachmann-Landau notation simplification rules
 
 > **Note**\
-> The algorithm's input is typically excluded from the total space complexity cost.
+> The algorithm's input annd output is typically excluded from the total space complexity cost.

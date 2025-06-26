@@ -14,27 +14,27 @@ personal developer notes
 <!-- - [List ADT]() -->
 <!-- - [Stack ADT]() -->
 <!-- - [Queue ADT]() -->
-<!-- - [Priority queue ADT]() -->
-<!-- - [Map and set ADT]() -->
-<!-- - [Ordered map and ordered set ADT]() -->
-<!-- - [Disjoint set ADT]() -->
+<!-- - [Priority Queue ADT]() -->
+<!-- - [Map and Set ADT]() -->
+<!-- - [Ordered Map and Ordered Set ADT]() -->
+<!-- - [Disjoint Set ADT]() -->
 <!-- - [Graph ADT]() -->
 
 ### Algorithms
 
-<!-- - [Searching Problem](./ds-and-algo/algorithms/searching.md) -->
-<!-- - [Sorting Problem](./ds-and-algo/algorithms/sorting.md) -->
-<!-- - [Tree and Graph Traversing Problem](./ds-and-algo/algorithms/tree-and-graph-traversing.md) -->
-<!-- - [Topological Sorting Problem](./ds-and-algo/algorithms/topological-sorting.md) -->
-<!-- - [Strongly Connected Components Problem](./ds-and-algo/algorithms/strongly-connected-components.md) -->
-<!-- - [Minimum Spanning Tree Problem](./ds-and-algo/algorithms/minimum-spanning-tree.md) -->
+<!-- - [Searching Problem]() -->
+<!-- - [Sorting Problem]() -->
+<!-- - [Tree and Graph Traversing Problem]() -->
+<!-- - [Topological Sorting Problem]() -->
+<!-- - [Strongly Connected Components Problem]() -->
+<!-- - [Minimum Spanning Tree Problem]() -->
 <!-- - [Shortest Path problem]() -->
 <!-- - [Maximum Flow problem]() -->
 <!-- - [Stable Matching Problem]() -->
 <!-- - [Data Compression Problem]() -->
 <!-- - [String Matching Problem]() -->
 
-### [Algorithm Patterns](./ds-and-algo/algorithm-patterns.md)
+### [Algorithm Techniques](./ds-and-algo/algorithm-techniques.md)
 
 ## Operating Systems
 
@@ -44,8 +44,10 @@ personal developer notes
 
 ## Developer Tools
 
+- [C Programming Language](./developer-tools/modern-c-book.pdf)
+- [Rust Programming Language](https://doc.rust-lang.org/book/)
 <!-- - [Git]() -->
-- [*nix environment](./developer-tools/unix-like_environment.pdf)
+- [Unix-like Environment](./developer-tools/the-linux-command-line-book.pdf)
 <!-- - [GNU Make]() -->
 <!-- - [GitHub Actions]() -->
 <!-- - [Linux perf]() -->
