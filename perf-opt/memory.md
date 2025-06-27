@@ -38,22 +38,12 @@ The following is a table of common types and their natural alignment and size in
 | Tagged union    | Maximum alignment among all fields            | $\text{size of tag} + \text{size of largest variant} + \text{trailing padding}$                     |
 | Struct          | Maximum alignment among all fields            | $\text{size of fields} + \text{internal field padding} + \text{trailing padding}$                    |
 
-
-
 > **Note (Memory Layout)**\
 > In C, the order of fields of a struct is preserved exactly as written, while in Rust, the compiler _may_ reorder fields to reduce padding unless you use the `#[repr(C)]` attribute.
 
-## Handles Optimization
+## Handle-based Indirection Optimization
 
-Pointers occupy 8 bytes on 64-bit systems, which can significantly inflate the size of a struct. As a simple optimization, you can replace pointers with fixed-size handles (commonly u32 indices into an external array or arena). This reduces memory usage, eliminates padding, and ensures consistent layout across platforms.
-
-You're right — the pointer-to-`Bar` example is somewhat artificial unless `Bar` is large or shared. Here’s a more realistic and compelling example:
-
----
-
-## Handles Optimization
-
-On 64-bit systems, storing raw pointers increases struct size and can introduce unnecessary padding. Replacing pointers with fixed-size handles (typically `u32` indices into a pre-allocated, contiguous data structure such as a vector or arena) reduces memory footprint and improves cache locality, while also simplifying serialization and platform portability.
+On 64-bit systems, storing raw pointers increases struct size and can introduce unnecessary padding. Replacing pointers with fixed-size handles (typically `u32` indices, or multiple of 32 bits, into a pre-allocated, contiguous data structure such as a vector or arena) reduces memory footprint and improves cache locality, while also simplifying serialization and platform portability.
 
 Consider the following example:
 
@@ -71,16 +61,20 @@ struct NaiveNode {
 // This version uses u32 handles (e.g. indices into a Vec<Node>)
 // It takes only 12 bytes on all platforms
 struct CompactNode {
-    parent: u32,
-    left: u32,
-    right: u32,
+    parent: Handle,
+    left: Handle,
+    right: Handle,
 }
+
+// For type safety
+struct Handle(u32);
 ```
 
 ## Struct of Arrays (SoA) Optimization
 
 Struct of Arrays is an optimization where you store each field in its own contiguous array (can be as the struct's field, a global variable, or a local variable), which provides:
 - Low memory usage since it eliminates per-element padding in a AoS layout, and instead, you only have padding for array fields in a SoA layout
+- Better cache locality
 - Good memory bandwidth utilization for batched code (i.e. if you have a loop that process several objects, but only accesses a few of the fields, then the SoA layout reduces the amount of data that needs to be loaded).
 
 ```rust
@@ -189,9 +183,9 @@ match shapes[i].tag {
 }
 ```
 
-## Struct size Optimization
+## Struct Size Optimization
 
-### Retract offending fields
+### Retract Offending Fields
 
 #### Example 1: Booleans
 
@@ -220,11 +214,11 @@ let mut waiting_tasks: Vec<Task> = Vec::new();
 - Faster iteration over `running_tasks`, no branch on status
 - Struct is tightly packed and cache-friendly
 
-#### Example 2: Sparse fields
+#### Example 2: Sparse Fields
 
 Pull out any field that's present in only a small fraction of elements into its own `HashMap<entity_idx, data>`. You'll trade a hash lookup (and its cache miss) for large wins in overall memory density.
 
-### Packed structs
+### Compiler Packed Structs
 
 Add an attribute `#[repr(packed)]` on top of the struct definition in Rust, so the compiler lays out fields back-to-back with no padding at all.
 

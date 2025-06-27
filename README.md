@@ -22,7 +22,7 @@ personal developer notes
 
 ### Algorithms
 
-<!-- - [Searching Problem]() -->
+<!-- - [Searching Problem](./ds-and-algo/algorithms/searching.md) -->
 <!-- - [Sorting Problem]() -->
 <!-- - [Tree and Graph Traversing Problem]() -->
 <!-- - [Topological Sorting Problem]() -->

@@ -16,35 +16,35 @@ Worst-case: $O(n)$
 
 Worst-case: $O(1)$
 
-### Pseudocode
+### Rust Code
 
-#### Pseudocode (Iterative)
+#### Rust Code (Iterative)
 
-```
-func iter_linear_search(array: Array[Int], target: Int) -> Int {
-    for i in 0..array.len() {
-        if array[i] == target {
-            return i;
+```rust
+fn iterative_linear_search(array: &[i32], target: i32) -> i32 {
+    for (i, &element) in array.iter().enumerate() {
+        if element == target {
+            return i as i32;
         }
     }
-
-    return -1;
+    -1
 }
 ```
 
-#### Pseudocode (Recursive)
+#### Rust Code (Recursive)
 
-```
-func recursive_linear_search(array: Array[Int], target: Int, i: Int) -> Int {
-    if array.is_empty() {
-        return -1;
+```rust
+fn recursive_linear_search(array: &[i32], target: i32) -> i32 {
+    fn helper(array: &[i32], target: i32, i: usize) -> i32 {
+        if i >= array.len() {
+            return -1;
+        }
+        if array[i] == target {
+            return i as i32;
+        }
+        recursive_linear_search(array, target, i + 1)
     }
-
-    if array[i] == target {
-        return i;
-    }
-
-    return recursive_linear_search(array, target, i + 1);
+    helper(array, target, 0)
 }
 ```
 
@@ -61,49 +61,55 @@ Worst-case: $O(\log n)$
 - Worst-case (iterative): $O(1)$
 - Worst-case (recursive): $O(\log n)$
 
-### Pseudocode
+### Rust Code
 
-#### Pseudocode (Iterative)
+#### Rust Code (Iterative)
 
-```
-func iterative_binary_search(array: Array[Int], target: Int) -> Int {
-    var low: Int = 0;
-    var high: Int = array.len() - 1;
+```rust
+fn iterative_binary_search(array: &[i32], target: i32) -> i32 {
+    let mut low = 0;
+    let mut high = array.len().saturating_sub(1);
 
     while low <= high {
-        var mid: Int = low + (high - low) / 2;
+        let mid = low + (high - low) / 2;
         if array[mid] == target {
-            return mid;
+            return mid as i32;
         } else if array[mid] < target {
             low = mid + 1;
         } else {
+            if mid == 0 { break; }
             high = mid - 1;
         }
     }
 
-    return -1;
+    -1
 }
 ```
 
-#### Pseudocode (Recursive)
+#### Rust Code (Recursive)
 
-```
-func recursive_binary_search(array: Array[Int], target: Int) -> Int {
-    func helper(array: Array[Int], target: Int, low: Int, high: Int) -> Int {
+```rust
+fn recursive_binary_search(array: &[i32], target: i32) -> i32 {
+    fn helper(array: &[i32], target: i32, low: usize, high: usize) -> i32 {
         if low > high {
             return -1;
         }
-        var mid: Int = low + (high - low) / 2;
+        let mid = low + (high - low) / 2;
         if array[mid] == target {
-            return mid;
+            return mid as i32;
+        } else if array[mid] < target {
+            helper(array, target, mid + 1, high)
+        } else {
+            if mid == 0 { return -1; }
+            helper(array, target, low, mid - 1)
         }
-        if array[mid] < target {
-            return helper(array, target, mid + 1, high);
-        } 
-        return helper(array, target, low, mid - 1); 
     }
 
-    return helper(array, target, 0, array.len() - 1);
+    if array.is_empty() {
+        -1
+    } else {
+        helper(array, target, 0, array.len() - 1)
+    }
 }
 ```
 
