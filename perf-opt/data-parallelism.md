@@ -1,6 +1,6 @@
 # Data Parallelism
 
-## Idea
+## Background
 
 ### Basics
 
