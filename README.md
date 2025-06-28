@@ -13,7 +13,6 @@ brief developer notes on important programming-related topics
 - [Data Structure Packing](./performance-optimization/data-structure-packing.md)
 - [Struct of Arrays](./performance-optimization/struct-of-arrays.md)
 - [Handle-based Indirection](./performance-optimization/handle-based-indirection.md)
-- [Non-temporal Loads and Stores](./performance-optimization/non-temporal-loads-and-stores.md)
 
 ## Developer Tools
 
