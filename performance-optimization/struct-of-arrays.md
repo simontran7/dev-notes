@@ -1,6 +1,6 @@
 ## Struct of Arrays (SoA) Optimization
 
-## Idea
+## Background
 
 Struct of Arrays is an optimization where you store each field in its own contiguous array (can be as the struct's field, a global variable, or a local variable), which provides:
 - Low memory usage since it eliminates per-element padding in a AoS layout, and instead, you only have padding for array fields in a SoA layout
@@ -8,17 +8,17 @@ Struct of Arrays is an optimization where you store each field in its own contig
 - Good memory bandwidth utilization for batched code (i.e. if you have a loop that process several objects, but only accesses a few of the fields, then the SoA layout reduces the amount of data that needs to be loaded).
 
 ```rust
-struct <name> {
-    <field 1>: Vec<<field type>>,
-    <field 2>: Vec<<field type 2>>,
-    <...>: Vec<...>,
-    <field N>: Vec<<field type N>>,
+struct MySoA {
+    field1: Vec<Type1>,
+    field2: Vec<Type2>,
+    // ...
+    fieldN: Vec<TypeN>,
 }
 ```
 
 ## Example: Polymorphism using SoA and AoS
 
-A typical polymorphic data-layout strategy is using enums, and involves AoS:
+### AoS with Enum-based Polymorphism
 
 ```rust
 struct Shape {
@@ -34,7 +34,7 @@ enum ShapeKind {
 }
 ```
 
-Instead we can make subclasses through composition, and involves AoS:
+### AoS with Subclass-based (via Composition) Polymorphism
 
 ```rust
 struct Shape {
@@ -67,7 +67,7 @@ struct Triangle {
 }
 ```
 
-A last solution with the lowest memory footprint involves a hybrid AoS and SoA:
+### Hybrid AoS and SoA Variant-Encoding-based Polymorphism
 
 ```rust
 struct Shape {

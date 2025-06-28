@@ -1,6 +1,6 @@
 # Handle-based Indirection
 
-## Idea
+## Background
 
 On 64-bit systems, storing raw pointers increases struct size and can introduce unnecessary padding. Replacing pointers with fixed-size handles (typically `u32` indices, or multiple of 32 bits, into a pre-allocated, contiguous data structure such as a vector or arena) reduces memory footprint and improves cache locality, while also simplifying serialization and platform portability.
 
