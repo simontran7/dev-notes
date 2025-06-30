@@ -19,7 +19,7 @@ The following table lists common types along with their natural alignment and si
 | Pointer         | Memory address divisible by the pointer size                         | Determined by the maximum addressable memory on a given architecture (i.e. 8 bytes on 64-bit systems, 4 bytes on 32-bit systems)                                              |
 | Struct          | Maximum natural alignment among all fields           | $\text{size of fields} + \text{internal field padding} + \text{trailing padding}$                    |
 
-> **Note (Memory Layout)**\
+> **Note**\
 > In C, the order of fields of a struct is preserved exactly as written, while in Rust, the compiler _may_ reorder fields to reduce padding unless you use the `#[repr(C)]` attribute.
 
 ## Field Re-Ordering

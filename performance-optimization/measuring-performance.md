@@ -1,4 +1,4 @@
-# Testing
+# Measuring Performance
 
 ## Latency Numbers Reference
 
@@ -16,7 +16,7 @@
 
 Source: https://chandlerc.blog/slides/2023-cppnow-compiler/index.html#/29
 
-## Profiling
+## Sampling Profiling
 
 ## Benchmarking
 
