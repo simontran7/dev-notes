@@ -820,7 +820,9 @@ def matrix_iterative_bfs(matrix):
 
 ### Use Case
 
-TODO
+- Repeatedly find the maximum or minimum element
+- Get the top $k$ elements
+- Finding a median (involves one max heap priority queue for the lower half of the list, and one min heap priority queue for the upper half of the list)
 
 ### Template
 
@@ -829,7 +831,7 @@ import heapq
 
 # Create an empty priority queue
 priority_queue = []
-heapq.heapify([<elements>])
+heapq.heapify(priority_queue)
 
 # Add an element
 heapq.heappush(priority_queue, <element>)
@@ -846,3 +848,6 @@ len(priority_queue)
 # Check if the priority queue is empty
 not priority_queue
 ```
+
+**Note (Python Standard Library)**\
+Python’s `heapq` module only implements min‐heaps. To simulate a max‐heap, first build a new list `pq` of each element multiplied by `–1`, call `heapq.heapify(pq)`, and then negate each popped value to get back the original.

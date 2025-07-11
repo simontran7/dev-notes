@@ -34,7 +34,7 @@ pub struct CompactNode {
     pub right: Handle,
 }
 
-#[derive(Copy, Clone, Debug, PartialEq, Eq, Hash)]
+#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
 struct Handle(u32);
 
 // Number of bits for the kind (5 bits allows up to 32 kinds)
@@ -43,7 +43,7 @@ const KIND_MASK: u32 = 0b11111 << 27 // shifts all bits 27 places to the left in
 const INDEX_MASK: u32 = 07FF_FFFF // 00000111111111111111111111111111 in binary
 
 #[repr(u8)]
-#[derive(Copy, Clone, Debug, PartialEq, Eq, Hash)]
+#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
 pub enum NodeKind {
     Kind1 = 0,
     Kind2,
@@ -59,8 +59,7 @@ impl Handle {
             "Index overflow: max index is {}",
             INDEX_MASK
         );
-        let encoded = (index & INDEX_MASK) | ((kind as u32) << 27);
-        Self(encoded)
+        Handle((index & INDEX_MASK) | ((kind as u32) << 27))
     }
 
     /// Extract the kind

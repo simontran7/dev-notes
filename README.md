@@ -19,3 +19,4 @@ brief developer notes on important programming-related topics
 - [C Programming Language](./developer-tools/modern-c-book.pdf)
 - [Rust Programming Language](https://doc.rust-lang.org/book/)
 - [Unix-like Environment](./developer-tools/the-linux-command-line-book.pdf)
+- [Git](./developer-tools/git.md)

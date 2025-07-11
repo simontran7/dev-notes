@@ -1,4 +1,4 @@
-# Data Parallelism
+# SIMD Data Parallelism
 
 ## Background
 
@@ -210,9 +210,7 @@ pub fn intrinsics_simd_find(haystack: &[u8], needle: u8) -> Option<usize> {
 }
 ```
 
-#### Inline Assembly (Aarch64) Solution
-
-TODO
+#### Inline Assembly Solution
 
 https://open-source.gitbook.io/asm-lessons
 
