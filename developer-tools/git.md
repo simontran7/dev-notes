@@ -94,7 +94,7 @@ Create and switch to a new branch named `<branch>`.
 git push <remote> <branch>
 ```
 
-Push committed changes to `<remote>` on branch `<branch>`.
+Push committed changes to `<remote>` on `<branch>`.
 Creates `<branch>` on the remote if it doesn’t exist.
 
 ```
@@ -109,7 +109,7 @@ Fetch and merge changes from `<branch>` on `<remote>` into the current branch.
 git log --oneline --graph --all
 ```
 
-Show a condensed visual history of all branches.
+Show a condensed visual commit history of all branches.
 
 ```
 git diff
