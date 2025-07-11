@@ -117,11 +117,11 @@ git diff
 
 Show unstaged changes between working directory and the index.
 
-## Non-destructive changes
+## Non-destructive Changes
 
 TO DO
 
-## Destructive changes
+## Destructive Changes
 
 ```
 git commit --amend
