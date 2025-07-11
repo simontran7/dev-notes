@@ -1,4 +1,4 @@
-## Struct of Arrays (SoA) Optimization
+# Struct of Arrays (SoA)
 
 ## Background
 
