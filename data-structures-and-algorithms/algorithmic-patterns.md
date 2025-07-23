@@ -1,6 +1,6 @@
-# Algorithm Techniques
+# Algorithmic Patterns
 
-## Classic Two Pointers Technique
+## Classic Two Pointers Pattern
 
 ### Two Pointers Opposite
 
@@ -8,7 +8,7 @@
 
 The list input is sorted, and you are looking for a pair (or pairs) that meet a specific condition.
 
-#### Template
+#### Usage
 
 ```python
 def two_pointers_opposite(array):
@@ -33,7 +33,7 @@ def two_pointers_opposite(array):
 
 The two list inputs are sorted, and you want to compare elements between the two.
 
-#### Template
+#### Usage
 
 ```python
 def two_pointers_same_speed(array1, array2):
@@ -59,7 +59,7 @@ def two_pointers_same_speed(array1, array2):
     return result
 ```
 
-## Sliding Window Technique
+## Sliding Window Pattern
 
 ### Fixed Sliding Window
 
@@ -67,7 +67,7 @@ def two_pointers_same_speed(array1, array2):
 
 You are looking for a subarray or substring of some length `k` that satisfies a certain constraint.
 
-#### Template
+#### Usage
 
 ```python
 def fixed_sliding_window(array, k):
@@ -75,7 +75,7 @@ def fixed_sliding_window(array, k):
     result = 0
 
     for i in range(k):
-        # Some logic to build first window involving `current` and/or other vars
+        # Some logic to build first window involving `current` and/or other variables
 
     for right in range(k, len(array)):
         # Add `array[i]` to window
@@ -91,7 +91,7 @@ def fixed_sliding_window(array, k):
 
 You are looking for a subarray or substring (usually the longest) that satisfies a certain constraint.
 
-#### Template
+#### Usage
 
 ```python
 def variable_sliding_window(array):
@@ -112,42 +112,44 @@ def variable_sliding_window(array):
     return result
 ```
 
-> **Note**\
+> **Note (When this Technique Fails)**\
 > The constraint must be preserved as the sliding window shrinks. If shrinking the window can break the constraint, consider using a prefix sum + hash map technique instead.
 
-> **Note**\
+> **Note (Length of a Window)**\
 > The formula for the length of a window is `right - left + 1` .
 
-## Prefix Sum Technique
+## Prefix Sum Pattern
 
 ### Use Case
 
 You need a subroutine which involves finding the sum of any subarray in *O*(1).
 
-### Template
+### Usage
 
 ```python
-def prefix_sum_building(nums):
-    n = len(nums)
-    prefix = [0] * (n + 1)
+def build_prefix_sum(nums):
+    prefix_sum = [0]
 
-    for i in range(n):
-        prefix[i + 1] = prefix[i] + nums[i]
+    for num in nums:
+        prefix_sum.append(prefix_sum[-1] + num)
 
-    return prefix
+    return prefix_sum
+
+# Usage:
+# To get the sum from [i, j), perform `prefix[j] - prefix[i]`
 ```
 
-## HashMap and HashSet Technique
+## HashMap and HashSet Pattern
 
 ### HashMap
 
 #### Use Case
 
-* Track elements seen so far for uniqueness (with any extra info stored as the value)
-* Frequency counting
-* Basic mapping
-* Memoization table
-* Count number of subarrays with a constraint that _doesn't_ necessarily hold as you shrink the window
+- Track elements seen so far for uniqueness (with any extra info stored as the value)
+- Frequency counting
+- Basic mapping
+- Memoization table
+- Count number of subarrays with a constraint that _doesn't_ necessarily hold as you shrink the window
 
 ```python
 def count_num_subarrays_with_exact_constraint(array, k):
@@ -163,7 +165,7 @@ def count_num_subarrays_with_exact_constraint(array, k):
     return result
 ```
 
-#### Template
+#### Usage
 
 ```python
 # Create an empty map
@@ -218,10 +220,10 @@ my_map.values()
 
 #### Use Case
 
-* Track elements seen so far for uniqueness
-* Store a chunk (or all) of the input for fast lookups
+- Track elements seen so far for uniqueness
+- Store a chunk (or all) of the input for fast lookups
 
-#### Template
+#### #### Usage
 
 ```python
 # Create an empty set
@@ -255,16 +257,16 @@ len(my_set)
 not my_set
 ```
 
-## Fast and Slow Pointers Technique
+## Fast and Slow Pointers Pattern
 
 ### Floyd's Cycle Detection (Same Start, Different Speed)
 
 #### Use Case
 
-* Detect cycles in linked list
-* Find middle
+- Detect cycles in linked list
+- Find middle of a linked list
 
-#### Template
+#### Usage
 
 ```python
 def fast_and_slow_pointers_same_start_diff_speed(head):
@@ -284,7 +286,7 @@ def fast_and_slow_pointers_same_start_diff_speed(head):
 
 Find or operate on a node that is a fixed number of steps from the end of a singly linked list.
 
-#### Template
+#### Usage
 
 ```python
 def find_kth_from_end(head, k):
@@ -301,14 +303,14 @@ def find_kth_from_end(head, k):
     return slow
 ```
 
-## Reversing a Linked List Technique
+## Reversing a Linked List Pattern
 
 ### Use Case
 
-* The problem largely involves reversing pointers in a linked list
-* You need a subroutine which involves classically reversing pointers in a linked list
+- The problem largely involves reversing pointers in a linked list
+- You need a subroutine which involves classically reversing pointers in a linked list
 
-### Template
+### Usage
 
 ```python
 def reverse_linked_list(head):
@@ -322,18 +324,18 @@ def reverse_linked_list(head):
         curr_node = next_node
 ```
 
-> **Note (Reduce Edge Cases)**\
+> **Note (Dummy Head)\
 > Create a dummy head node `dummy = listnode(0, head)` to reduce edge cases.
 
-## Stack and Queue Technique
+## Stack and Queue Pattern
 
-### Stack Technique
+### Stack
 
 #### Use Case
 
 Elements in the input interacting with each other, with a LIFO order.
 
-#### Template
+#### Usage
 
 ```python
 # Create an empty stack
@@ -355,27 +357,25 @@ len(stack)
 not stack
 ```
 
-> **Note**\
+> **Note ($O(n)$ String Building)**\
 > We often use the stack to store the result and convert it to a string using the $O(n)$ string builder Technique.
->
-
 ```python
-> def build_string(string):
->     array = []
->
->     for char in string:
->         array.append(char)
->
->     return "".join(array)
-> ```
+def build_string(string):
+    array = []
 
-### Queue Technique
+    for char in string:
+        array.append(char)
+
+    return "".join(array)
+```
+
+### Queue
 
 #### Use Case
 
 Processing elements in a FIFO order.
 
-#### Template
+#### Usage
 
 ```python
 from collections import deque
@@ -399,7 +399,7 @@ len(queue)
 not queue
 ```
 
-## Monotonic Stack and Monotonic Deque Technique
+## Monotonic Stack and Monotonic Deque Pattern
 
 ### Monotonic Stack
 
@@ -408,7 +408,7 @@ not queue
 * Looking for the "next" or "previous" "greater" or "smaller" element
 * "Span until" i.e. counting a range
 
-#### Template
+#### Usage
 
 ```python
 def monotonic_non_decreasing_stack(array):
@@ -433,7 +433,7 @@ def monotonic_non_decreasing_stack(array):
 
 Maximum or minimum values in sliding window or ranges.
 
-#### Template
+#### Usage
 
 ```python
 from collections import deque
@@ -457,13 +457,13 @@ def monotonic_non_increasing_deque(array, k):
     return result
 ```
 
-> **Note**\
+> **Note (Monotonicity)**\
 > A monotonic increasing/decreasing stack or queue implies that the elements are always increasing/decreasing, while a monotonic non-decreasing/non-increasing one may include repeated elements.
 
-> **Note**\
+> **Note (Indices Tweak)**\
 > Store indices when you want to calculate distances or want to mutate the result list later.
 
-## Binary Tree Traversals Technique
+## Binary Tree Traversal Patterns
 
 ### Binary Tree Depth-First Search
 
@@ -471,7 +471,7 @@ def monotonic_non_increasing_deque(array, k):
 
 Most binary tree problems that don't involve processing nodes by their levels.
 
-#### Template
+#### Usage
 
 ```python
 def recursive_preorder_dfs(root):
@@ -509,13 +509,13 @@ def iterative_preorder_dfs(root):
     return result
 ```
 
-> **Note (Edge Cases)**
+> **Note (Edge Cases)**\
 > - Empty tree (i.e. `None` root)
 > - Single node tree
 > - Skewed tree (i.e. unbalanced trees where all nodes are on one side)
 > - Duplicate values in a binary search tree
 
-> **Note (Common Depth-First Search Ordering)**\
+> **Note (Common Depth-First Search Visit Order)**\
 > In the iterative depth-first search, the flow is usually pre-order `pop node → process node → push right → push left` , while in the recursive depth-first search, pre-order `process node → recurse left → recurse right` is the most common, followed by post-order `recurse left → recurse right → process node` , then in-order `recurse left → process node → recurse right` .
 
 > **Note (Additional Context)**\
@@ -526,7 +526,7 @@ def iterative_preorder_dfs(root):
 
 > **Note (BST Techniques)**\
 > BST problems typically use DFS traversal. Common Techniques include:
-> - Checking if the current node's value is within bounds (e.g., `low <= node.val <= high` )
+> - Checking if the current node's value is within bounds (e.g., `low <= node.val <= high`)
 > - Leveraging the BST property to prune subtrees — if `node.val < low` , skip the left subtree; if `node.val > high` , skip the right subtree (where `low` or `high` can also just be a target value)
 > - Using inorder traversal to collect values in sorted order for problems requiring sorted data without explicit sorting.
 
@@ -536,7 +536,7 @@ def iterative_preorder_dfs(root):
 
 Binary tree problems that involve processing nodes by their levels.
 
-#### Template
+#### Usage
 
 ```python
 from collections import deque
@@ -566,15 +566,15 @@ def bfs(root):
     return result
 ```
 
-## Graph Traversals Technique
+## Graph Traversal Patterns
 
-### `AdjacencyListGraph` Depth-First Search
+### Adjacency List Graph Depth-First Search
 
 #### Use Case
 
 Most graph problems.
 
-#### Template
+#### Usage
 
 ```python
 def adjacency_list_recursive_dfs(graph):
@@ -618,13 +618,13 @@ def adjacency_list_iterative_dfs(graph):
             # Some logic involving the result per connected component
 ```
 
-### `MatrixGraph` Depth-First Search
+### Matrix Graph Depth-First Search (Flood Fill)
 
 #### Use Case
 
 Most graph problems where the input is a matrix.
 
-#### Template
+#### Usage
 
 ```python
 def matrix_recursive_dfs(matrix):
@@ -694,13 +694,13 @@ def matrix_iterative_dfs(matrix):
     return result
 ```
 
-### `AdjacencyListGraph` Breadth-First Search
+### Adjacency List Graph Breadth-First Search
 
 #### Use Case
 
 Distance in a graph.
 
-#### Template
+#### Usage
 
 ```python
 from collections import deque
@@ -723,13 +723,13 @@ def adjacency_list_bfs(graph):
             # Some logic involving the neighbour
 ```
 
-### `MatrixGraph` Breadth-First Search
+### Matrix Graph Breadth-First Search
 
 #### Use Case
 
 Distance in a graph given as a matrix.
 
-#### Template
+#### Usage
 
 ```python
 def matrix_iterative_bfs(matrix):
@@ -798,7 +798,7 @@ def matrix_iterative_bfs(matrix):
 > - A defined set of valid transitions or mutations
 > - Optional constraints like invalid/intermediate states
 
-> **Note ( `visited` Container)**\
+> **Note (`visited` Container)**\
 > `visited` is typically a HashSet, but you might achieve better runtime performance by using a boolean array when the node range is predetermined (which is typical since graph problems usually number nodes from `0` to `n - 1` )
 
 > **Note (Prohibited Vertices)**\
@@ -807,24 +807,36 @@ def matrix_iterative_bfs(matrix):
 > **Note (Distance vs Path Length for BFS)**\
 > When using BFS to find shortest paths:
 > - If the problem asks for distance (number of moves/steps), initialize source vertices with `distance = 0`
-
 > - If the problem asks for path length (number of cells in the path), initialize source vertices with `path_length = 1`
 
 > **Note (Multi-source BFS)**\
 > For a multi-source BFS, create a for loop that visits all source nodes and appends them to the queue for the BFS.
 
-> **Note (Inverse Thinking)**\
+> **Note (Reframing the Problem)**\
 > For graph problems, it's useful to rephrase the problem in terms of its inverse. For instance, take [LeetCode #1557](https://leetcode.com/problems/minimum-number-of-vertices-to-reach-all-nodes/). The original problem description asks us to find the smallest set of vertices from which all nodes in the graph are reachable. Instead, we can rephrase the problem description in terms of its inverse — find the smallest set of nodes that _cannot_ be reached from other nodes, since if a node can be reached from another node, then we would rather just include the pointer rather than the pointee in our set. Another example is [LeetCode #542](https://leetcode.com/problems/01-matrix/description/). The brute force solution would be to perform BFS for each cell with a 1, but instead, we can perform a multi-source BFS by performing starting from all cells with a 0 (if we have a cell `x` with value 1 and its nearest cell y has value 0, then it doesn't make a difference if we traverse from `x -> y` or `y -> x` — both give the same distance).
 
-## PriorityQueue Technique
+## Priority Queue Pattern
 
 ### Use Case
 
 - Repeatedly find the maximum or minimum element
-- Get the top $k$ elements
+- Get the "top" $k$ elements (create an empty priority queue that prioritizes the elements you want to discard — use a min heap to keep the largest `k` elements, or a max heap to keep the smallest `k`; insert elements from the input list, and whenever the queue exceeds size `k`, pop the root to maintain only the top `k` you care about)
+```python
+import heapq
+
+def top_k(array, k):
+    pq = []
+    for num in array:
+        # Some logic to push add an element according to problem's criteria
+        heapq.heappush(pq, (<criteria as key>, num))
+        if len(pq) > k:
+            heapq.heappop(pq)
+
+    return [num for _, num in pq]
+```
 - Finding a median (involves one max heap priority queue for the lower half of the list, and one min heap priority queue for the upper half of the list)
 
-### Template
+### Usage
 
 ```python
 import heapq
@@ -849,5 +861,286 @@ len(priority_queue)
 not priority_queue
 ```
 
-**Note (Python Standard Library)**\
-Python’s `heapq` module only implements min‐heaps. To simulate a max‐heap, first build a new list `pq` of each element multiplied by `–1`, call `heapq.heapify(pq)`, and then negate each popped value to get back the original.
+> **Note (Heaps in Python's Standard Library)**\
+> Python’s `heapq` module only implements min‐heaps. To simulate a max heap, first build a new list `pq` from the elements of the input but negated using `-`, call `heapq.heapify(pq)`, and then negate each popped value to get back the original.
+
+> **Note (Using a Key for Priority)**\
+>  To assign priority based on a specific key, wrap each item in your list as a tuple: `(key, element)`. For max heaps, you must negate the key by `-`, and if the question involves tie-breakers, negate the element by `-`.
+
+## Greedy Algorithm Pattern
+
+### Use Case
+
+Typically finding the minimum or the maximum of a property of the input array.
+
+### Usage
+
+1. Determine if you should greedily pick the minimum or the maximum at each step.
+2. Sort the input array (often you may need to sort based on the frequency of each element using `Counter(<list>)`).
+3. Iterate over the sorted array and increment the result, making use of a heap as needed.
+
+## Binary Search Pattern
+
+### On an Array
+
+#### Use Case
+
+For some input array, `array`, and a desired element `target`, `array` must be sorted, and you want to:
+- Find the index of `target` if it is in `array`.
+- Find the lower bound (first index) or upper bound (last index) at `target` can be inserted to maintain the sorted order of `array`.
+
+#### Usage
+
+```python
+def binary_search(array, target):
+    left = 0
+    right = len(array) - 1
+
+    while left <= right:
+        mid = (left + right) // 2
+        if array[mid] == target:
+            # Some logic
+            return
+        if array[mid] < target:
+            left = mid - 1
+        else:
+            left = mid + 1
+
+    return left # if `target` is not in `array`, `left` is at the insertion point
+```
+
+```python
+def lower_bound(array, target):
+    """
+    Finds the first index at which `target` can be inserted in `array`
+    to maintain sorted order (i.e., the lower bound).
+
+    If `target` exists in `array`, returns the index of its first occurrence.
+    If `target` does not exist, returns the index where it can be inserted.
+
+    Equivalent to bisect.bisect_left in the Python standard library.
+
+    Parameters:
+        array (List[int]): A sorted list of integers.
+        target (int): The value to search for.
+
+    Returns:
+        int: The index of the lower bound for `target`.
+    """
+    left = 0
+    right = len(array)
+
+    while left < right:
+        mid = (left + right) // 2
+        if arr[mid] < target:
+            left = mid + 1
+        else:
+            right = mid
+
+    return left
+```
+
+```python
+def upper_bound(array, target):
+    """
+    Finds the first index at which a value greater than `target`
+    can be inserted in `array` to maintain sorted order (i.e., the upper bound).
+
+    Returns the index of the first element greater than `target`.
+    If all elements are less than or equal to `target`, returns `len(array)`.
+
+    Equivalent to bisect.bisect_right in the Python standard library.
+
+    Parameters:
+        array (List[int]): A sorted list of integers.
+        target (int): The value to search for.
+
+    Returns:
+        int: The index of the upper bound for `target`.
+    """
+    left = 0
+    right = len(array)
+
+    while left < right:
+        mid = (left + right) // 2
+        if arr[mid] <= target:
+            left = mid + 1
+        else:
+            right = mid
+
+    return left
+```
+
+> **Note (Duplicate Elements)**\
+> `binary_seach()` doesn't work if `array` contains duplicates, but `lower_bound()` and `upper_bound()` does allow duplicates in `array`.
+
+> **Note (Descending Elements)**\
+> If the input array is sorted in descending order, simply invert the inequality in the if condition.
+
+### On a Solution Space
+
+#### Use Case
+
+You're trying to find a **maximum** or **minimum** value, and:
+- You can verify (usually with a greedy algorithm) in $O(n)$ time (or faster) whether a given candidate `x` is a valid solution.
+- If `x` is a valid solution:
+    - For a maximum, $\text{all values} \le x$ are also valid.
+    - For a minimum, $\text{all values} \ge x$ are also valid.
+- If `x` is not a valid solution:
+    - For a maximum, $\text{all values} \gt x$ are also invalid.
+    - For a minimum, $\text{all values} \lt x$ are also invalid.
+
+#### Usage
+
+```python
+def binary_search_minimum(array):
+    def is_valid(x):
+        # Some O(n) algorithm (usually also a greedy algorithm)
+        return <boolean>
+
+    left = <min possible answer>
+    right = <max possible answer>
+
+    while left <= right:
+        mid = (left + right) // 2
+        if is_valid(mid):
+            right = mid - 1
+        else:
+            left = mid + 1
+
+    return left
+```
+
+```python
+def binary_search_maximum(array):
+    def is_valid(x):
+        # Some O(n) algorithm (usually also a greedy algorithm)
+        return <boolean>
+
+    left = <min possible answer>
+    right = <max possible answer>
+
+    while left <= right:
+        mid = (left + right) // 2
+        if is_valid(mid):
+            left = mid + 1
+        else:
+            right = mid - 1
+
+    return right
+```
+
+> [!note] (Safely Calculating `mid`)
+> For most languages, to avoid integer overflow, calculate `mid` using this formula instead `left + (right - left) / 2`.
+
+## Backtracking (Complete Search)
+
+### Use Case
+
+- Generating permutations, subsets, or combinations
+```python
+class Solution:
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        result = []
+
+        def backtrack(path):
+            if len(path) == len(nums):
+                result.append(path.copy())
+                return
+
+            for num in nums:
+                if num not in path:
+                    path.append(num)
+                    backtrack(path)
+                    path.pop()
+
+        backtrack([])
+
+        return result
+```
+
+```python
+class Solution:
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        result = []
+
+        def backtrack(path, start):
+            if start == len(nums):
+                return
+
+            result.append(path.copy())
+
+            for i in range(start, len(nums)):
+                path.append(nums[i])
+                backtrack(path, i + 1)
+                path.pop()
+
+        backtrack([], 0)
+
+        return result
+```
+
+```python
+class Solution:
+    def combine(self, n: int, k: int) -> List[List[int]]:
+        result = []
+
+        def backtrack(path, start):
+            if len(path) == k:
+                result.append(path.copy())
+                return
+
+            for num in range(start, n + 1):
+                path.append(num)
+                backtrack(path, num + 1)
+                path.pop()
+
+        backtrack([], 1)
+
+        return result
+```
+
+### Usage
+
+```python
+def backtrack(candidate):
+    if found_solution(candidate):
+        # If the candidate is a complete and valid solution,
+        # add it to the results and stop exploring this path.
+        result.append(candidate.copy())
+        return
+
+    # Iterate through all possible next steps or choices.
+    for next_candidate in list_of_candidates:
+        if is_valid(next_candidate):
+            # If the next choice is valid, apply it.
+            place(next_candidate)
+
+            # Recurse with the new state.
+            backtrack(new_candidate)
+
+            # Backtrack: undo the choice to explore other paths.
+            remove(next_candidate)
+
+initial_candidate = []
+backtrack(initial_candidate)
+return result
+```
+
+> **Note (Backtracking as a Decision Tree)**\
+> A backtracking solution can be visualized as a tree, where each node represents the current state of the path during a recursive function call. The `backtrack()` calls explore different branches of this tree, building potential solutions along the way. The leaves of the tree correspond to base cases—often representing complete solutions, though not necessarily in every problem.
+
+## Dynamic Programming Pattern
+
+## Difference Array Pattern
+
+## `TrieMap` Pattern
+
+## Bit Manipulation Pattern
+
+## Intervals Pattern
+
+## Modular Arithmetic Pattern
+
+## Dijkstra's Algorithm Pattern
+

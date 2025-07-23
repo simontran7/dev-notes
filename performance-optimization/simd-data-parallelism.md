@@ -4,7 +4,7 @@
 
 ### Basics
 
-SIMD is a form of data parallelism in which a single instruction operates on multiple data values simultaneously. This is achieved using special registers called _vector registers_, or _vector_ for short, which hold multiple values at once. Operations performed on these registers are called _vector operations_. Each individual value within a vector register is referred to as a _lane_.
+_Single Instruction, Multiple Data_ (SIMD) is a form of data parallelism in which a single instruction operates on multiple data values simultaneously. This is achieved using special registers called _vector registers_, or _vector_ for short, which hold multiple values at once. Operations performed on these registers are called _vector operations_. Each individual value within a vector register is referred to as a _lane_.
 
 ### SIMD Instruction Set Extensions
 
@@ -24,7 +24,7 @@ SIMD instruction set extensions provide additional support for vector operations
 > Each generation of x86-64 SIMD extensions builds upon the previous one. When using narrower vector operations from older instruction sets, they operate on the lower portion of the wider registers introduced in newer extensions.
 
 > **Note**\
-> To check what SIMD instruction set extensions your CPU supports, run `lscpu`, and look at the "Flags" output.
+> To check what SIMD instruction set extensions your CPU supports, run `lscpu`, and look at the `Flags` output.
 
 ### Vector Width and Performance
 
@@ -36,7 +36,7 @@ When writing vectorized code, you have two main approaches: use a non-native fix
 
 [`std::simd` module](https://doc.rust-lang.org/std/simd/index.html)
 
-> **Note**\
+> [!note]
 > Portable SIMD in Rust requires the Rust nightly compiler. To install it, run `rustup toolchain install nightly`, then temporarily set it to the default compiler via `rustup default nightly`
 
 ### Vendor SIMD Intrinsics

@@ -14,7 +14,7 @@
 | Read 1 MB sequentially from memory | 38,000        | 0.038      |
 | Read 1 MB sequentially from SSD    | 622,000       | 0.622      |
 
-Source: https://chandlerc.blog/slides/2023-cppnow-compiler/index.html#/29
+[Source](https://chandlerc.blog/slides/2023-cppnow-compiler/index.html#/29)
 
 ## Sampling Profiling
 

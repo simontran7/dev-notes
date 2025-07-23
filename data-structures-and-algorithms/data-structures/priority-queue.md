@@ -1,8 +1,12 @@
 # Priority Queue ADT
 
-## Computational Complexity
+## Interface
 
-## Rust Code
+## Heap Data Structure
+
+### Computational Complexity
+
+### Rust Code
 
 ```rust
 pub struct HeapPriorityQueue<E> {
