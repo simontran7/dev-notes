@@ -257,50 +257,26 @@ len(my_set)
 not my_set
 ```
 
-## Fast and Slow Pointers Pattern
+## Fast and Slow Pointers/Floyd's Cycle Detection Pattern
 
-### Floyd's Cycle Detection (Same Start, Different Speed)
-
-#### Use Case
+### Use Case
 
 - Detect cycles in linked list
 - Find middle of a linked list
 
-#### Usage
+### Usage
 
 ```python
-def fast_and_slow_pointers_same_start_diff_speed(head):
+def fast_and_slow_pointers(head):
     fast = head
     slow = head
+    result = <initial value>
 
     while fast and fast.next:
         # Some logic
 
         fast = fast.next.next
         slow = slow.next
-```
-
-### Fixed Gap (Different Start, Same Speed)
-
-#### Use Case
-
-Find or operate on a node that is a fixed number of steps from the end of a singly linked list.
-
-#### Usage
-
-```python
-def find_kth_from_end(head, k):
-    fast = head
-    for _ in range(k):
-        if not fast: return None
-        fast = fast.next
-
-    slow = head
-    while fast:
-        fast = fast.next
-        slow = slow.next
-
-    return slow
 ```
 
 ## Reversing a Linked List Pattern
@@ -1065,6 +1041,7 @@ class Solution:
         result = []
 
         def backtrack(path, start):
+            # NOTE: unreachable since for loop is from [start, N)
             if start == len(nums):
                 return
 
