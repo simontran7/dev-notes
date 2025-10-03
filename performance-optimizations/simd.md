@@ -16,10 +16,10 @@
 | AArch64 | SVE                             | 128–2048 bits (scalable in 128-bit increments)             |
 | AArch64 | SVE2                            | 128–2048 bits (scalable in 128-bit increments, more types) |
 
-> **Note**\
+> [!note]
 > Each generation of x86-64 SIMD extensions builds upon the previous one. When using narrower vector operations from older instruction sets, they operate on the lower portion of the wider registers introduced in newer extensions.
 
-> **Note**\
+> [!note]
 > To check what SIMD instruction set extensions your CPU supports, run `lscpu`, and look at the `Flags` output.
 
 ## Rust API
@@ -28,14 +28,14 @@
 
 [`std::simd` module](https://doc.rust-lang.org/std/simd/index.html)
 
-> **Note**\
+> [!warning]
 > Portable SIMD in Rust requires the Rust nightly compiler. To install it, run `rustup toolchain install nightly`, then temporarily set it to the default compiler via `rustup default nightly`
 
 ### Vendor SIMD Intrinsics
 
 [`std::arch` module](https://doc.rust-lang.org/std/arch/index.html)
 
-> **Note**\
+> [!note]
 > When writing non-portable SIMD code, consider using [Dynamic CPU Feature Detection](https://doc.rust-lang.org/std/arch/index.html#dynamic-cpu-feature-detection) since this approach allows:
 > - The same binary to work on all CPUs
 > - Automatic use of the fastest available instructions
