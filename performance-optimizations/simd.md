@@ -36,10 +36,11 @@
 [`std::arch` module](https://doc.rust-lang.org/std/arch/index.html)
 
 > **Note**\
-> When writing non-portable SIMD code, consider using [Dynamic CPU Feature Detection](https://doc.rust-lang.org/std/arch/index.html#dynamic-cpu-feature-detection)since this approach allows:
-- The same binary to work on all CPUs
-- Automatic use of the fastest available instructions
-- Users don't need to worry about compatibility issues
+> When writing non-portable SIMD code, consider using [Dynamic CPU Feature Detection](https://doc.rust-lang.org/std/arch/index.html#dynamic-cpu-feature-detection) since this approach allows:
+> - The same binary to work on all CPUs
+> - Automatic use of the fastest available instructions
+> - Users don't need to worry about compatibility issues
+> 
 > You can also use static CPU feature detection (via `RUSTFLAGS`), which bakes specific SIMD instruction set extensions into the entire binary, but is discouraged as this will crash on CPUs that don't support those features.
 
 ## Example
