@@ -2,7 +2,7 @@
 
 ## learning roadmap
 
-- [ ] [programming fundamentals](https://dev.java/learn/)
+- [ ] [basic programming](https://dev.java/learn/)
 - [ ] [linux environment](https://labex.io/linuxjourney)
 - [ ] [git](https://beej.us/guide/bggit/html/split/)
 - [ ] [data structures and algorithms](https://stanford-cs161.github.io/winter2025/lectures/)
