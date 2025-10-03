@@ -1,4 +1,4 @@
-# table of contents
+# dev-notes
 
 ## computer architecture
 
