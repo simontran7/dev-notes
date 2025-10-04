@@ -29,13 +29,15 @@ Primary storage devices follows two main cell memory designs: **Static RAM (SRAM
 The two most common secondary storage devices today are **hard disk drives** (HDDs) and flash-based **solid-state drives** (SSDs).
 
 A hard drive consists of several flat, circular **platters**. Each platter has a upper surface and lower surface. Each surface is organized in concentric rings called **tracks**, and each track consists of **sectors** separated by **gaps**. Additionally, aligned tracks form a **cylinder**. In the centre of each platter, sits a **spindle**.
-![500](platter.png)
-![200](sector.png)
-![500](cylinder.png)
+
+<img src="images/platter.png" width="400">
+<img src="images/sector.png" width="200">
+<img src="images/cylinder.png" width="400">
 
 To read or write data, the mechanical **arms**, all attached to an **actuator**, where each arm with a **read/write head** at its tip, moves (i.e., extending or retracting) in unison across the platter to position the head over the cylinder containing the target sector (i.e., the sector holding the desired data). This step introduces a performance metric called **seek time**, where the typical average seek time is 3 to 5 ms. Then, the platters spins in counter-clockwise so that the target sector sits under the head. This step also introduces a performance metric called **rotational latency**, where the average rotational latency (in seconds) is found by $\frac{1}{2} \times \frac{1}{\text{RPM}} \times \frac{60 \text{ seconds}}{1 \text{ min}}$. Lastly, the data is read, where this step introduces a last performance metric called **transfer time**, calculated by $\frac{1}{\text{RPM}} \times \frac{1}{\text{average sectors per track}} \times \frac{60 \text{ seconds}}{1 \text{ min}}$
-![300](arms.png)
-![100](actuator.png)
+
+<img src="images/arms.png" width="300">
+<img src="images/actuator.png" width="100">
 
 ## Locality of Reference
 
@@ -57,11 +59,18 @@ A **cache** is computer memory with short access time built directly into your C
 
 #### Cache Addressing
 
-Cache is made of small chunks of mirrored main memory, where a single chunk is called a **cache line**, typically each **64 bytes**. The cache can only load and store memory in multiples of a cache line (i.e., the data transfer unit of a cache line is a cache line). Each cache line consists of three sections: the **valid bit**, the **tag**, and the **data block**, laid out in memory as follows: 
+Cache is made of small chunks of mirrored main memory, where a single chunk is called a **cache line**, typically capable of each storing **64 bytes**. The cache can only load and store memory in multiples of a cache line (i.e., the data transfer unit of a cache line is a cache line).
 
-```
-| valid bit | tag | data block |
-```
+Each cache line consists of three sections: the **valid bit**, the **tag**, and the **data block**.
+
+<img src="images/cache-organization.png" width="500">
+
+A cache memory address is split into three fields:
+- Block offset: Tells _which_ starting byte inside a data block the CPU wants. The number of bits $b$ allocated to the block offset field is $\log_2 (B)$, where $B$ is the data block size.
+- Set index: Tells _which set_ in the cache to look in. The number of bits $s$ allocated to the set index field is $\log_2 (S)$, where $S$ is the total sets.
+- Tag: Tells _which_ specific data block the CPU wants to access in the cache. The number of bits $t$ allocated to the tag field is $w - (s + b)$, where $w$ is word size.
+
+<img src="images/cache-address.png" width="300">
 
 The total cache size in bytes is determined by the  as follows:
 
@@ -118,11 +127,20 @@ A **direct-mapped cache** maps each memory block to exactly one specific cache l
 
 Cache reads do not involve upholding consistency with main memory. However, for cache writes, the CPU _must_ decide how to handle updates to the underlying main memory.
 
-A **write-through cache** immediately propagates all writes to main memory whenever the cache is modified. This ensures that cache and main memory remain synchronized at all times.
-
-A **write-back cache** defers writes to main memory until absolutely necessary. Cache lines that have been modified but not yet written to main memory are marked as **dirty**. These dirty lines are only written back when the cache line is evicted or when explicitly flushed.
+Whenever there is a cache hit, there are two behaviours:
+- **Write-through**: the cache will immediately propagates all writes to main memory whenever the cache is modified. This ensures that cache and main memory remain synchronized at all times.
+- **Write-back**: the cache defers writes to main memory until absolutely necessary. Cache lines that have been modified but not yet written to main memory are marked as **dirty**. These dirty lines are only written back when the cache line is evicted or when explicitly flushed.
 
 Write-back caches offer superior performance since they minimize main memory accesses. However, this comes with a trade-off: when a dirty cache line must be evicted, two memory operations are required: first writing the dirty data back to memory, then loading the replacement data.
+
+Additionally, whenever there is a cache miss, there are two behaviours:
+- **Write-allocate**:
+- **Write-miss**:
+
+> [!note]
+> The common combinations of write policies are:
+> - Write-through & No write-allocate
+> - Write‐back & Write‐allocate
 
 ### Cache Replacement Policies
 

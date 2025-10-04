@@ -4,6 +4,8 @@
 
 **Single Instruction, Multiple Data (SIMD)** is a form of data parallelism in which one instruction operates on multiple values simultaneously. This is achieved using **vector registers**, which hold multiple elements at once. Each slot within a vector register is called a **lane**, and operations on vector registers are called **vector operations**. On the other hand, **scalar operations** act on a single value at a time.
 
+<img src="images/simd-architecture.png" width="300">
+
 **SIMD instruction set extensions** provide additional support for vector operations using vector registers. The instruction set architecture defines which SIMD instruction set extensions are possible, but it is up to the specific processor implementation to decide which of those extensions to support, and which vector widths of the chosen SIMD extension it will implement. As a result, different CPUs using the same ISA may support different SIMD extensions and vector widths. The most common SIMD instruction set extensions for x86-64 are SSE (SSE 1 to 4), AVX, AVX2, and the most recent, AVX-512, while for AArch64 it is NEON, with more advanced optional extensions like SVE and SVE2.
 
 | ISA     | SIMD Instruction Set Extension  | First-Class Native Vector Widths                           |
@@ -15,6 +17,8 @@
 | AArch64 | NEON                            | 64 bits (fixed), 128 bits (fixed)                          |
 | AArch64 | SVE                             | 128–2048 bits (scalable in 128-bit increments)             |
 | AArch64 | SVE2                            | 128–2048 bits (scalable in 128-bit increments, more types) |
+
+<img src="images/simd-extension-evolution.jpeg" width="500">
 
 > [!note]
 > Each generation of x86-64 SIMD extensions builds upon the previous one. When using narrower vector operations from older instruction sets, they operate on the lower portion of the wider registers introduced in newer extensions.
@@ -40,7 +44,7 @@
 > - The same binary to work on all CPUs
 > - Automatic use of the fastest available instructions
 > - Users don't need to worry about compatibility issues
-> 
+>
 > You can also use static CPU feature detection (via `RUSTFLAGS`), which bakes specific SIMD instruction set extensions into the entire binary, but is discouraged as this will crash on CPUs that don't support those features.
 
 ## Example
