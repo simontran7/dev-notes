@@ -55,6 +55,20 @@ A **cache** is computer memory with short access time built directly into your C
 
 ### Mechanics
 
+#### Cache Addressing
+
+Cache is made of small chunks of mirrored main memory, where a single chunk is called a **cache line**, typically each **64 bytes**. The cache can only load and store memory in multiples of a cache line (i.e., the data transfer unit of a cache line is a cache line). Each cache line consists of three sections: the **valid bit**, the **tag**, and the **data block**, laid out in memory as follows: 
+
+```
+| valid bit | tag | data block |
+```
+
+The total cache size in bytes is determined by the  as follows:
+
+$$
+\text{cache size} = \text{total sets} \times \text{cache lines per set} \times \text{data block size}
+$$
+
 #### Cache Hit and Cache Miss
 
 There are two main outcomes when the CPU requests memory from the cache: when the cache line containing the requested memory address exists in the cache, we call the outcome a **cache hit**, and the line is returned to the CPU.
@@ -64,16 +78,6 @@ There are two main outcomes when the CPU requests memory from the cache: when th
 However, when the cache line containing the requested memory address isn't cached, we call the outcome a **cache miss**, where the CPU must first wait for the cache line to be loaded from main memory, then stored in the cache, and lastly, returned to the CPU.
 
 There are three primary types of cache misses. A **cold (Compulsory) miss** is a type of cache miss that happens when data is requested for the very first time, and therefore, is not yet present in the cache. A **capacity miss** is a type of cache miss that occurs when the cache is not large enough to hold all the data a program actively needs, called the **working set**, forcing existing data to be evicted to make room for new data. A **conflict miss** is a cache miss that occurs when a memory address maps to a cache location that is already occupied by a different cache line, despite the cache having free space elsewhere. The existing cache line is evicted and replaced with the cache line containing the requested memory address.
-
-#### Cache Organization
-
-Cache is made of small chunks of mirrored main memory, where a single chunk is called a **cache line**, typically 64 bytes. The cache can only load and store memory in multiples of a cache line (i.e., the data transfer unit of a cache line is a cache line).
-
-The total capacity of a cache is calculated as follows:
-
-$$
-\text{capacity} = S \times N \times B
-$$
 
 ### Cache Hierarchy
 
