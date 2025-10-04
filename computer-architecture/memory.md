@@ -53,8 +53,6 @@ To understand why caches are important, we have to understand the processor-memo
 
 A **cache** is computer memory with short access time built directly into your CPU used for storing copies of frequently or recently used instructions or data from main memory.
 
-Cache is made of small chunks of mirrored main memory, where a single chunk is called a **cache line**, typically 64 bytes. The cache can only load and store memory in multiples of a cache line (i.e., the data transfer unit of a cache line is a cache line).
-
 ### Mechanics
 
 #### Cache Hit and Cache Miss
@@ -67,9 +65,15 @@ However, when the cache line containing the requested memory address isn't cache
 
 There are three primary types of cache misses. A **cold (Compulsory) miss** is a type of cache miss that happens when data is requested for the very first time, and therefore, is not yet present in the cache. A **capacity miss** is a type of cache miss that occurs when the cache is not large enough to hold all the data a program actively needs, called the **working set**, forcing existing data to be evicted to make room for new data. A **conflict miss** is a cache miss that occurs when a memory address maps to a cache location that is already occupied by a different cache line, despite the cache having free space elsewhere. The existing cache line is evicted and replaced with the cache line containing the requested memory address.
 
-#### Cache Addressing
+#### Cache Organization
 
-TO DO
+Cache is made of small chunks of mirrored main memory, where a single chunk is called a **cache line**, typically 64 bytes. The cache can only load and store memory in multiples of a cache line (i.e., the data transfer unit of a cache line is a cache line).
+
+The total capacity of a cache is calculated as follows:
+
+$$
+\text{capacity} = S \times N \times B
+$$
 
 ### Cache Hierarchy
 
@@ -93,10 +97,6 @@ The primary advantage of separating instruction and data caches is eliminating c
 Separate caches also provide valuable design flexibility. Instruction streams exhibit predictable characteristics: they follow mostly sequential access patterns, are highly predictable, and are rarely self-modifying. In contrast, data accesses are more random and frequently involve writes. This behavioral difference allows hardware designers to optimize each cache type:
 - **I-cache optimization**: Can be designed as read-only with sequential access patterns, enabling aggressive prefetching of subsequent instruction lines while avoiding the complexity and cost of write-back circuits, cache invalidation logic, and coherency protocols.
 - **D-cache optimization**: Must handle the full complexity of read/write operations, cache coherency, and the unpredictable access patterns typical of data operations.
-
-#### Cache Performance Metrics
-
-TO DO
 
 ### Cache Placement Policies
 
