@@ -162,8 +162,6 @@ Cache reads do not involve upholding consistency with main memory. However, for 
 
 ### Cache Replacement Policies
 
-When the cache is full, it must evict a cache line to make room for a new one. We call the algorithms executed by the processor that determines which cache line to evict as **cache replacement policies**.
-
 TO DO
 
 ### Cache Coherency
