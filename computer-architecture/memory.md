@@ -164,6 +164,3 @@ Cache reads do not involve upholding consistency with main memory. However, for 
 
 TO DO
 
-### Cache Coherency
-
-TO DO
