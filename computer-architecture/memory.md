@@ -16,7 +16,7 @@ These two metrics are influenced by two key factors:
 - The distance from the CPU plays a crucial role, as devices closer to the CPU's processing units can deliver data more quickly.
 - The underlying technology of the storage medium heavily influences performance. Registers and caches rely on extremely simple, compact circuits made of only a few logic gates, allowing signals to propagate almost instantly, while mechanical hard drives suffer from delays of 5-15 milliseconds due to the physical need to rotate and align read/write heads.
 
-**Takeaway:** The faster the device, the smaller its storage capacity, and vice versa.
+**Takeaway**: The faster the device, the smaller its storage capacity, and vice versa.
 
 ### Primary Storage
 
@@ -59,34 +59,41 @@ A **cache** is computer memory with short access time built directly into your C
 
 #### Cache Addressing
 
-Cache is made of small chunks of mirrored main memory, where a single chunk is called a **cache line**, typically capable of each storing **64 bytes**. The cache can only load and store memory in multiples of a cache line (i.e., the data transfer unit of a cache line is a cache line).
+Cache is made of small chunks of memory copied from main memory, where a single chunk is called a **cache line**, typically capable of each storing **64 bytes**. The cache can only load and store memory in multiples of a cache line (i.e., the data transfer unit of a cache line is a cache line).
 
 Each cache line consists of three sections: the **valid bit**, the **tag**, and the **data block**.
+
+- **Valid bit**: Indicates whether the cache line contains valid, up-to-date data corresponding to some address in main memory.
+- **Tag**: Stores the high-order bits of the memory address of the data currently cached.
+- **Data block**: Contains the actual data copied from main memory.
 
 <img src="images/cache-organization.png" width="500">
 
 A cache memory address is split into three fields:
-- Block offset: Tells _which_ starting byte inside a data block the CPU wants. The number of bits $b$ allocated to the block offset field is $\log_2 (B)$, where $B$ is the data block size.
-- Set index: Tells _which set_ in the cache to look in. The number of bits $s$ allocated to the set index field is $\log_2 (S)$, where $S$ is the total sets.
-- Tag: Tells _which_ specific data block the CPU wants to access in the cache. The number of bits $t$ allocated to the tag field is $w - (s + b)$, where $w$ is word size.
+- **Block offset**: Tells _which_ starting byte inside a data block the CPU wants. The number of bits $b$ allocated to the block offset field is $\log_2 (B)$, where $B$ is the data block size.
+- **Set index**: Tells _which set_ in the cache to look in. The number of bits $s$ allocated to the set index field is $\log_2 (S)$, where $S$ is the total sets.
+- **Tag**: Tells _which_ specific data block the CPU wants to access in the cache. The number of bits $t$ allocated to the tag field is $w - (s + b)$, where $w$ is word size.
 
 <img src="images/cache-address.png" width="300">
 
-The total cache size in bytes is determined by the  as follows:
+### Accessing the Cache
 
-$$
-\text{cache size} = \text{total sets} \times \text{cache lines per set} \times \text{data block size}
-$$
+1. **Locate the set**: The cache uses the index bits from the address to find the correct set.
+2. **Check for a matching tag**: The cache checks if any cache line in that set has a matching tag with the tag field.
+If a match is found, and the cache line's valid bit is set (i.e., the valid bit in the cache line is `1`),
 
-#### Cache Hit and Cache Miss
+1. **Locate the set**: The cache uses the index bits from the memory address to identify which set in the cache might contain the desired block.
 
-There are two main outcomes when the CPU requests memory from the cache: when the cache line containing the requested memory address exists in the cache, we call the outcome a **cache hit**, and the line is returned to the CPU.
+2. **Check for a matching tag**: The cache compares the tag bits from the memory address with the stored tag in each cache line of that set. If a match is found, and the cache line's valid bit is set (i.e., the valid bit $1$), we call this phenomenon a **cache hit**. If no match is found, or the valid bit is $0$, we call this unsucecssful access a **cache miss**, and the requested block must be fetched from main memory.
+
+There are three primary types of cache misses. A **cold (compulsory) miss** is a type of cache miss that happens when data is requested for the very first time, and therefore, is not yet present in the cache. A **capacity miss** is a type of cache miss that occurs when the cache is not large enough to hold all the data a program actively needs, called the **working set**, forcing existing data to be evicted to make room for new data. A **conflict miss** is a cache miss that occurs when a memory address maps to a cache location that is already occupied by a different cache line, despite the cache having free space elsewhere. The existing cache line is evicted and replaced with the cache line containing the requested memory address.
 
 <img src="images/cache-hit.png" width="400">
 
-However, when the cache line containing the requested memory address isn't cached, we call the outcome a **cache miss**, where the CPU must first wait for the cache line to be loaded from main memory, then stored in the cache, and lastly, returned to the CPU.
+5. **Perform the access (read or write)**: On a read, the CPU retrieves the data directly from the cache line's data block, beginning at the **block offset** from the memory address. On a write, the CPU updates the cache line's data block, and may perform more actions depending on the cache write hit policy.
 
-There are three primary types of cache misses. A **cold (Compulsory) miss** is a type of cache miss that happens when data is requested for the very first time, and therefore, is not yet present in the cache. A **capacity miss** is a type of cache miss that occurs when the cache is not large enough to hold all the data a program actively needs, called the **working set**, forcing existing data to be evicted to make room for new data. A **conflict miss** is a cache miss that occurs when a memory address maps to a cache location that is already occupied by a different cache line, despite the cache having free space elsewhere. The existing cache line is evicted and replaced with the cache line containing the requested memory address.
+
+where the CPU must first wait for the cache line to be loaded from main memory, then stored in the cache, and lastly, returned to the CPU.
 
 ### Cache Hierarchy
 
@@ -123,28 +130,33 @@ A **set-associative cache** is a cache where a memory block maps to a specific *
 
 A **direct-mapped cache** maps each memory block to exactly one specific cache line based on the index field encoded in the memory block's address. No searching is needed, as the hardware directly computes which single cache line to check.
 
+As such, the total cache size (in bytes) is determined as follows:
+
+$$
+\text{cache size} = \text{total sets} \times \text{cache lines per set} \times \text{data block size}
+$$
+
 ### Cache Write Policies
 
 Cache reads do not involve upholding consistency with main memory. However, for cache writes, the CPU _must_ decide how to handle updates to the underlying main memory.
 
-Whenever there is a cache hit, there are two behaviours:
-- **Write-through**: the cache will immediately propagates all writes to main memory whenever the cache is modified. This ensures that cache and main memory remain synchronized at all times.
+#### Write Hit Policies
+
+- **Write-through**: the cache immediately propagates all writes to main memory whenever the cache has been written to. This ensures that cache and main memory remain synchronized at all times.
 - **Write-back**: the cache defers writes to main memory until absolutely necessary. Cache lines that have been modified but not yet written to main memory are marked as **dirty**. These dirty lines are only written back when the cache line is evicted or when explicitly flushed.
 
 Write-back caches offer superior performance since they minimize main memory accesses. However, this comes with a trade-off: when a dirty cache line must be evicted, two memory operations are required: first writing the dirty data back to memory, then loading the replacement data.
 
-Additionally, whenever there is a cache miss, there are two behaviours:
-- **Write-allocate**:
-- **Write-miss**:
+#### Write Miss Policies
 
-> [!note]
-> The common combinations of write policies are:
-> - Write-through & No write-allocate
-> - Write‐back & Write‐allocate
+- **Write-allocate (fetch-on-write)**: The cache first loads the entire block from main memory into the cache, and then performs the write in the cache. This policy is typically paired with the write-back cache hit policy, because once the block is loaded, multiple writes can be performed locally without repeatedly accessing main memory.
+- **No-write-allocate (write-around)**: The data is written directly to main memory, and the cache is not updated or allocated for that address. This policy is often paired with the write-through cache hit policy, since write-through already ensures main memory is always updated; combining it with write-allocate would unnecessarily duplicate work and waste time.
 
 ### Cache Replacement Policies
 
 When the cache is full, it must evict a cache line to make room for a new one. We call the algorithms executed by the processor that determines which cache line to evict as **cache replacement policies**.
+
+TO DO
 
 ### Cache Coherency
 
