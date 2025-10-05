@@ -99,7 +99,7 @@ If a match is found, and the cache line's valid bit is set (i.e., the valid bit 
 
     There are three primary cases for a cache misses. A **cold (compulsory) miss** is a type of cache miss that happens when data is requested for the very first time, and therefore, is not yet present in the cache. A **capacity miss** is a type of cache miss that occurs when the cache is not large enough to hold all the data a program actively needs, called the **working set**, forcing existing data to be evicted to make room for new data. A **conflict miss** is a cache miss that occurs when a memory address maps to a cache location that is already occupied by a different cache line, despite the cache having free space elsewhere. The existing cache line is evicted and replaced with the cache line containing the requested memory address.
 
-    When a cache miss occurs, the cache controller looks for an invalid cache line to store the desired data. If all cache lines are valid (i.e., all of the cache lines have their valid bit as $1$), one cache line will be evicted, based on the cache replacement policies. If the cache line needs to be evicted, there may need to be an additional write line is **dirty**, (i.e., the data in a cache line has been modified but not yet propagated to the next lower level of memory), its contents are written back to memory first, and if the cache line is **clean**, then it'll simply be overwritten. The cache controller then sends a read request to the lower level of memory, and the cache receives the desired data block. The fetched data block is placed into the chosen cache line, then the valid bit and the tag are updated. Lastly, the specific data the CPU needed is extracted from the cache line and delivered to the processor.
+    When a cache miss occurs, the cache controller looks for an invalid cache line to store the desired data. If all cache lines are valid (i.e., all of the cache lines have their valid bit as $1$), one cache line will be evicted, based on the cache replacement policies. If the cache line needs to be evicted, prior to it, for write-back caches, the contents of dirty cache lines are written back to memory first (while for clean lines, nothing more needs to be done, since it'll simply be overwritten). The cache controller then sends a read request to the lower level of memory, and the cache receives the desired data block. The fetched data block is placed into the chosen cache line, then the valid bit and the tag are updated. Lastly, the specific data the CPU needed is extracted from the cache line and delivered to the processor.
 
 5. **Perform the access (read or write)**
 
@@ -153,7 +153,7 @@ Cache reads do not involve upholding consistency with main memory. However, for 
 #### Write Hit Policies
 
 - **Write-through**: The cache immediately propagates all writes to the lower memory whenever the cache has been written to, to ensure that memory across different volatile storage devices remain synchronized at all times.
-- **Write-back**: The cache defers writes to the lower memory until absolutely necessary. Cache lines that have been modified but not yet written to the lower memory are considered **dirty**, and otherwise **clean**.
+- **Write-back**: The cache defers writes to the lower memory until absolutely necessary. Cache lines that have been modified but not yet written to the lower memory are considered **dirty**, where they'll need to eventually write its contents to lower memory (whether that's before an eviction, or an explicit flush).
 
 #### Write Miss Policies
 
