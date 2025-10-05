@@ -288,10 +288,10 @@ There are also two types of $\text{NaN}$:
 | sign = any | exponent = 00000000 | fraction = 000000...0 |
 ```
 
-#### Subnormal Numbers
+#### Denormalized (Subnormal) Numbers
 
 $$
-x = (-1)^\text{sign} \times (0.\text{fraction})_2 \times 2^\text{actual exponent}
+x = (-1)^\text{sign} \times (0.\text{fraction})_2 \times 2^\text{smallest possible actual exponent}
 $$
 
 ```
