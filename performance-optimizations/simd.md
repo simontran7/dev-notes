@@ -37,7 +37,7 @@
 
 ### Vendor SIMD Intrinsics
 
-[`std::arch` module](https://doc.rust-lang.org/std/arch/index.html)
+[`std::arch` module](https://doc.rust-lang.org/std/arch/index.html) and [Intel Intrinsics Guide](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html)
 
 > [!note]
 > When writing non-portable SIMD code, consider using [Dynamic CPU Feature Detection](https://doc.rust-lang.org/std/arch/index.html#dynamic-cpu-feature-detection) since this approach allows:
