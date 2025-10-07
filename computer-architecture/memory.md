@@ -43,10 +43,6 @@ To read or write data, the mechanical **arms**, all attached to an **actuator**,
 
 **Locality of reference** refers to the memory access pattern of a program where programs tend to use instructions and data with addresses near or equal to those they have used recently. There are two forms of locality: **temporal locality**, which refers to the pattern where a program is likely to access recently referenced items again in the near future, while **spatial locality** refers to the pattern where a program tend to access data that is nearby (in terms of memory address) to previously accessed data.
 
-### Code Examples
-
-TO DO
-
 ## Caching
 
 ### Background
@@ -79,11 +75,7 @@ A cache memory address is split into three fields:
 
 <img src="images/cache-address.png" width="300">
 
-### Accessing the Cache
-
-1. **Locate the set**: The cache uses the index bits from the address to find the correct set.
-2. **Check for a matching tag**: The cache checks if any cache line in that set has a matching tag with the tag field.
-If a match is found, and the cache line's valid bit is set (i.e., the valid bit in the cache line is `1`),
+#### Accessing the Cache
 
 1. **Locate the set**
 
@@ -99,11 +91,19 @@ If a match is found, and the cache line's valid bit is set (i.e., the valid bit 
 
     There are three primary cases for a cache misses. A **cold (compulsory) miss** is a type of cache miss that happens when data is requested for the very first time, and therefore, is not yet present in the cache. A **capacity miss** is a type of cache miss that occurs when the cache is not large enough to hold all the data a program actively needs, called the **working set**, forcing existing data to be evicted to make room for new data. A **conflict miss** is a cache miss that occurs when a memory address maps to a cache location that is already occupied by a different cache line, despite the cache having free space elsewhere. The existing cache line is evicted and replaced with the cache line containing the requested memory address.
 
-    When a cache miss occurs, the cache controller looks for an invalid cache line to store the desired data. If all cache lines are valid (i.e., all of the cache lines have their valid bit as $1$), one cache line will be evicted, based on the cache replacement policies. If the cache line needs to be evicted, prior to it, for write-back caches, the contents of dirty cache lines are written back to memory first (while for clean lines, nothing more needs to be done, since it'll simply be overwritten). The cache controller then sends a read request to the lower level of memory, and the cache receives the desired data block. The fetched data block is placed into the chosen cache line, then the valid bit and the tag are updated. Lastly, the specific data the CPU needed is extracted from the cache line and delivered to the processor.
+    When a cache miss occurs, the cache controller first looks for an invalid cache line to store the requested data. If all cache lines are valid (i.e., their valid bits are set to 1), one cache line must be replaced. In set-associative and fully associative caches, a **replacement policy** (such as LRU) determines which line to evict. In a direct-mapped cache, however, each memory block maps to exactly one line, so that line is automatically selected. After selecting the cache line to be replaced, if the cache is a write-back cache, and the cache line is dirty, the cache will write back to the lower memory device. Then, the cache controller fetches the requested data block from the next lower level of memory, stores it in the selected line, and updates the line’s valid bit and tag. Finally, the specific bytes requested by the CPU are extracted from the cache line and delivered to the processor.
 
 5. **Perform the access (read or write)**
 
     On a read, the CPU retrieves the data directly from the cache line's data block, beginning at the **block offset** from the memory address. On a write, the CPU updates the cache line's data block, and may perform more actions depending on the cache write hit policy.
+
+### Issues
+
+Although caches are designed to accelerate performance by keeping frequently used data close to the CPU, inefficient access patterns can cause the opposite effect.
+
+**Cache pollution** occurs when the cache is filled with data that is unlikely to be reused soon, displacing more valuable data that would have benefited from being cached. This often happens in workloads with poor temporal locality, s.
+
+**Cache thrashing** is the phenomenon where different memory addresses repeatedly map to the same cache lines, causing constant evictions and reloads. Thrashing leads to a high miss rate and can degrade performance to the point where the cache provides little or no benefit.
 
 ### Cache Hierarchy
 
@@ -160,7 +160,4 @@ Cache reads do not involve upholding consistency with main memory. However, for 
 - **Write-allocate (fetch-on-write)**: The cache first loads the entire block from main memory into the cache, and then performs the write in the cache. This policy is typically paired with the write-back cache hit policy, because once the block is loaded, multiple writes can be performed locally without repeatedly accessing main memory.
 - **No-write-allocate (write-around)**: The data is written directly to main memory, and the cache is not updated or allocated for that address. This policy is often paired with the write-through cache hit policy, since write-through already ensures main memory is always updated; combining it with write-allocate would unnecessarily duplicate work and waste time.
 
-### Cache Replacement Policies
-
-TO DO
 
