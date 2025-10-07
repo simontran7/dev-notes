@@ -2,22 +2,24 @@
 
 ## Background
 
-**Alignment** refers to the set of memory addresses where a value is permitted to start. A type's **natural alignment** is the default alignment, determined by the platform, that enables efficient memory access (i.e. single-instruction loads & stores). Without natural alignment, a value might be placed such that it straddles machine-word boundaries. As a result, the CPU may need to perform multiple memory accesses and combine the pieces in registers, which increases the cost of reading or writing the value. In Rust, you can check a type's alignment using `std::mem::align_of`.
+**Alignment** refers to the set of valid starting addresses for objects of a given type. A type's **natural alignment** is the default alignment, determined by the platform, that enables efficient memory access (i.e. single-instruction loads & stores). Without natural alignment, a value might be placed such that it straddles machine-word boundaries. As a result, the CPU may need to perform multiple memory accesses and combine the pieces in registers, which increases the cost of reading or writing the value. In Rust, you can check a type's alignment using `std::mem::align_of`.
 
-For data structures, notably structs or unions, the compiler often inserts **padding** — extra unused bytes — to ensure each field begins at an address satisfying its own alignment and/or the alignment of the entire data structure. Padding added between fields to align them properly is called **internal field padding**, while padding added at the end to satisfy overall alignment requirements is called **trailing padding**.
+For composite data types, notably structs or unions, the compiler often inserts extra unused bytes, called **padding**, to ensure each field begins at an address satisfying its own alignment and/or the alignment of the entire data structure. Padding added between fields to align them properly is called **internal field padding**, while padding added at the end to satisfy overall alignment requirements is called **trailing padding**.
 
-The **data structure size** is the total number of bytes the structure occupies in memory, including both actual data and any inserted padding. You can retrieve this size using `std::mem::size_of`.
+The **data structure size** is the total number of bytes the data structure occupies in memory, including both actual data and any inserted padding. You can retrieve this size using `std::mem::size_of`.
 
 We also say a type is **self-aligned** to describe that its alignment equals its size.
 
-The following table lists common types along with their natural alignment and size (in bytes) on a x86-64 system.
+The following table lists common types along with their natural alignment and size (in bytes) on a x86-64 system:
 
-| Type          | Natural Alignment for x86-64 systems (bytes)                     | Size (bytes)                                                                                                                                                                                                                                                                                                        |
-| ------------- | ---------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Primitive     | Memory address divisible by the type's size                      | Depends on the type ( `bool` = 1, `u8` / `i8` = 1, `u16` / `i16` = 2, `char` = 4, `f32` / `i32` / `u32` = 4, `f64` / `i64` / `u64` = 8, `u128` / `i128` = 16, `usize` / `isize` = determined by the maximum addressable memory on a given architecture (i.e. 8 bytes on 64-bit systems, 4 bytes on 32-bit systems)) |
-| Array / Slice | Memory address divisible by the element type's natural alignment | $\text{element size} \cdot \text{number of elements in the array}$                                                                                                                                                                                                                                                  |
-| Pointer       | Memory address divisible by the pointer size                     | Determined by the maximum addressable memory on a given architecture (i.e. 8 bytes on 64-bit systems, 4 bytes on 32-bit systems)                                                                                                                                                                                    |
-| Struct        | Maximum natural alignment among all fields                       | $\text{size of fields} + \text{internal field padding} + \text{trailing padding}$                                                                                                                                                                                                                                   |
+| Type | Natural Alignment (bytes) | Size (bytes) |
+|------|----------------------------------------------|--------------|
+| Primitive | Same as size | `bool` = 1, `u8` / `i8` = 1, `u16` / `i16` = 2, `char` = 4, `f32` / `i32` / `u32` = 4, `f64` / `i64` / `u64` = 8, `u128` / `i128` = 16, `usize` / `isize` = 8 |
+| Array / Slice | According to its element's natural alignment | $\text{element size} \times \text{number of elements}$ |
+| Pointer | 8 | 8 |
+| Struct | Largest natural alignment among its fields | $\text{field sizes} + \text{internal padding} + \text{trailing padding}$ |
+
+
 
 > [!note]
 > In C, the order of fields of a struct is preserved exactly as written, while in Rust, the compiler _may_ reorder fields to reduce padding unless you use the `#[repr(C)]` attribute.

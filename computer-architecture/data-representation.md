@@ -260,7 +260,7 @@ $$
 
 #### NaN
 
-**Not a Number ($\text{NaN}$)**, is a value that represents mathematically undefined results. 
+**Not a Number ($\text{NaN}$)**, is a value that represents mathematically undefined results.
 
 It has some key properties:
 - Any operation with $\text{NaN}$ produces $\text{NaN}$
@@ -331,18 +331,35 @@ Biased exponent = actual exponent + bias =  $3 + 127 = 130 = 10000010_2$
 
 Final result: $01000001010001100000000000000000_2$
 
-## Integer Overflow
+## Integer Overflow and Integer Underflow
 
-**Integer overflow** occurs when you try to store a number that exceeds the maximum value that can be represented with the available number of bits, causing the result to wrap around to an unexpected value.
+Here’s a smoother, more precise rewrite that keeps your technical rigor but flows naturally and reads like professional systems documentation:
 
-The overflowed result can be found as follows:
-- Unsigned integer: $\text{(expected value)} \bmod 2^n$
-- Signed Integer:
-    - Positive overflow (i.e., $\text{expected value} > 2^{N-1} - 1$): $\text{expected value} - 2^n$
-    - Negative overflow (i.e., $\text{expected value} < -2^{N-1}$): $\text{expected value} + 2^n$
+---
+
+## Integer Overflow and Integer Underflow
+
+$n$-bit signed and unsigned integers have a certain range of values they may represent:
+
+| **Representation**       | **Range**         |
+| ------------------------ | ----------------- |
+| Unsigned $n$-bit integer | $[0, 2^n − 1]$       |
+| Signed $n$-bit integer   | $[−2^{n - 1}, 2^{n - 1} − 1]$ |
+
+
+**Integer overflow** occurs when an arithmetic operation produces a result larger than the maximum value representable with the given number of bits. **Integer underflow** occurs when an arithmetic operation produces a result smaller than the minimum value representable with the given number of bits.
+
+In **Rust**, integer overflow and underflow produces panics, while release builds produce the following behaviour:
+- Unsigned integer overflows or underflows: the result will just be modded by $2^n$, that is, `(a op b) mod 2^n` (this also applies in general to any arithmetic on unsigned integers)
+- Signed integers: the result will just be modded by $2^n$, but then, the value is interpreted according to two's complement representation.
 
 ## Integer Byte Order
 
 **Byte order**, also known as **endianness** of a system defines how multi-byte values are assign to memory addresses.
 - **Big endian Byte Order**: The most significant byte is stored at the lowest memory address.
 - **Little endian Byte Order**: The least significant byte is stored at the lowest memory address.
+
+Assuming memory addresses increasing from left to right:
+- From a human-readable perspective, we conventionally interpret and write multi-byte values in big-endian order
+- When examining the actual memory layout, the order of bytes depends on the system's endianness, where most modern computer architectures (such as x86 and ARM) use little-endian byte order.
+
