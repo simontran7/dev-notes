@@ -3,7 +3,7 @@
 ## learning roadmap
 
 - [x] [basic programming](https://dev.java/learn/)
-- [x] [linux environment](https://labex.io/linuxjourney)
+- [x] [linux environment](https://linuxcommand.org/index.php)
 - [x] [git](https://beej.us/guide/bggit/html/split/)
 - [x] [data structures and algorithms](https://www.cs.mcgill.ca/~jeromew/comp251.html)
 - [x] [c programming](https://beej.us/guide/bgc/)
