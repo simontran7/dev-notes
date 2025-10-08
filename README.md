@@ -2,12 +2,12 @@
 
 ## learning roadmap
 
-- [ ] [basic programming](https://dev.java/learn/)
-- [ ] [linux environment](https://labex.io/linuxjourney)
-- [ ] [git](https://beej.us/guide/bggit/html/split/)
-- [ ] [data structures and algorithms](https://www.cs.mcgill.ca/~jeromew/comp251.html)
-- [ ] [c programming](https://beej.us/guide/bgc/)
-- [ ] [gnu make](https://makefiletutorial.com/)
+- [x] [basic programming](https://dev.java/learn/)
+- [x] [linux environment](https://labex.io/linuxjourney)
+- [x] [git](https://beej.us/guide/bggit/html/split/)
+- [x] [data structures and algorithms](https://www.cs.mcgill.ca/~jeromew/comp251.html)
+- [x] [c programming](https://beej.us/guide/bgc/)
+- [x] [gnu make](https://makefiletutorial.com/)
 - [ ] [rust programming](https://doc.rust-lang.org/book/)
 - [ ] [operating sytems](https://student.cs.uwaterloo.ca/~cs350/W25/reading.shtml)
 - [ ] [concurrent programming](https://marabos.nl/atomics/)
