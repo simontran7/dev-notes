@@ -5,7 +5,7 @@
 - [ ] [basic programming](https://dev.java/learn/)
 - [ ] [linux environment](https://labex.io/linuxjourney)
 - [ ] [git](https://beej.us/guide/bggit/html/split/)
-- [ ] [data structures and algorithms](https://stanford-cs161.github.io/winter2025/lectures/)
+- [ ] [data structures and algorithms](https://www.cs.mcgill.ca/~jeromew/comp251.html)
 - [ ] [c programming](https://beej.us/guide/bgc/)
 - [ ] [gnu make](https://makefiletutorial.com/)
 - [ ] [rust programming](https://doc.rust-lang.org/book/)
