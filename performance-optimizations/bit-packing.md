@@ -142,7 +142,7 @@ impl BitFlags {
         Ok(())
     }
 
-    pub fn has_any(&self, flags: u8) -> Result<bool, BitFlagsError> {
+    pub fn contains_any(&self, flags: u8) -> Result<bool, BitFlagsError> {
         if (Self::VALID_FLAGS & flags) != flags {
             return Err(BitFlagsError::InvalidFlag(!Self::VALID_FLAGS & flags));
         }
