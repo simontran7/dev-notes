@@ -20,10 +20,10 @@
 
 <img src="images/simd-extension-evolution.jpeg" width="500">
 
-> [!note]
+> **Note**\
 > Each generation of x86-64 SIMD extensions builds upon the previous one. When using narrower vector operations from older instruction sets, they operate on the lower portion of the wider registers introduced in newer extensions.
 
-> [!note]
+> **Note**\
 > To check what SIMD instruction set extensions your CPU supports, run `lscpu`, and look at the `Flags` output.
 
 ## Rust API
@@ -39,7 +39,7 @@
 
 [`std::arch` module](https://doc.rust-lang.org/std/arch/index.html) and [Intel Intrinsics Guide](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html)
 
-> [!note]
+> **Note**\
 > When writing non-portable SIMD code, consider using [Dynamic CPU Feature Detection](https://doc.rust-lang.org/std/arch/index.html#dynamic-cpu-feature-detection) since this approach allows:
 > - The same binary to work on all CPUs
 > - Automatic use of the fastest available instructions
