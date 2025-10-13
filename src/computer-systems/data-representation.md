@@ -185,10 +185,10 @@ An $N$-bit unsigned integer can take up values from $0$ to $2^N - 1$.
 
 **Two's complement** is the most common encoding system to represent signed integers. It treats the MSB exclusively as a sign bit:
 
-- MSB = 0: positive number (or zero)
-- MSB = 1: negative number
+- MSB = \\(0\\): positive number (or zero)
+- MSB = \\(1\\): negative number
 
-An $N$-bit unsigned integer using two's complement can take up values from $-2^{N-1}$ to $2^{N-1} - 1$.
+An \\(N\\)-bit unsigned integer using two's complement can take up values from \\(-2^{N-1}\\) to \\(2^{N-1} - 1\\).
 
 To represent a number using two's complement:
 
@@ -196,14 +196,14 @@ To represent a number using two's complement:
 2. Toggle all the bits
 3. Add 1 to the result
 
-> [!note]
-> When converting from binary to decimal, if the MSB is a 1, treat it as a -1, then proceed as discussed in the "Any Base to Decimal" section.
+> **Note**\
+> When converting from binary to decimal, if the MSB is a \\(1\\), treat it as a \\(-1\\), then proceed as discussed in the "Any Base to Decimal" section.
 
 ## Floating-Point Representation
 
 ### IEE 754 Structure
 
-For some number $x$:
+For some number \\(x\\):
 $$
 x = (-1)^\text{sign} \times (\text{integer}.\text{fraction})_2 \times 2^\text{actual exponent}
 $$
@@ -237,7 +237,6 @@ $$
 - **Fraction field**: Represents the digits after the decimal point
 
 ### Normal Numbers
-
 
 $$
 x = (-1)^\text{sign} \times (1.\text{fraction})_2 \times 2^\text{actual exponent}
@@ -362,4 +361,3 @@ In **Rust**, integer overflow and underflow produces panics, while release build
 Assuming memory addresses increasing from left to right:
 - From a human-readable perspective, we conventionally interpret and write multi-byte values in big-endian order
 - When examining the actual memory layout, the order of bytes depends on the system's endianness, where most modern computer architectures (such as x86 and ARM) use little-endian byte order.
-

@@ -28,7 +28,7 @@ The CPU also contains a **clock**, which is a hardware crystal oscillator that g
 
 The **memory unit** stores both program instructions and program data, positioned close to the processing unit (PU) to reduce the time required for calculations. Its size varies depending on the system.
 
-In modern computers, the memory unit is typically implemented as **random access memory (RAM)**. In RAM, every storage location (address) can be accessed directly in constant time. Conceptually, RAM can be viewed as an array of addresses. Since the smallest addressable unit is one byte, each address corresponds to a single byte of memory. The address space spans from $0$ up to $2^{\text{natural data width}} - 1$, where the natural data width depends on the ISA.
+In modern computers, the memory unit is typically implemented as **random access memory (RAM)**. In RAM, every storage location (address) can be accessed directly in constant time. Conceptually, RAM can be viewed as an array of addresses. Since the smallest addressable unit is one byte, each address corresponds to a single byte of memory. The address space spans from \\(0\\) up to \\(2^{\text{natural data width}} - 1\\), where the natural data width depends on the ISA.
 
 ### Input and Output (I/O) Unit
 
@@ -54,7 +54,7 @@ A particular CPU implements a specific **instruction set architecture (ISA)**, w
 
 ### Categories of ISAs
 
-ISAs can be categorized based on two philosophies which describe how an ISA is structured and how instructions are meant to be implemented in hardware. These are the **reduced instruction set computer (RISC)**, and **complex instruction set computer (CISC)**. 
+ISAs can be categorized based on two philosophies which describe how an ISA is structured and how instructions are meant to be implemented in hardware. These are the **reduced instruction set computer (RISC)**, and **complex instruction set computer (CISC)**.
 
 Notable ISAs may be categorized as follows:
 - CISC ISA: x86

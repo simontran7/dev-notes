@@ -1,18 +1,18 @@
 # Summary
 
 
-# computer systems
+# Computer Systems
 
-- [data representation](./computer-systems/data-representation.md)
-- [cpu architecture](./computer-systems/cpu-architecture.md)
-- [memory](./computer-systems/memory.md)
-- [x86-64 assembly]()
+- [Data Representation](./computer-systems/data-representation.md)
+- [CPU Architecture](./computer-systems/cpu-architecture.md)
+- [Memory](./computer-systems/memory.md)
+- [x86-64 Assembly]()
 
-# operating systems
+# Operating Systems
 
-# concurrent programming
+# Concurrent Programming
 
-# performance optimizations
+# Performance Optimizations
 
 - [Measuring Performance]()
 - [SIMD](./performance-optimizations/simd.md)

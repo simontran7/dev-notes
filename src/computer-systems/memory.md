@@ -66,12 +66,12 @@ Each cache line consists of three sections: the **valid bit**, the **tag**, and 
 <img src="images/cache-organization.png" width="500">
 
 > **Note**\
-> For caches employing the write-back write hit policy, then it also contains a **dirtiness bit**. The dirtiness bit is $1$ when the cache line is dirty, and $0$ when it's clean.
+> For caches employing the write-back write hit policy, then it also contains a **dirtiness bit**. The dirtiness bit is \\(1\\)when the cache line is dirty, and \\(0\\) when it's clean.
 
 A cache memory address is split into three fields:
-- **Block offset**: Tells _which_ starting byte inside a data block the CPU wants. The number of bits $b$ allocated to the block offset field is $\log_2 (B)$, where $B$ is the data block size.
-- **Set index**: Tells _which set_ in the cache to look in. The number of bits $s$ allocated to the set index field is $\log_2 (S)$, where $S$ is the total sets.
-- **Tag**: Tells _which_ specific data block the CPU wants to access in the cache. The number of bits $t$ allocated to the tag field is $w - (s + b)$, where $w$ is word size.
+- **Block offset**: Tells _which_ starting byte inside a data block the CPU wants. The number of bits \\(b\\) allocated to the block offset field is \\(\log_2 (B)\\), where \\(B\\) is the data block size.
+- **Set index**: Tells _which set_ in the cache to look in. The number of bits \\(s\\) allocated to the set index field is \\(\log_2 (S)\\), where \\(S\\) is the total sets.
+- **Tag**: Tells _which_ specific data block the CPU wants to access in the cache. The number of bits \\(t\\) allocated to the tag field is \\(w - (s + b)\\), where \\(w\\) is word size.
 
 <img src="images/cache-address.png" width="300">
 
@@ -83,15 +83,15 @@ A cache memory address is split into three fields:
 
 2. **Check for a matching tag**
 
-    The cache compares the tag bits from the memory address with the stored tag in each cache line of that set. If a match is found, and the cache line's valid bit is set (i.e., the valid bit $1$), we call this phenomenon a **cache hit**.
+    The cache compares the tag bits from the memory address with the stored tag in each cache line of that set. If a match is found, and the cache line's valid bit is set (i.e., the valid bit \\(1\\)), we call this phenomenon a **cache hit**.
 
     <img src="images/cache-hit.png" width="400">
 
-    If no match is found, or the valid bit is $0$, we call this unsucecssful access a **cache miss**.
+    If no match is found, or the valid bit is \\(0\\), we call this unsucecssful access a **cache miss**.
 
     There are three primary cases for a cache misses. A **cold (compulsory) miss** is a type of cache miss that happens when data is requested for the very first time, and therefore, is not yet present in the cache. A **capacity miss** is a type of cache miss that occurs when the cache is not large enough to hold all the data a program actively needs, called the **working set**, forcing existing data to be evicted to make room for new data. A **conflict miss** is a cache miss that occurs when a memory address maps to a cache location that is already occupied by a different cache line, despite the cache having free space elsewhere. The existing cache line is evicted and replaced with the cache line containing the requested memory address.
 
-    When a cache miss occurs, the cache controller first looks for an invalid cache line to store the requested data. If all cache lines are valid (i.e., their valid bits are set to 1), one cache line must be replaced. In set-associative and fully associative caches, a **replacement policy** (such as LRU) determines which line to evict. In a direct-mapped cache, however, each memory block maps to exactly one line, so that line is automatically selected. After selecting the cache line to be replaced, if the cache is a write-back cache, and the cache line is dirty, the cache will write back to the lower memory device. Then, the cache controller fetches the requested data block from the next lower level of memory, stores it in the selected line, and updates the line’s valid bit and tag. Finally, the specific bytes requested by the CPU are extracted from the cache line and delivered to the processor.
+    When a cache miss occurs, the cache controller first looks for an invalid cache line to store the requested data. If all cache lines are valid (i.e., their valid bits are set to \\(1\\)), one cache line must be replaced. In set-associative and fully associative caches, a **replacement policy** (such as LRU) determines which line to evict. In a direct-mapped cache, however, each memory block maps to exactly one line, so that line is automatically selected. After selecting the cache line to be replaced, if the cache is a write-back cache, and the cache line is dirty, the cache will write back to the lower memory device. Then, the cache controller fetches the requested data block from the next lower level of memory, stores it in the selected line, and updates the line’s valid bit and tag. Finally, the specific bytes requested by the CPU are extracted from the cache line and delivered to the processor.
 
 5. **Perform the access (read or write)**
 
@@ -108,9 +108,9 @@ Although caches are designed to accelerate performance by keeping frequently use
 ### Cache Hierarchy
 
 Modern processors organize caches into a three-tier hierarchy:
-* **L1 cache**: the smallest and fastest cache, located directly on each CPU core for immediate access.
-* **L2 cache**: larger and a bit slower than L1, usually dedicated to a single core but still very close to it.
-* **L3 cache**: the largest and slowest of the three, typically shared among all cores on the processor to coordinate data efficiently.
+- **L1 cache**: the smallest and fastest cache, located directly on each CPU core for immediate access.
+- **L2 cache**: larger and a bit slower than L1, usually dedicated to a single core but still very close to it.
+- **L3 cache**: the largest and slowest of the three, typically shared among all cores on the processor to coordinate data efficiently.
 
 | Level | Size          |
 | ----- | ------------- |
@@ -136,7 +136,7 @@ A **fully-associative cache** is a cache where a memory blocks are free to be st
 
 To address this inefficiency, caches impose restrictions on where specific memory blocks can reside. However, it does bring along a tradeoff. Since the cache is dramatically smaller than main memory, multiple memory addresses must inevitably map to the same cache locations — a phenomenon called **cache aliasing**. When two aliased addresses are frequently accessed and modified, they compete for the same cache line, creating what's known as **cache line contention**.
 
-A **set-associative cache** is a cache where a memory block maps to a specific **set** (i.e., a compartment of the cache), according to the index field encoded in the memory block's address. Each of the sets contains $N$ cache lines, where we typically specify a cache as **$N$-way set-associative**. The cache hardware uses the index field of the requested memory address to select a set of the cache, then within that set, it will search all $N$ cache lines in parallel.
+A **set-associative cache** is a cache where a memory block maps to a specific **set** (i.e., a compartment of the cache), according to the index field encoded in the memory block's address. Each of the sets contains \\(N\\) cache lines, where we typically specify a cache as **\\(N\\)-way set-associative**. The cache hardware uses the index field of the requested memory address to select a set of the cache, then within that set, it will search all \\(N\\) cache lines in parallel.
 
 A **direct-mapped cache** maps each memory block to exactly one specific cache line based on the index field encoded in the memory block's address. No searching is needed, as the hardware directly computes which single cache line to check.
 
@@ -159,5 +159,3 @@ Cache reads do not involve upholding consistency with main memory. However, for 
 
 - **Write-allocate (fetch-on-write)**: The cache first loads the entire block from main memory into the cache, and then performs the write in the cache. This policy is typically paired with the write-back cache hit policy, because once the block is loaded, multiple writes can be performed locally without repeatedly accessing main memory.
 - **No-write-allocate (write-around)**: The data is written directly to main memory, and the cache is not updated or allocated for that address. This policy is often paired with the write-through cache hit policy, since write-through already ensures main memory is always updated; combining it with write-allocate would unnecessarily duplicate work and waste time.
-
-
