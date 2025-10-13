@@ -96,7 +96,7 @@ impl BitField {
 
 ## Bit Flags
 
-Bit flags refers to the technique of treating individual bits within an integer as separate boolean toggles, where each bit indicates whether a specific condition, or option is active or inactive. The number of flags is typically predetermined and usually occupies only a portion of the integer's available bits.
+**Bit flags** refers to the technique of treating individual bits within an integer as separate boolean toggles, where each bit indicates whether a specific condition, or option is active or inactive. The number of flags is typically predetermined and usually occupies only a portion of the integer's available bits.
 
 ```rust
 pub struct BitFlags(u8);

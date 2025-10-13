@@ -3,3 +3,6 @@ authors = ["Simon Tran"]
 language = "en"
 src = "src"
 title = "dev-notes"
+
+[output.html]
+mathjax-support = true

@@ -65,7 +65,7 @@ Each cache line consists of three sections: the **valid bit**, the **tag**, and 
 
 <img src="images/cache-organization.png" width="500">
 
-> [!note]
+> **Note**\
 > For caches employing the write-back write hit policy, then it also contains a **dirtiness bit**. The dirtiness bit is $1$ when the cache line is dirty, and $0$ when it's clean.
 
 A cache memory address is split into three fields:
