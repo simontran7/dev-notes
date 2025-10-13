@@ -1,5 +1,7 @@
 # dev-notes
 
+personal notes on core concepts
+
 ## learning roadmap
 
 - [x] [basic programming](https://dev.java/learn/)
