@@ -83,15 +83,15 @@ A cache memory address is split into three fields:
 
 2. **Check for a matching tag**
 
-    The cache compares the tag bits from the memory address with the stored tag in each cache line of that set. If a match is found, and the cache line's valid bit is set (i.e., the valid bit \\(1\\)), we call this phenomenon a **cache hit**.
+    The cache compares the tag bits from the memory address with the stored tag in each cache line of that set. If a match is found, and the cache line's valid bit is set (i.e., the valid bit 1), we call this phenomenon a **cache hit**.
 
     <img src="images/cache-hit.png" width="400">
 
-    If no match is found, or the valid bit is \\(0\\), we call this unsucecssful access a **cache miss**.
+    If no match is found, or the valid bit is 0, we call this unsucecssful access a **cache miss**.
 
     There are three primary cases for a cache misses. A **cold (compulsory) miss** is a type of cache miss that happens when data is requested for the very first time, and therefore, is not yet present in the cache. A **capacity miss** is a type of cache miss that occurs when the cache is not large enough to hold all the data a program actively needs, called the **working set**, forcing existing data to be evicted to make room for new data. A **conflict miss** is a cache miss that occurs when a memory address maps to a cache location that is already occupied by a different cache line, despite the cache having free space elsewhere. The existing cache line is evicted and replaced with the cache line containing the requested memory address.
 
-    When a cache miss occurs, the cache controller first looks for an invalid cache line to store the requested data. If all cache lines are valid (i.e., their valid bits are set to \\(1\\)), one cache line must be replaced. In set-associative and fully associative caches, a **replacement policy** (such as LRU) determines which line to evict. In a direct-mapped cache, however, each memory block maps to exactly one line, so that line is automatically selected. After selecting the cache line to be replaced, if the cache is a write-back cache, and the cache line is dirty, the cache will write back to the lower memory device. Then, the cache controller fetches the requested data block from the next lower level of memory, stores it in the selected line, and updates the line’s valid bit and tag. Finally, the specific bytes requested by the CPU are extracted from the cache line and delivered to the processor.
+    When a cache miss occurs, the cache controller first looks for an invalid cache line to store the requested data. If all cache lines are valid (i.e., their valid bits are set to 1), one cache line must be replaced. In set-associative and fully associative caches, a **replacement policy** (such as LRU) determines which line to evict. In a direct-mapped cache, however, each memory block maps to exactly one line, so that line is automatically selected. After selecting the cache line to be replaced, if the cache is a write-back cache, and the cache line is dirty, the cache will write back to the lower memory device. Then, the cache controller fetches the requested data block from the next lower level of memory, stores it in the selected line, and updates the line’s valid bit and tag. Finally, the specific bytes requested by the CPU are extracted from the cache line and delivered to the processor.
 
 5. **Perform the access (read or write)**
 

@@ -6,22 +6,22 @@
 
 The **Decimal System** is a number system that uses base 10, characterized by two fundamental properties:
 - Each digit position can hold one of 10 unique values (0 through 9), where values greater than 9 require carrying to an additional digit position to the left.
-- Each digit's position determines its contribution to the overall value through positional notation. Digits are labeled from right to left as $d_0, d_1, d_2, \dots, d_{N - 1}$ where each successive position represents ten times the value of the position to its right.
+- Each digit's position determines its contribution to the overall value through positional notation. Digits are labeled from right to left as \\(d_0, d_1, d_2, \dots, d_{N - 1}\\) where each successive position represents ten times the value of the position to its right.
 
-More formally, any $N$-digit number can be expressed using **positional notation** as:
+More formally, any \\(N\\)-digit number can be expressed using **positional notation** as:
 
 $$
 (d_{N-1} \cdot 10^{N-1}) + (d_{N-2} \cdot 10^{N-2}) + \dots + (d_2 \cdot 10^2) + (d_1 \cdot 10^1) + (d_0 \cdot 10^0)
 $$
 
-Numbers under the base 10 system are typically written without prefixes, though they may be denoted as $N_{10}$ when clarification is needed.
+Numbers under the base 10 system are typically written without prefixes, though they may be denoted as \\(N_{10}\\) when clarification is needed.
 
 ### Binary System
 
 **Binary** is a number system that uses base 2, where:
 
 - Each digit position (called a **bit**) can hold one of two unique values: 0 or 1. Values greater than 1 require carrying to an additional bit position to the left.
-- Each bit's position determines its contribution through powers of 2: $2^{N-1}, \dots, 2^1, 2^0$.
+- Each bit's position determines its contribution through powers of 2: \\(2^{N-1}, \dots, 2^1, 2^0\\).
 
 Binary numbers are typically prefixed with `0b`.
 
@@ -79,7 +79,7 @@ Hexadecimal numbers are prefixed with `0x`.
 
 ### Any Base to Decimal (Addition of Positional Notation)
 
-For a number with digits $d\_{N-1}, d\_{N-2}, \dots, d\_1, d\_0$ in base $B$, the converted number to base $C$ is calculated using the following formula:
+For a number with digits \\(d\_{N-1}, d\_{N-2}, \dots, d\_1, d\_0\\) in base \\(B\\), the converted number to base \\(C\\) is calculated using the following formula:
 
 $$
 (d_{N-1} \cdot B^{N-1}) + (d_{N-2} \cdot B^{N-2}) + \dots + (d_1 \cdot B^1) + (d_0 \cdot B^0)
@@ -102,12 +102,12 @@ $$
 
 | Unit            | Value                                                |
 | --------------- | ---------------------------------------------------- |
-| 1 KB (Kilobyte) | $2^{10}$ bytes (1,024 bytes)                     |
-| 1 MB (Megabyte) | $2^{20}$ bytes (1,048,576 bytes)                 |
-| 1 GB (Gigabyte) | $2^{30}$ bytes (1,073,741,824 bytes)             |
-| 1 TB (Terabyte) | $2^{40}$ bytes (1,099,511,627,776 bytes)         |
-| 1 PB (Petabyte) | $2^{50}$ bytes (1,125,899,906,842,624 bytes)     |
-| 1 EB (Exabyte)  | $2^{60}$ bytes (1,152,921,504,606,846,976 bytes) |
+| 1 KB (Kilobyte) | $2^{10}$ bytes (1,024 bytes)                         |
+| 1 MB (Megabyte) | $2^{20}$ bytes (1,048,576 bytes)                     |
+| 1 GB (Gigabyte) | $2^{30}$ bytes (1,073,741,824 bytes)                 |
+| 1 TB (Terabyte) | $2^{40}$ bytes (1,099,511,627,776 bytes)             |
+| 1 PB (Petabyte) | $2^{50}$ bytes (1,125,899,906,842,624 bytes)         |
+| 1 EB (Exabyte)  | $2^{60}$ bytes (1,152,921,504,606,846,976 bytes)     |
 
 ### Data Transfer Units
 
@@ -127,9 +127,9 @@ The **American Standard Code for Information Interchange (ASCII)** is a characte
 #### Types of ASCII Characters
 
 - Non-printable characters
-  - Control characters, from `0x00` to `0x1F` (i.e. $0\_{10}$ to $31\_{10}$)
-  - Delete character, `0x7F` (i.e. $127\_{10}$)
-- Printable characters, from `0x20` to `0x7E` ($32\_{10}$ to $126\_{10}$).
+  - Control characters, from `0x00` to `0x1F`
+  - Delete character, `0x7F`
+- Printable characters, from `0x20` to `0x7E`
 
 #### ASCII Table
 
@@ -185,8 +185,8 @@ An $N$-bit unsigned integer can take up values from $0$ to $2^N - 1$.
 
 **Two's complement** is the most common encoding system to represent signed integers. It treats the MSB exclusively as a sign bit:
 
-- MSB = \\(0\\): positive number (or zero)
-- MSB = \\(1\\): negative number
+- \\(\text{MSB} = 0\\): positive number (or zero)
+- \\(\text{MSB} = 1\\): negative number
 
 An \\(N\\)-bit unsigned integer using two's complement can take up values from \\(-2^{N-1}\\) to \\(2^{N-1} - 1\\).
 
@@ -197,7 +197,7 @@ To represent a number using two's complement:
 3. Add 1 to the result
 
 > **Note**\
-> When converting from binary to decimal, if the MSB is a \\(1\\), treat it as a \\(-1\\), then proceed as discussed in the "Any Base to Decimal" section.
+> When converting from binary to decimal, if the MSB is a 1, treat it as a negative number, then proceed as discussed in the "Any Base to Decimal" section.
 
 ## Floating-Point Representation
 
@@ -231,10 +231,10 @@ $$
 
 - **Signed field**: Represents the positivity, either $0$ (for positive) or $1$ (for negative)
 - **Biased exponent field**: Determines the power of $2$ by which to scale the mantissa. The exponent is biased, meaning we add a constant to the actual exponent.
-    - Single precision bias: $(2^{8 - 1} - 1)_{10} = (127)_{10}$
-    - Double precision bias: $(2^{11 - 1} - 1)_{10} = (1023)_{10}$
-    - Quadruple precision bias: $(2^{15 - 1} - 1)_{10} = (16383)_{10}$
-    - Range of the actual exponents: $[1 - \text{bias}, \text{bias}]$
+    - Single precision bias: \\((2^{8 - 1} - 1)_{10} = (127)_{10}\\)
+    - Double precision bias: \\((2^{11 - 1} - 1)_{10} = (1023)_{10}\\)
+    - Quadruple precision bias: \\((2^{15 - 1} - 1)_{10} = (16383)_{10}\\)
+    - Range of the actual exponents: \\([1 - \text{bias}, \text{bias}]\\)
 - **Fraction field**: Represents the digits after the decimal point
 
 ### Normal Numbers
@@ -250,9 +250,9 @@ $$
 
 ### Special Numbers
 
-#### $+\infty$ and $-\infty$
+#### \\(+\infty\\) and \\(-\infty\\)
 
-**Infinity ($\infty$)** is the result when calculations exceed the representable range (overflow) or a non-zero value is divided by zero. It's a useful value since it allows programs to continue running with meaningful results rather than crashing on overflow.
+**Infinity (\\(\infty\\))** is the result when calculations exceed the representable range (overflow) or a non-zero value is divided by zero. It's a useful value since it allows programs to continue running with meaningful results rather than crashing on overflow.
 
 ```
 | sign = any | exponent = 11111111 | fraction = 000...0 |
@@ -260,29 +260,29 @@ $$
 
 #### NaN
 
-**Not a Number ($\text{NaN}$)**, is a value that represents mathematically undefined results.
+**Not a Number (\\(\text{NaN}\\))**, is a value that represents mathematically undefined results.
 
 It has some key properties:
-- Any operation with $\text{NaN}$ produces $\text{NaN}$
-- $\text{NaN}$ is never equal to anything, including itself.
+- Any operation with \\(\text{NaN}\\) produces \\(\text{NaN}\\)
+- \\(\text{NaN}\\) is never equal to anything, including itself
 
-There are also two types of $\text{NaN}$:
-- Quiet $\text{NaN}$: silently propagates $\text{NaN}$ through calculations
-- Signalling $\text{NaN}$: triggers an exception or error when encountered in operations
+There are also two types of \\(\text{NaN}\\):
+- Quiet \\(\text{NaN}\\): silently propagates \\(\text{NaN}\\) through calculations
+- Signalling \\(\text{NaN}\\): triggers an exception or error when encountered in operations
 
-**Quiet NaN**
+**Quiet \\(\text{NaN}\\)**
 
 ```
 | sign = any | exponent = 11111111 | fraction = 1<no restriction> |
 ```
 
-**Signalling NaN**
+**Signalling \\(\text{NaN}\\)**
 
 ```
 | sign = any | exponent = 11111111 | fraction = 0<no restriction> |
 ```
 
-#### $0$
+#### 0
 
 ```
 | sign = any | exponent = 00000000 | fraction = 000000...0 |
@@ -298,15 +298,17 @@ $$
 | sign = any | exponent = 00000000 | fraction != 000...0 |
 ```
 
-> **Note:** $+\infty$ and $-\infty$, $+0$ and $-0$ are not interchangeable!
+> **Note:** \\(+\infty\\) and \\(-\infty\\), \\(+0\\) and \\(-0\\) are not interchangeable!
 
 ### Converting Decimal to IEEE 754
 
-To convert $12.375_{10}$ to single precision IEEE 754:
+To convert \\(12.375_{10}\\) to single precision IEEE 754:
 
 **Step 1: Convert to binary**
 
-$12.375_{10} = 1100.011_2$
+$$
+12.375_{10} = 1100.011_2
+$$
 
 **Step 2: Determine the sign**
 
@@ -314,13 +316,17 @@ Since it's a positive number, the sign bit is 0.
 
 **Step 3: Normalize the fraction**
 
-$1100.011_2 = 1.100011_2 \times 2^3$
+$$
+1100.011_2 = 1.100011_2 \times 2^3
+$$
 
-The normalized fraction, padded to 23 bits, is: $10001100000000000000000_2$
+The normalized fraction, padded to 23 bits, is: \\(10001100000000000000000_2\\)
 
 **Step 4: Calculate the biased exponent**
 
-Biased exponent = actual exponent + bias =  $3 + 127 = 130 = 10000010_2$
+$$
+Biased exponent = actual exponent + bias =  3 + 127 = 130 = 10000010_2
+$$
 
 **Step 5: Combine all fields**
 
@@ -329,22 +335,16 @@ Biased exponent = actual exponent + bias =  $3 + 127 = 130 = 10000010_2$
 |  0   | 10000010 | 10001100000000000000000 |
 ```
 
-Final result: $01000001010001100000000000000000_2$
+Final result: \\(01000001010001100000000000000000_2\\)
 
 ## Integer Overflow and Integer Underflow
 
-Here’s a smoother, more precise rewrite that keeps your technical rigor but flows naturally and reads like professional systems documentation:
+\\(N\\)-bit signed and unsigned integers have a certain range of values they may represent:
 
----
-
-## Integer Overflow and Integer Underflow
-
-$n$-bit signed and unsigned integers have a certain range of values they may represent:
-
-| **Representation**       | **Range**         |
-| ------------------------ | ----------------- |
-| Unsigned $n$-bit integer | $[0, 2^n − 1]$       |
-| Signed $n$-bit integer   | $[−2^{n - 1}, 2^{n - 1} − 1]$ |
+| Representation               | Range                             |
+| ---------------------------- | --------------------------------- |
+| Unsigned \\(N\\)-bit integer | \\([0, 2^n − 1]\\)                |
+| Signed \\(N\\)-bit integer   | \\([−2^{n - 1}, 2^{n - 1} − 1]\\) |
 
 
 **Integer overflow** occurs when an arithmetic operation produces a result larger than the maximum value representable with the given number of bits. **Integer underflow** occurs when an arithmetic operation produces a result smaller than the minimum value representable with the given number of bits.
@@ -359,6 +359,6 @@ In **Rust**, integer overflow and underflow produces panics, while release build
 - **Big endian Byte Order**: The most significant byte is stored at the lowest memory address.
 - **Little endian Byte Order**: The least significant byte is stored at the lowest memory address.
 
-Assuming memory addresses increasing from left to right:
+Assuming memory addresses increases from left to right:
 - From a human-readable perspective, we conventionally interpret and write multi-byte values in big-endian order
 - When examining the actual memory layout, the order of bytes depends on the system's endianness, where most modern computer architectures (such as x86 and ARM) use little-endian byte order.
