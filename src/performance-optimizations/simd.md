@@ -6,7 +6,7 @@
 
 <img src="images/simd-architecture.png" width="300">
 
-**SIMD instruction set extensions** provide additional support for vector operations using vector registers. The instruction set architecture defines which SIMD instruction set extensions are possible, but it is up to the specific processor implementation to decide which of those extensions to support, and which vector widths of the chosen SIMD extension it will implement. As a result, different CPUs using the same ISA may support different SIMD extensions and vector widths. The most common SIMD instruction set extensions for x86-64 are SSE (SSE 1 to 4), AVX, AVX2, and the most recent, AVX-512, while for AArch64 it is NEON, with more advanced optional extensions like SVE and SVE2.
+**SIMD instruction set extensions** provide additional support for vector operations using vector registers. The instruction set architecture defines which SIMD instruction set extensions are possible, but it is up to the specific processor implementation to decide which of those extensions to support, and which vector widths of the chosen SIMD extension it will implement.
 
 | ISA     | SIMD Instruction Set Extension  | First-Class Native Vector Widths                           |
 | ------- | ------------------------------- | ---------------------------------------------------------- |
