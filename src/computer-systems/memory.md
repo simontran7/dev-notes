@@ -101,7 +101,7 @@ A cache memory address is split into three fields:
 
 Although caches are designed to accelerate performance by keeping frequently used data close to the CPU, inefficient access patterns can cause the opposite effect.
 
-**Cache pollution** occurs when the cache is filled with data that is unlikely to be reused soon, displacing more valuable data that would have benefited from being cached. This often happens in workloads with poor temporal locality, s.
+**Cache pollution** occurs when the cache is filled with data that is unlikely to be reused soon, displacing more valuable data that would have benefited from being cached. This often happens in workloads with poor temporal locality.
 
 **Cache thrashing** is the phenomenon where different memory addresses repeatedly map to the same cache lines, causing constant evictions and reloads. Thrashing leads to a high miss rate and can degrade performance to the point where the cache provides little or no benefit.
 
