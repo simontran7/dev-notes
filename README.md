@@ -2,8 +2,6 @@
 
 personal notes on core concepts
 
-## learning roadmap
-
 - [x] [basic programming](https://dev.java/learn/)
 - [x] [linux environment](https://linuxcommand.org/index.php)
 - [x] [git](https://beej.us/guide/bggit/html/split/)
