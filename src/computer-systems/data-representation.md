@@ -100,14 +100,14 @@ $$
 
 ### Memory and Storage Capacities
 
-| Unit            | Value                                                |
-| --------------- | ---------------------------------------------------- |
-| 1 KB (Kilobyte) | $2^{10}$ bytes (1,024 bytes)                         |
-| 1 MB (Megabyte) | $2^{20}$ bytes (1,048,576 bytes)                     |
-| 1 GB (Gigabyte) | $2^{30}$ bytes (1,073,741,824 bytes)                 |
-| 1 TB (Terabyte) | $2^{40}$ bytes (1,099,511,627,776 bytes)             |
-| 1 PB (Petabyte) | $2^{50}$ bytes (1,125,899,906,842,624 bytes)         |
-| 1 EB (Exabyte)  | $2^{60}$ bytes (1,152,921,504,606,846,976 bytes)     |
+| Unit            | Value                                                    |
+| --------------- | -------------------------------------------------------- |
+| 1 KB (Kilobyte) | \\(2^{10}\\) bytes (1,024 bytes)                         |
+| 1 MB (Megabyte) | \\(2^{20}\\) bytes (1,048,576 bytes)                     |
+| 1 GB (Gigabyte) | \\(2^{30}\\) bytes (1,073,741,824 bytes)                 |
+| 1 TB (Terabyte) | \\(2^{40}\\) bytes (1,099,511,627,776 bytes)             |
+| 1 PB (Petabyte) | \\(2^{50}\\) bytes (1,125,899,906,842,624 bytes)         |
+| 1 EB (Exabyte)  | \\(2^{60}\\) bytes (1,152,921,504,606,846,976 bytes)     |
 
 ### Data Transfer Units
 
@@ -175,7 +175,7 @@ The example above demonstrates why simply counting Unicode code points doesn't a
 
 **Unsigned integers** use all available bits to represent positive values (including zero). No bit is reserved for a sign, allowing for a larger range of positive values compared to signed integers of the same bit width.
 
-An $N$-bit unsigned integer can take up values from $0$ to $2^N - 1$.
+An \\(N\\)-bit unsigned integer can take up values in the range of \\([0, 2^N - 1]\\).
 
 ### Signed Integer Representation
 
@@ -225,12 +225,12 @@ $$
 ```
 
 > **Note**\
-> It may not be possible to store a given $x$ exactly with such a scheme whenever the actual exponent is outside of the possible range, or if the fraction field can't fit in the allocated number of bits (i.e., say for single precision, bits 24 and bits 25, where bit 0 is the implicit integer, are ones)
+> It may not be possible to store a given \\(x\\) exactly with such a scheme whenever the actual exponent is outside of the possible range, or if the fraction field can't fit in the allocated number of bits (i.e., say for single precision, bits 24 and bits 25, where bit 0 is the implicit integer, are ones)
 
 ### Fields
 
-- **Signed field**: Represents the positivity, either $0$ (for positive) or $1$ (for negative)
-- **Biased exponent field**: Determines the power of $2$ by which to scale the mantissa. The exponent is biased, meaning we add a constant to the actual exponent.
+- **Signed field**: Represents the positivity, either 0 (for positive) or 1 (for negative)
+- **Biased exponent field**: Determines the power of 2 by which to scale the mantissa. The exponent is biased, meaning we add a constant to the actual exponent.
     - Single precision bias: \\((2^{8 - 1} - 1)_{10} = (127)_{10}\\)
     - Double precision bias: \\((2^{11 - 1} - 1)_{10} = (1023)_{10}\\)
     - Quadruple precision bias: \\((2^{15 - 1} - 1)_{10} = (16383)_{10}\\)
@@ -350,8 +350,8 @@ Final result: \\(01000001010001100000000000000000_2\\)
 **Integer overflow** occurs when an arithmetic operation produces a result larger than the maximum value representable with the given number of bits. **Integer underflow** occurs when an arithmetic operation produces a result smaller than the minimum value representable with the given number of bits.
 
 In **Rust**, integer overflow and underflow produces panics, while release builds produce the following behaviour:
-- Unsigned integer overflows or underflows: the result will just be modded by $2^n$, that is, `(a op b) mod 2^n` (this also applies in general to any arithmetic on unsigned integers)
-- Signed integers: the result will just be modded by $2^n$, but then, the value is interpreted according to two's complement representation.
+- Unsigned integer overflows or underflows: the result will just be modded by \\(2^n\\), that is, `(a op b) mod 2^n` (this also applies in general to any arithmetic on unsigned integers)
+- Signed integers: the result will just be modded by \\(2^n\\), but then, the value is interpreted according to two's complement representation.
 
 ## Integer Byte Order
 
