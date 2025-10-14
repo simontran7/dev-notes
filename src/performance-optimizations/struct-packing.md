@@ -96,5 +96,5 @@ struct PackedStruct {
 }
 ```
 
-> [!note]
+> **Note**\
 > Accessing unaligned fields in packed structs _may_ lead to significantly slower code or even cause undefined behaviour on some platforms which can't handle unaligned access at all. However, others, notably Daniel Lemire, argue to [_not_ worry about alignment](https://lemire.me/blog/2025/07/14/dot-product-on-misaligned-data/#:~:text=you%20should%20generally%20no%20worry%20about%20alignment%20when%20optimizing%20your%20code).
