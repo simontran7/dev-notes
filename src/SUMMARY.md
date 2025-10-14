@@ -4,7 +4,7 @@
 # Computer Systems
 
 - [Data Representation](./computer-systems/data-representation.md)
-- [CPU Architecture](./computer-systems/cpu-architecture.md)
+- [Microarchitecture](./computer-systems/microarchitecture.md)
 - [Memory](./computer-systems/memory.md)
 - [x86-64 Assembly]()
 

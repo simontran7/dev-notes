@@ -1,4 +1,4 @@
-# CPU Architecture
+# Microarchitecture
 
 ## von Neumann architecture
 
