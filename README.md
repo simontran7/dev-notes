@@ -1,3 +1,3 @@
 # dev-notes
 
-personal notes on core concepts
+personal systems programming notes
