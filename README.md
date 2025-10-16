@@ -1,3 +1,3 @@
-# dev-notes
+# systems-programming-handbook
 
-personal systems programming notes
+systems programming handbook
