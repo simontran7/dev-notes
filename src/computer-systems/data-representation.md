@@ -229,13 +229,13 @@ $$
 
 ### Fields
 
-- **Signed field**: Represents the positivity, either 0 (for positive) or 1 (for negative)
-- **Biased exponent field**: Determines the power of 2 by which to scale the mantissa. The exponent is biased, meaning we add a constant to the actual exponent.
-    - Single precision bias: \\((2^{8 - 1} - 1)_{10} = (127)_{10}\\)
-    - Double precision bias: \\((2^{11 - 1} - 1)_{10} = (1023)_{10}\\)
-    - Quadruple precision bias: \\((2^{15 - 1} - 1)_{10} = (16383)_{10}\\)
+- **Signed field**: Represents the positivity, either 0 (for positive) or 1 (for negative).
+- **Biased exponent field**: Determines the power of 2 by which to scale the fraction. The exponent is biased, meaning we add a constant to the actual exponent.
+    - Single precision bias: \\(2^{8 - 1} - 1 = (127)_{10} \\)
+    - Double precision bias: \\(2^{11 - 1} - 1_{10} = (1023)_{10}\\)
+    - Quadruple precision bias: \\(2^{15 - 1} - 1 = (16383)_{10}\\)
     - Range of the actual exponents: \\([1 - \text{bias}, \text{bias}]\\)
-- **Fraction field**: Represents the digits after the decimal point
+- **Fraction field**: Represents the digits after the decimal point.
 
 ### Normal Numbers
 

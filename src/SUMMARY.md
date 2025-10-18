@@ -10,6 +10,12 @@
 
 # Operating Systems
 
+- [Introduction]()
+- [Operating System Structures]()
+- [Process Management]()
+- [Memory Management]()
+- [Storage Management]()
+
 # Concurrent Programming
 
 # Network Programming
@@ -19,6 +25,7 @@
 - [Measuring Performance]()
 - [SIMD](./performance-optimizations/simd.md)
 - [Custom Memory Allocators]()
+- [Non-temporal load and stores]()
 - [Handles](./performance-optimizations/handles.md)
 - [Struct of Arrays](./performance-optimizations/struct-of-arrays.md)
 - [Struct Packing](./performance-optimizations/struct-packing.md)

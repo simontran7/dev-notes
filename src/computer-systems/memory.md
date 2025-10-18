@@ -55,7 +55,7 @@ A **cache** is computer memory with short access time built directly into your C
 
 #### Cache Addressing
 
-Cache is made of small chunks of memory copied from main memory, where a single chunk is called a **cache line**, typically capable of each storing **64 bytes**. The cache can only load and store memory in multiples of a cache line (i.e., the data transfer unit of a cache line is a cache line).
+Cache is made of small chunks of memory copied from main memory, where a single chunk is called a **cache line**, typically capable of each storing **64 bytes**. The cache can only load and store memory in multiples of a cache line (i.e., the data transfer unit is a cache line).
 
 Each cache line consists of three sections: the **valid bit**, the **tag**, and the **data block**.
 
